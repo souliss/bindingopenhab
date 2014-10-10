@@ -58,10 +58,7 @@ public class MonitorThread extends Thread {
 				SoulissGenericTypical typ= iteratorTypicals.next().getValue();
 				if(typ.isUpdated()){
 					//QUI SI LANCIANO I METODI OPENHAB PER L'AGGIORNAMENTO DEGLI ITEM
-					//	qui bisogna mandare gli aggiornamenti sul bus OH con il comando
-					//	eventPublisher.postUpdate(itemName, state)
-//**CREARE GLI STATI IN MODO CORRETTO
-//COSI' NON VENGONO ACCETTATI
+
 					if (typ.getType()==Constants.Souliss_TService_NODE_TIMESTAMP){
 						//solo il valore TIMESTAMP si differenzia da tutti gli altri perchè nella classe SoulissTServiceNODE_TIMESTAMP il valore è rappresentato come stringa mentre i valori classici son rappr.come float
 						LOGGER.fine("Put on Bus Events - itemName=newState : " + typ.getName() + " = " + ((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP() );

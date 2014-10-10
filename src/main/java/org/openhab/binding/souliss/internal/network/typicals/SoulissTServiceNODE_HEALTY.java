@@ -3,6 +3,8 @@ package org.openhab.binding.souliss.internal.network.typicals;
 import java.util.ArrayList;
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
+import org.openhab.core.library.types.DecimalType;
+import org.openhab.core.types.State;
 
 public class SoulissTServiceNODE_HEALTY extends SoulissGenericTypical {
 //i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
@@ -18,6 +20,11 @@ public class SoulissTServiceNODE_HEALTY extends SoulissGenericTypical {
 		this.setType(Constants.Souliss_TService_NODE_HEALTY);
 		this.setNote(sOHType);
 	}
-		
+	@Override
+	public State getOHState() {
+		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),this.getState());
+		if (sOHState == null) return DecimalType.valueOf(Float.toString(this.getState()));
+		else return DecimalType.valueOf(sOHState);
+	}
 		
 }

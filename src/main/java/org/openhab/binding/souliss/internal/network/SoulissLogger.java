@@ -1,5 +1,6 @@
 package org.openhab.binding.souliss.internal.network;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Formatter;
 import java.util.logging.ConsoleHandler;
@@ -32,8 +33,15 @@ public class SoulissLogger {
 		//	      rootLogger.removeHandler(handlers[0]);
 		//	    }
 		logger.setLevel(Level.ALL);
+	
+		
 		fileTxt = new FileHandler(Constants.LOG_FILE_TXT);
 		fileHTML = new FileHandler(Constants.LOG_FILE_HTML);
+		
+//		fileTxt = new FileHandler("logging.txt");
+//		fileHTML = new FileHandler("logging.txt");
+		
+	
 		// create a TXT formatter
 
 	    formatterTxt = new SimpleFormatter();

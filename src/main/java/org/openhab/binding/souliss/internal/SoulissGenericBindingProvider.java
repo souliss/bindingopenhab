@@ -11,6 +11,7 @@ package org.openhab.binding.souliss.internal;
 import org.openhab.binding.souliss.SoulissBindingProvider;
 
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
@@ -50,15 +51,14 @@ public class SoulissGenericBindingProvider extends AbstractGenericBindingProvide
 		super.processBindingConfiguration(context, item, bindingConfig);
 		String[] sNameArray=bindingConfig.split("\\:");
 		String sTypical= sNameArray[0];
-		String sIP_Wan= sNameArray[1];
-		String sIP_Lan = sNameArray[2];
-		int iNodeID=Integer.parseInt(sNameArray[3]);
-		int iSlot=Integer.parseInt(sNameArray[4]);
+		//String sIP_Wan= sNameArray[1];
+		//String sIP_Lan = sNameArray[2];
+		int iNodeID=Integer.parseInt(sNameArray[1]);
+		int iSlot=Integer.parseInt(sNameArray[2]);
 		String sNote=item.getClass().getSimpleName();
-//		 String[] sItemNameArray= item.getClass().getName().split("\\.");
-//		 String sTypeName=sItemNameArray[sItemNameArray.length-1];
-		
-	SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),sIP_Wan, sIP_Lan,iNodeID, iSlot,sNote);
+	
+	//SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),sIP_Wan, sIP_Lan,iNodeID, iSlot,sNote);
+		SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),SoulissNetworkParameter.IPAddress, SoulissNetworkParameter.IPAddressOnLAN,iNodeID, iSlot,sNote);
 	SoulissTypicalsRecipients.addTypical(item.getName(), soulitTypicalNew );
 	
 	

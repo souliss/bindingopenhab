@@ -343,55 +343,7 @@ public class UDPSoulissDecoder {
 					//...ed aggiorno lo stato in base al tipo
 					int iNumBytes=0;
 
-//					switch (typ.getType()){
-//					case Constants.Souliss_T11:
-//					case Constants.Souliss_T12:
-//					case Constants.Souliss_T22:
-//						iNumBytes=1;
-//						break;
-//					case Constants.Souliss_T_TemperatureSensor:
-//					case Constants.Souliss_T_HumiditySensor:
-//					case Constants.Souliss_T52_TemperatureSensor:
-//					case Constants.Souliss_T53_HumiditySensor:
-//					case Constants.Souliss_T55_VoltageSensor:
-//					case Constants.Souliss_T56_CurrentSensor:
-//					case Constants.Souliss_T57_PowerSensor:
-//						iNumBytes=2;
-//						break;
-//
-//						//da controllare numero di byte da usare per decodifica
-//					case Constants.Souliss_T13:
-//						break;
-//					case Constants.Souliss_T14:
-//						break;
-//					case Constants.Souliss_T1n_RGB:
-//						break;
-//					case Constants.Souliss_T16:
-//						break;
-//					case Constants.Souliss_T18:
-//						break;
-//					case Constants.Souliss_T19:
-//						break;
-//					case Constants.Souliss_T21: 
-//						break;
-//					case Constants.Souliss_T32_IrCom_AirCon:
-//						break;
-//					case Constants.Souliss_T41_Antitheft_Main:
-//						break;
-//					case Constants.Souliss_T42_Antitheft_Peer:
-//						break;
-//					case Constants.Souliss_T_related:
-//						break;
-//					case Constants.Souliss_T51:
-//						break;
-//
-//					case Constants.Souliss_T54_LuxSensor:
-//						break;
-//
-//					default:
-//					}
-					
-					try {
+				try {
 						String sHex=Integer.toHexString(typ.getType());
 						String sRes=SoulissNetworkParameter.getPropTypicalBytes(sHex);
 						if (sRes!=null) iNumBytes=Integer.parseInt(sRes);
@@ -464,35 +416,3 @@ public class UDPSoulissDecoder {
 		}
 	}
 }
-
-	
-
-
-
-			
-//			// refresh typicals
-//			for (short j = 0; j < numberOf; j=(short) (j+2)) {
-//			
-//					int iOutput=mac.get(5 + j);
-//					int iSlot = (short) (j % typXnodo);
-//					int iNodeId = (short) (j / typXnodo + tgtnode);
-//		
-//					System.out.println("-iNodeId: "+ iNodeId);
-//					System.out.println("-iSlot: "+ iSlot);
-//					//System.out.println("iOutput: "+ iOutput);
-//					
-//					int iOutput2=mac.get(5 + j+1);
-//					
-//					
-//					//ora ho i due bytes, li converto
-//					int shifted = iOutput2 << 8;
-//
-//					float ret = HalfFloatUtils.toFloat(shifted + iOutput);
-//					System.out.println("-FLOAT: " + ret);
-//					System.out.println("");
-//					
-//					
-//			}
-
-//	}
-

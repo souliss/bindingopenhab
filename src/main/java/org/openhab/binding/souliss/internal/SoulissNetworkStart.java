@@ -32,9 +32,11 @@ public class SoulissNetworkStart {
 		String sIPAddress="192.168.1.105";
 		//String sIPAddress="78.12.99.62";
 		String sIPAddressOnLAN="192.168.1.105";
-		String sConfigurationFileName="."+ File.separator  +"typicals_value_bytes.properties";
-		String sConfigurationFileName_commands_OHtoSOULISS="."+ File.separator  +"commands_OHtoSOULISS.properties";
-		String sConfigurationFileName_states_SOULISStoOH="."+ File.separator  +"states_SOULISStoOH.properties";
+		
+		
+		String sConfigurationFileName=".."+ File.separator  +"properties"+ File.separator  +"typicals_value_bytes.properties";
+		String sConfigurationFileName_commands_OHtoSOULISS= ".." + File.separator  +"properties"+ File.separator  +"commands_OHtoSOULISS.properties";
+		String sConfigurationFileName_states_SOULISStoOH= ".."+ File.separator  +"properties"+ File.separator  +"states_SOULISStoOH.properties";
 		//time in mills
 		final int REFRESH_DBSTRUCT_TIME=600000;
 		final int REFRESH_SUBSCRIPTION_TIME=120000;

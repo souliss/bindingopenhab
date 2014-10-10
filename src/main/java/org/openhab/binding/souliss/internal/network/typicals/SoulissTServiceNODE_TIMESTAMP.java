@@ -3,6 +3,9 @@ package org.openhab.binding.souliss.internal.network.typicals;
 import java.util.ArrayList;
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
+import org.openhab.core.library.types.DateTimeType;
+import org.openhab.core.library.types.DecimalType;
+import org.openhab.core.types.State;
 
 public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 //i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
@@ -27,6 +30,12 @@ public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 	public void setTIMESTAMP(String TIMESTAMP) {
 		timestamp = TIMESTAMP;
 		setUpdatedTrue();
+	}
+		
+	@Override
+	public State getOHState() {
+			return	DateTimeType.valueOf(timestamp);
+
 	}
 		
 		
