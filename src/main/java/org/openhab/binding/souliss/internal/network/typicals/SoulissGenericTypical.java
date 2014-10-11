@@ -1,7 +1,8 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
 import java.net.DatagramSocket;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 
@@ -19,7 +20,7 @@ public class SoulissGenericTypical {
 	private String sName;
 	private boolean isUpdated=false;
 	private String sNote;
-	final Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+	private static Logger LOGGER = LoggerFactory.getLogger(SoulissGenericTypical.class);
 	//*************************************
 	//*************************************
 
@@ -110,7 +111,7 @@ public class SoulissGenericTypical {
 	 * @param iState the iState to set
 	 */
 	public void setState(float iState) {
-		LOGGER.finer("Update State. Name: "+ getName() +", Typ: " + getType() + ", Node: "+ getSoulissNodeID() + ", Slot: " + getSlot() + ". New State: "+ iState);
+		LOGGER.debug("Update State. Name: "+ getName() +", Typ: " + getType() + ", Node: "+ getSoulissNodeID() + ", Slot: " + getSlot() + ". New State: "+ iState);
 		this.fState = iState;
 		setUpdatedTrue();
 	}
@@ -149,17 +150,17 @@ public class SoulissGenericTypical {
 		this.sNote = sNote;
 	}
 	void CommandMulticast( short command){
-		LOGGER.fine("Typ: " + getType() + ", Name: " + getName()  +" - CommandMulticast: " + command);
+		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - CommandMulticast: " + command);
 		SoulissCommGate.sendMULTICASTFORCEFrame(this.getSoulissNodeIPAddress(),  getSoulissNodeIPAddressOnLAN(), getType(), command );
 	}
 	
 	public void sendDBStructFrame(DatagramSocket datagramSocket){
-		LOGGER.fine("Typ: " + getType() + ", Name: " + getName()  +" - sendDBStructFrame ");
+		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - sendDBStructFrame ");
 		SoulissCommGate.sendDBStructFrame(datagramSocket, getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN());
 	}
 	
 	public void ping(DatagramSocket datagramSocket, short putIn_1, short punIn_2){
-		LOGGER.fine("Typ: " + getType() + ", Name: " + getName()  +" - ping");
+		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - ping");
 		SoulissCommGate.sendPing(datagramSocket, getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(), putIn_1, punIn_2);
 	}
 

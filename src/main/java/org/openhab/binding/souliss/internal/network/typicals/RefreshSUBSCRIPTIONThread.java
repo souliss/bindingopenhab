@@ -1,8 +1,8 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
 import java.net.DatagramSocket;
-import java.util.logging.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 
 public class RefreshSUBSCRIPTIONThread extends Thread {
@@ -12,7 +12,7 @@ public class RefreshSUBSCRIPTIONThread extends Thread {
 	String SoulissNodeIPAddress="";
 	String soulissNodeIPAddressOnLAN="";
 	int iNodes=0;
-	final static Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+	private static Logger LOGGER = LoggerFactory.getLogger(RefreshSUBSCRIPTIONThread.class);
 
 	public RefreshSUBSCRIPTIONThread(DatagramSocket datagramsocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int nodes, int iRefreshTime) {
 		// TODO Auto-generated constructor stub
@@ -32,13 +32,13 @@ public class RefreshSUBSCRIPTIONThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				LOGGER.fine("sendSUBSCRIPTIONframe");
+				LOGGER.debug("sendSUBSCRIPTIONframe");
 				SoulissCommGate.sendSUBSCRIPTIONframe(socket, SoulissNodeIPAddress, soulissNodeIPAddressOnLAN, iNodes);
 				Thread.sleep(REFRESH_TIME);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				LOGGER.severe(e.getMessage());
+				LOGGER.error(e.getMessage());
 			}
 			super.run();
 

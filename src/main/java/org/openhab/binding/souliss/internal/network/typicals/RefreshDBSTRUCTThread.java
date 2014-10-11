@@ -1,7 +1,9 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
 import java.net.DatagramSocket;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 
@@ -11,7 +13,7 @@ public class RefreshDBSTRUCTThread extends Thread {
 	DatagramSocket socket=null;
 	String SoulissNodeIPAddress="";
 	String soulissNodeIPAddressOnLAN="";
-	final static Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+	private static Logger LOGGER = LoggerFactory.getLogger(RefreshDBSTRUCTThread.class);
 
 	public RefreshDBSTRUCTThread(DatagramSocket datagramsocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int iRefreshTime) {
 		// TODO Auto-generated constructor stub
@@ -30,13 +32,13 @@ public class RefreshDBSTRUCTThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				LOGGER.fine("sendDBStructFrame");
+				LOGGER.info("sendDBStructFrame");
 				SoulissCommGate.sendDBStructFrame(socket, SoulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 				Thread.sleep(REFRESH_TIME);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				LOGGER.severe(e.getMessage());
+				LOGGER.error(e.getMessage());
 			}
 			super.run();
 

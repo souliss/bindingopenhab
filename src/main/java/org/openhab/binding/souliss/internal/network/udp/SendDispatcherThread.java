@@ -5,9 +5,11 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.NoRouteToHostException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.openhab.binding.souliss.internal.network.typicals.Constants;
+import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
 
 
 public class SendDispatcherThread  extends Thread {
@@ -17,7 +19,7 @@ public class SendDispatcherThread  extends Thread {
 	static int iDelay=0; //equal to 0 if array is empty
 	int SEND_DELAY;
 	int SEND_MIN_DELAY;
-	final Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+	private static Logger LOGGER = LoggerFactory.getLogger(SendDispatcherThread.class);
 	
 	private static boolean bCheck=true;		
 	
@@ -131,17 +133,17 @@ public class SendDispatcherThread  extends Thread {
 				SocketAndPacket sp= pop();
 				if(sp!=null) {
 					//System.out.println("SEND Frame - Functional Code 0x" + Integer.toHexString(sp.packet.getData()[7]) + " - Elementi rimanenti in lista: " + packetsList.size() );
-					LOGGER.finer("SendDispatcherThread - Functional Code 0x" + Integer.toHexString(sp.packet.getData()[7]) + " - Packet: " + MaCacoToString(sp.packet.getData()) +  " - Elementi rimanenti in lista: " + packetsList.size());	
+					LOGGER.debug("SendDispatcherThread - Functional Code 0x" + Integer.toHexString(sp.packet.getData()[7]) + " - Packet: " + MaCacoToString(sp.packet.getData()) +  " - Elementi rimanenti in lista: " + packetsList.size());	
 					sp.socket.send(sp.packet);
 				}
 			} catch (IOException |InterruptedException e) {
 				e.printStackTrace();
-				LOGGER.severe(e.getMessage());
+				LOGGER.error(e.getMessage());
 				bExit = true;
 			}catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				LOGGER.severe(e.getMessage());
+				LOGGER.error(e.getMessage());
 			}
 		}
 	}

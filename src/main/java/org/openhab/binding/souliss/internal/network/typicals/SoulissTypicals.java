@@ -1,15 +1,12 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.logging.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class SoulissTypicals {
@@ -18,11 +15,11 @@ public class SoulissTypicals {
 //	private Hashtable<String, String> hashTableItemToAddress_notSync= new Hashtable<String, String>();
 private Map<String, SoulissGenericTypical> hashTableAddressToTypicals = Collections.synchronizedMap(new Hashtable<String, SoulissGenericTypical>());
 private Map<String, String> hashTableItemToAddress =Collections.synchronizedMap(new Hashtable<String, String>());
-final Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 
 	public void addTypical(String sItem, SoulissGenericTypical typical){
 		synchronized (typical) {
-			LOGGER.fine("Add Item: " +  sItem + " - Typ: " + Integer.toHexString(typical.getType()) + ", Node: "+ typical.getSoulissNodeID() + ", Slot: " + typical.getSlot());
+			LOGGER.info("Add Item: " +  sItem + " - Typ: " + Integer.toHexString(typical.getType()) + ", Node: "+ typical.getSoulissNodeID() + ", Slot: " + typical.getSlot());
 			typical.setName(sItem);
 			//la chiave della hasttable è:  IP Address + VNET Address + slot
 			hashTableItemToAddress.put(sItem, typical.getSoulissNodeIPAddress() + typical.getSoulissNodeID() + typical.getSlot());
@@ -33,7 +30,7 @@ final Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
 	}
 	
 	public void clear(){
-		LOGGER.fine("Clear hashtable");
+		LOGGER.debug("Clear hashtable");
 		hashTableAddressToTypicals.clear();
 		hashTableItemToAddress.clear();
 	}

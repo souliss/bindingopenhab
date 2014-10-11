@@ -2,10 +2,9 @@ package org.openhab.binding.souliss.internal.network.udp;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.openhab.binding.souliss.internal.network.typicals.Constants;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
  
 public class UDPServerThread extends Thread {
@@ -14,7 +13,7 @@ public class UDPServerThread extends Thread {
     protected BufferedReader in = null;
     protected boolean bExit = false;
     UDPSoulissDecoder decoder=null;
-    final Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+    private static Logger LOGGER = LoggerFactory.getLogger(UDPServerThread.class);
     
     public UDPServerThread(SoulissTypicals typicals ) throws IOException {
     	super();
@@ -36,14 +35,14 @@ public class UDPServerThread extends Thread {
               //  System.out.println(buf.toString());
                 
                 //**************** DECODER ********************
-                LOGGER.fine("Packet received");
+                LOGGER.debug("Packet received");
                 decoder.decodeVNetDatagram(packet);
                 
                 
                 
             } catch (IOException e) {
                 e.printStackTrace();
-                LOGGER.severe(e.getMessage());
+                LOGGER.error(e.getMessage());
                 bExit = true;
             }
         }

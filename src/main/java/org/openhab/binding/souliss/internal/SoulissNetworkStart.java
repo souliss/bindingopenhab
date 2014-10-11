@@ -2,10 +2,9 @@ package org.openhab.binding.souliss.internal;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.openhab.binding.souliss.internal.network.SoulissLogger;
+
+//import org.openhab.binding.souliss.internal.network.SoulissLogger;
 import org.openhab.binding.souliss.internal.network.typicals.Constants;
 import org.openhab.binding.souliss.internal.network.typicals.MonitorThread;
 import org.openhab.binding.souliss.internal.network.typicals.RefreshDBSTRUCTThread;
@@ -21,6 +20,8 @@ import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
 import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
 import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SoulissNetworkStart {
 
@@ -45,7 +46,7 @@ public class SoulissNetworkStart {
 		final int SEND_DELAY=1500;
 		final int SEND_MIN_DELAY=10;
 
-		final Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+		Logger LOGGER = LoggerFactory.getLogger(SoulissNetworkStart.class);
 
 	
 		//Definizione dell'array che contiene i tipici
@@ -58,7 +59,7 @@ public class SoulissNetworkStart {
 		//DOPO LA CREAZIONE DELLA RETE SOULISS, AVVIARE IL THREAD CHE SI OCCUPA DELLA SOTTOSCRIZIONE, AL QUALE SERVE IL NUMERO DI NODI. VEDERE ALLA FINE 
 						UDPServerThread Q=null;
 						try {
-							SoulissLogger.setup();
+						//	SoulissLogger.setup();
 							LOGGER.info("START");
 							//continuare logger
 							//http://www.vogella.com/tutorials/Logging/article.html

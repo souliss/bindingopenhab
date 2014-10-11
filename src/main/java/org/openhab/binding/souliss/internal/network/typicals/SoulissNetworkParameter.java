@@ -3,7 +3,9 @@ package org.openhab.binding.souliss.internal.network.typicals;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SoulissNetworkParameter {
 	public static String IPAddress="";
@@ -23,7 +25,7 @@ public class SoulissNetworkParameter {
 	public static int REFRESH_MONITOR_TIME=presetTime;
 	public static int SEND_DELAY=presetTime;
 	public static int SEND_MIN_DELAY=presetTime;
-	final static Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+	private static Logger LOGGER = LoggerFactory.getLogger(SoulissNetworkParameter.class);
 	public static int NodeIndex = 70;
 	public static int UserIndex = 133;
 	private static boolean bConfigured =false;
@@ -58,7 +60,7 @@ public class SoulissNetworkParameter {
 			fi.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.severe(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 

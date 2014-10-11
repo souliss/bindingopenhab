@@ -1,9 +1,10 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TypicalFactory {
-	final static Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+	private static Logger LOGGER = LoggerFactory.getLogger(TypicalFactory.class);
 	
 	public static SoulissGenericTypical getClass(short soulissType, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo ,int iSlot, String sOHType) {
 		// TODO Auto-generated method stub
@@ -88,7 +89,7 @@ public class TypicalFactory {
 			T=new SoulissTServiceNODE_TIMESTAMP(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 			break;
 		default:
-			LOGGER.warning("Typical Unknow");	
+			LOGGER.debug("Typical Unknow");	
 		}
 		
 			

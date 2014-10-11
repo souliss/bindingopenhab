@@ -10,25 +10,12 @@ import org.openhab.core.library.types.OnOffType;
 import org.openhab.core.types.State;
 import org.openhab.core.types.Type;
 
-public class SoulissT52 extends SoulissGenericTypical {
+public class SoulissT52 extends SoulissT51 {
 //i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
 	
 	public SoulissT52(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
-		super();
-		this.setSlot(iSlot);
-		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
-		this.setSoulissNodeIPAddressOnLAN(sSoulissNodeIPAddressOnLAN);
-	//	this.setSoulissNodeVNetAddress(sSoulissNodeVNetAddress);
-		this.setSoulissNodeID(iIDNodo);
+		super(sSoulissNodeIPAddress,sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 		this.setType(Constants.Souliss_T52_TemperatureSensor);
-		this.setNote(sOHType);
-	}
-
-	@Override
-	public State getOHState() {
-		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),this.getState());
-		if (sOHState == null) return DecimalType.valueOf(Float.toString(this.getState()));
-		else return DecimalType.valueOf(sOHState);
 	}
 
 	/**

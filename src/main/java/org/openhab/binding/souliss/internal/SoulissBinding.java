@@ -11,7 +11,6 @@ package org.openhab.binding.souliss.internal;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Enumeration;
-import java.util.logging.Logger;
 
 import org.openhab.binding.souliss.SoulissBindingProvider;
 import org.openhab.binding.souliss.internal.network.typicals.Constants;
@@ -38,8 +37,8 @@ import org.openhab.core.types.State;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.osgi.service.event.Event;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The souliss Refresh Service polls the configured timeserver with a configurable 
@@ -52,7 +51,7 @@ import org.osgi.service.event.Event;
  */
 public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvider> implements ManagedService {
 
-	final Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+	private static Logger LOGGER = LoggerFactory.getLogger(SoulissBinding.class);
 	
 	
 	   /** to keep track of all binding providers */
@@ -183,7 +182,7 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 		//comando ricevuto 12:10:12.150 INFO  runtime.busevents[:22] - Shutter_GF_Toilet received command DOWN
 		//qui bisogna cercare nella hastable ed inviare i comandi
 		SoulissGenericTypical T =SoulissGenericBindingProvider.SoulissTypicalsRecipients.getTypicalFromItem(itemName);
-		LOGGER.fine("receiveCommand - itemName=newState : " + itemName + " = " + command );
+		LOGGER.info("receiveCommand - " + itemName + " = " + command );
 		
 		switch (T.getType()){
 		case Constants.Souliss_T11: 
@@ -276,7 +275,7 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			//T=new SoulissTServiceNODE_TIMESTAMP(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot);
 			break;
 		default:
-			LOGGER.warning("Typical Unknow");	
+			LOGGER.debug("Typical Unknow");	
 		}
 		
 		
@@ -288,14 +287,14 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 	protected void internalReceiveCommand(String itemName, Command command) {
 		// TODO Auto-generated method stub
 		super.internalReceiveCommand(itemName, command);
-		LOGGER.info("openHAB Event Bus -> External System - COMMAND. itemName=newState: " + itemName + " = " + command );
+		LOGGER.info("openHAB Event Bus -> External System - COMMAND. " + itemName + " = " + command );
 	}
 
 	@Override
 	public void receiveUpdate(String itemName, State newState) {
 		// TODO Auto-generated method stub
 		super.receiveUpdate(itemName, newState);
-		LOGGER.info("receiveUpdate - itemName=newState: " + itemName + " = " + newState );
+		LOGGER.info("receiveUpdate - " + itemName + " = " + newState );
 	}
 
 	@Override
@@ -308,7 +307,7 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 	protected void internalReceiveUpdate(String itemName, State newState) {
 		// TODO Auto-generated method stub
 		super.internalReceiveUpdate(itemName, newState);
-		LOGGER.info("openHAB Event Bus -> External System. itemName=newState: " + itemName + " = " + newState );
+		LOGGER.info("openHAB Event Bus -> External System. " + itemName + " = " + newState );
 	    for (SoulissBindingProvider provider : providers) {
 	    	LOGGER.info("Checking provider with names " + provider.getItemNames());
 	 
@@ -361,7 +360,7 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				LOGGER.severe(e.getMessage());
+				LOGGER.error(e.getMessage());
 			}
 			
 			}

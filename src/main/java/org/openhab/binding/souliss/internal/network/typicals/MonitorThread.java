@@ -4,12 +4,10 @@ package org.openhab.binding.souliss.internal.network.typicals;
 
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
-import org.openhab.binding.souliss.internal.SoulissUpdater;
 import org.openhab.core.events.EventPublisher;
-import org.openhab.core.library.items.RollershutterItem;
-import org.openhab.core.library.types.OnOffType;
-import org.openhab.core.library.types.StringType;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
@@ -18,7 +16,7 @@ public class MonitorThread extends Thread {
 
 	int REFRESH_TIME;
 	private SoulissTypicals soulissTypicalsRecipients;
-	final Logger LOGGER = Logger.getLogger(Constants.LOGNAME);	//SoulissUpdater sUpdater=new SoulissUpdater ();
+	private static Logger LOGGER = LoggerFactory.getLogger(MonitorThread.class);	//SoulissUpdater sUpdater=new SoulissUpdater ();
 	 EventPublisher eventPublisher;
 		
 	public MonitorThread(SoulissTypicals typicals, int iRefreshTime, EventPublisher _eventPublisher) {
@@ -43,7 +41,7 @@ public class MonitorThread extends Thread {
 				Thread.sleep(REFRESH_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				LOGGER.severe(e.getMessage());
+				LOGGER.error(e.getMessage());
 			}
 			super.run();
 		}
@@ -61,13 +59,13 @@ public class MonitorThread extends Thread {
 
 					if (typ.getType()==Constants.Souliss_TService_NODE_TIMESTAMP){
 						//solo il valore TIMESTAMP si differenzia da tutti gli altri perchè nella classe SoulissTServiceNODE_TIMESTAMP il valore è rappresentato come stringa mentre i valori classici son rappr.come float
-						LOGGER.fine("Put on Bus Events - itemName=newState : " + typ.getName() + " = " + ((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP() );
+						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + ((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP() );
 						//eventPublisher.postUpdate(typ.getName(),  new StringType(((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP()));
 						
 					//	EventBus.putOnOHEventBus(typ.getName(), ((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP());
 					}else {//if (typ.getNote().equals("SwitchItem")){
 						//fare lo StateTraslate
-						LOGGER.fine("Put on Bus Events - itemName=newState : " + typ.getName() + " = " + Float.toString(typ.getState()) );
+						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + Float.toString(typ.getState()) );
 						eventPublisher.postUpdate(typ.getName(),  typ.getOHState());
 					}
 

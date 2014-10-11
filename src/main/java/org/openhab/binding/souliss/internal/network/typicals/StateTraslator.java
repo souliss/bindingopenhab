@@ -4,7 +4,8 @@ package org.openhab.binding.souliss.internal.network.typicals;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StateTraslator {
 	static Properties propCommands=new Properties();
@@ -12,7 +13,7 @@ public class StateTraslator {
 	static Properties propTypes=new Properties();
 	
 	
-	final static Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+	private static Logger LOGGER = LoggerFactory.getLogger(StateTraslator.class);
 	
 	
 	public static short stringToSOULISSTypicalCode(String sTypeString) {
@@ -49,7 +50,7 @@ public class StateTraslator {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			LOGGER.severe(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 	
@@ -62,7 +63,7 @@ public class StateTraslator {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			LOGGER.severe(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 
@@ -75,7 +76,7 @@ public class StateTraslator {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			LOGGER.severe(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 }

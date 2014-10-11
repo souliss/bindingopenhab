@@ -14,7 +14,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.openhab.binding.souliss.internal.network.typicals.Constants;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
@@ -37,7 +38,7 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 public class UDPSoulissDecoder {
 
 	private SoulissTypicals soulissTypicalsRecipients;
-	final static Logger LOGGER = Logger.getLogger(Constants.LOGNAME);
+	private static Logger LOGGER = LoggerFactory.getLogger(UDPSoulissDecoder.class);
 	  
 	public UDPSoulissDecoder(SoulissTypicals typicals) {
 		soulissTypicalsRecipients=typicals;
@@ -68,11 +69,11 @@ public class UDPSoulissDecoder {
 	private void decodeMacaco(ArrayList<Short> macacoPck) {
 		int functionalCode = macacoPck.get(0);
 		//System.out.println("received functional code: 0x" + Integer.toHexString(functionalCode) );
-		LOGGER.fine("Received functional code: 0x" + Integer.toHexString(functionalCode) );
+		LOGGER.info("Received functional code: 0x" + Integer.toHexString(functionalCode) );
 		switch (functionalCode) {
 		
 		case (byte) ConstantsUDP.Souliss_UDP_function_ping_resp:
-			LOGGER.fine("function_ping_resp");
+			LOGGER.info("function_ping_resp");
 			decodePing(macacoPck);
 		break;
 		//		case ConstantsUDP.Souliss_UDP_function_ping_bcast_resp:
@@ -82,7 +83,7 @@ public class UDPSoulissDecoder {
 		//			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_subscribe_resp:
 		case (byte) ConstantsUDP.Souliss_UDP_function_poll_resp:
-			LOGGER.fine("Souliss_UDP_function_subscribe_resp / Souliss_UDP_function_poll_resp");
+			LOGGER.info("Souliss_UDP_function_subscribe_resp / Souliss_UDP_function_poll_resp");
 			decodeStateRequest(macacoPck);
 		//	processTriggers();
 		break;
@@ -94,29 +95,29 @@ public class UDPSoulissDecoder {
 		//			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_health_resp:// Answer nodes healty
 			//	Log.d(Constants.TAG, "** Health answer");
-			LOGGER.fine("function_health_resp");
+			LOGGER.info("function_health_resp");
 			decodeHealthRequest(macacoPck);
 			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_db_struct_resp:// Answer nodes
 			//assertEquals(macacoPck.size(), 9); // healty
 			//	Log.w(Constants.TAG, "** DB Structure answer");
-			LOGGER.fine("function_db_struct_resp");
+			LOGGER.info("function_db_struct_resp");
 			decodeDBStructRequest(macacoPck);
 		break;
 		case 0x83:
 			//Log.e(Constants.TAG, "** (Functional code not supported)");
-			LOGGER.fine("Functional code not supported");
+			LOGGER.info("Functional code not supported");
 			break;
 		case 0x84:
 			//Log.e(Constants.TAG, "** (Data out of range)");
-			LOGGER.fine("Data out of range");
+			LOGGER.info("Data out of range");
 			break;
 		case 0x85:
 			//Log.e(Constants.TAG, "** (Subscription refused)");
-			LOGGER.fine("Subscription refused");
+			LOGGER.info("Subscription refused");
 			break;
 		default:
-			LOGGER.fine("Unknown functional code");
+			LOGGER.info("Unknown functional code");
 			//	Log.e(Constants.TAG, "** Unknown functional code: " + functionalCode);
 			break;
 		}
@@ -412,7 +413,7 @@ public class UDPSoulissDecoder {
 		for (int i = 5; i < 5 + numberOf; i++) {
 			//healths.add(Short.valueOf(mac.get(i)));
 			SoulissTServiceUpdater.updateHEALTY(soulissTypicalsRecipients, i-5,Short.valueOf(mac.get(i)) );
-			LOGGER.finer("node " + (i-5) + " = "+ Short.valueOf(mac.get(i)));
+			LOGGER.debug("node " + (i-5) + " = "+ Short.valueOf(mac.get(i)));
 		}
 	}
 }

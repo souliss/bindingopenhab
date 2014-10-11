@@ -8,20 +8,14 @@
  */
 package org.openhab.binding.souliss.internal;
 
-import java.io.File;
-import java.util.logging.Logger;
 
-import org.openhab.binding.souliss.internal.network.SoulissLogger;
 import org.openhab.binding.souliss.internal.network.typicals.Constants;
-import org.openhab.binding.souliss.internal.network.typicals.MonitorThread;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
-import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
-import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
-import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
-import org.openhab.core.binding.AbstractActiveBinding;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
@@ -33,7 +27,7 @@ import org.osgi.framework.BundleContext;
  */
 public final class SoulissActivator implements BundleActivator {
 
-	final Logger LOGGER = Logger.getLogger(Constants.LOGNAME); 
+	private static Logger LOGGER = LoggerFactory.getLogger(SoulissActivator.class); 
 	
 	String sConfigurationFileName=Constants.ConfigurationFileName_typicals_value_bytes;
 	
@@ -48,7 +42,7 @@ public final class SoulissActivator implements BundleActivator {
 	public void start(BundleContext bc) throws Exception {
 		LOGGER.info("souliss binding has been started.");
 		
-		SoulissLogger.setup();
+		//SoulissLogger.setup();
 	
 		SoulissNetworkParameter.load(sConfigurationFileName);
 		StateTraslator.loadCommands(sConfigurationFileName_commands_OHtoSOULISS);
