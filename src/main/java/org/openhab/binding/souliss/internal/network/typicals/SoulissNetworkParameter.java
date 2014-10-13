@@ -1,7 +1,10 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.SocketAddress;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -29,6 +32,7 @@ public class SoulissNetworkParameter {
 	public static int NodeIndex = 70;
 	public static int UserIndex = 133;
 	private static boolean bConfigured =false;
+	public static Integer serverPort;
 	
 	
 	/**
@@ -55,6 +59,18 @@ public class SoulissNetworkParameter {
 	public static void load(String sConfigurationFileName) {
 		try {
 			LOGGER.info("Load parameter from file: " + sConfigurationFileName);
+			
+			
+//			File f=new File("ToninoTEST");
+//			FileOutputStream fos=new FileOutputStream(f);
+//			fos.write(33);
+//			fos.close();
+//			
+//			File file = new File("../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties");
+//	        File [] dirs = file.listFiles();
+//	       
+	        
+	        
 			FileInputStream fi=new FileInputStream(sConfigurationFileName);
 			prop.load(fi);
 			fi.close();

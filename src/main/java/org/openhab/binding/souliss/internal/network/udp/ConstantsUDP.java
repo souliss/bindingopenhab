@@ -12,7 +12,7 @@ public class ConstantsUDP {
 	public static final String TAG = "SoulissApp";
 	
 	public static final int SOULISSPORT = 230;
-	public static final int SERVERPORT = 230;
+	public static final int SERVERPORT = 23000;
 	
 	public static final String BROADCASTADDR = "255.255.255.255";
 

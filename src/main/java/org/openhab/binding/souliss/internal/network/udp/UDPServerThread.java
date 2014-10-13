@@ -5,6 +5,7 @@ import java.net.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
  
 public class UDPServerThread extends Thread {
@@ -17,9 +18,17 @@ public class UDPServerThread extends Thread {
     
     public UDPServerThread(SoulissTypicals typicals ) throws IOException {
     	super();
-        socket = new DatagramSocket(ConstantsUDP.SERVERPORT);
-        decoder=new UDPSoulissDecoder(typicals);
-        LOGGER.info("Avvio UDPServerThread");
+     //   socket = new DatagramSocket(ConstantsUDP.SERVERPORT);
+    	if (SoulissNetworkParameter.serverPort!= null){
+    		socket = new DatagramSocket(SoulissNetworkParameter.serverPort);
+    	}
+    		else{
+    			socket = new DatagramSocket();
+    		}
+    			
+    	
+    	decoder=new UDPSoulissDecoder(typicals);
+        LOGGER.info("Avvio UDPServerThread - Server in ascolto sulla porta " + socket.getLocalPort());
     }
  
     public void run() {

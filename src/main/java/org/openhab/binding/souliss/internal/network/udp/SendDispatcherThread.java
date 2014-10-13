@@ -3,14 +3,9 @@ package org.openhab.binding.souliss.internal.network.udp;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.NoRouteToHostException;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.openhab.binding.souliss.internal.network.typicals.Constants;
-import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
-
 
 public class SendDispatcherThread  extends Thread {
 

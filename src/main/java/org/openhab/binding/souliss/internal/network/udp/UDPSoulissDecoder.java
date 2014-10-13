@@ -51,7 +51,7 @@ public class UDPSoulissDecoder {
 	 */
 	private void decodeMacaco(ArrayList<Short> macacoPck) {
 		int functionalCode = macacoPck.get(0);
-		LOGGER.info("Received functional code: 0x" + Integer.toHexString(functionalCode) );
+		LOGGER.info("decodeMacaco: Received functional code: 0x" + Integer.toHexString(functionalCode) );
 		switch (functionalCode) {
 		
 		case (byte) ConstantsUDP.Souliss_UDP_function_ping_resp:
@@ -108,7 +108,7 @@ public class UDPSoulissDecoder {
 		// int nodes = mac.get(5);
 		int putIn_1 = mac.get(1);
 		int putIn_2 = mac.get(2);
-		System.out.println("putIn code: " + putIn_1 + ", "+ putIn_2);
+		LOGGER.info("decodePing: putIn code: " + putIn_1 + ", "+ putIn_2);
 
 	}
 
@@ -137,17 +137,21 @@ public class UDPSoulissDecoder {
 		SoulissNetworkParameter.MaCacoIN_s=MaCaco_IN_S;
 		SoulissNetworkParameter.MaCacoTYP_s=MaCaco_TYP_S;
 		SoulissNetworkParameter.MaCacoOUT_s=MaCaco_OUT_S;
+		
+		
+		LOGGER.debug("decodeDBStructRequest");
+		LOGGER.debug("Nodes: "+ nodes);
+		LOGGER.debug("maxnodes: "+ maxnodes);
+		LOGGER.debug("maxTypicalXnode: "+ maxTypicalXnode);
+		LOGGER.debug("maxrequests: "+ maxrequests);
+		LOGGER.debug("MaCaco_IN_S: "+ MaCaco_IN_S);
+		LOGGER.debug("MaCaco_TYP_S: "+ MaCaco_TYP_S);
+		LOGGER.debug("MaCaco_OUT_S: "+ MaCaco_OUT_S);
+		
+		
 		} catch (Exception e) {
-			System.out.println ("SoulissNetworkParameter update ERROR");
+			LOGGER.error("decodeDBStructRequest: SoulissNetworkParameter update ERROR");
 		}
-		System.out.println ("SoulissNetworkParameter updated");
-		//		System.out.println ("-Nodes: "+ nodes);
-		//		System.out.println ("-maxnodes: "+ maxnodes);
-		//		System.out.println ("-maxTypicalXnode: "+ maxTypicalXnode);
-		//		System.out.println ("-maxrequests: "+ maxrequests);
-		//		System.out.println ("-MaCaco_IN_S: "+ MaCaco_IN_S);
-		//		System.out.println ("-MaCaco_TYP_S: "+ MaCaco_TYP_S);
-		//		System.out.println ("-MaCaco_OUT_S: "+ MaCaco_OUT_S);
 	}
 
 	/**
@@ -232,18 +236,19 @@ public class UDPSoulissDecoder {
 						e.printStackTrace();
 						iNumBytes=0;
 					}
-
+				float val = 0;
 					if(iNumBytes==1){
 						//caso valori digitali
-						float val=getByteAtSlot( mac, slot);
+						val=getByteAtSlot( mac, slot);
 						typ.setState(val);
 						//System.out.println("Nodo " + tgtnode + ", Slot: " + slot + ", Byte val: " + getByteAtSlot( mac, slot) );
 					}else if(iNumBytes==2){
 						//caso valori float
-						float val=getFloatAtSlot(mac, slot);
+						val=getFloatAtSlot(mac, slot);
 						typ.setState(val);
 						//System.out.println("Nodo " + tgtnode + ", Slot: " + slot + ", Float val: " + getFloatAtSlot( mac, slot) );
 					}
+					LOGGER.debug("decodeStateRequest:  " + typ.getName() + " ( " + Short.valueOf(typ.getType()) + ") = " + Float.valueOf(val));
 				}
 			}
 		}
@@ -279,7 +284,7 @@ public class UDPSoulissDecoder {
 		for (int i = 5; i < 5 + numberOf; i++) {
 			//healths.add(Short.valueOf(mac.get(i)));
 			SoulissTServiceUpdater.updateHEALTY(soulissTypicalsRecipients, i-5,Short.valueOf(mac.get(i)) );
-			LOGGER.debug("node " + (i-5) + " = "+ Short.valueOf(mac.get(i)));
+			LOGGER.debug("decodeHealthRequest: node " + (i-5) + " = "+ Short.valueOf(mac.get(i)));
 		}
 	}
 }

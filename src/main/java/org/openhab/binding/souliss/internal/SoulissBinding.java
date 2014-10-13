@@ -152,6 +152,12 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 				case "NODE_NUMBERS":
 					SoulissNetworkParameter.nodes=Integer.parseInt((String) config.get(sName));
 					break;
+				case "SERVERPORT":
+					if (config.get(sName).equals(""))
+						SoulissNetworkParameter.serverPort=null;
+					else
+					SoulissNetworkParameter.serverPort=Integer.parseInt((String) config.get(sName));
+					break;
 				default:
 					break;
 				}
