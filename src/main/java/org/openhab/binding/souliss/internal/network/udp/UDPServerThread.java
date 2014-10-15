@@ -10,7 +10,7 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
  
 public class UDPServerThread extends Thread {
  
-    protected DatagramSocket socket = null;
+   // protected DatagramSocket socket = null;
     protected BufferedReader in = null;
     protected boolean bExit = false;
     UDPSoulissDecoder decoder=null;
@@ -20,15 +20,15 @@ public class UDPServerThread extends Thread {
     	super();
      //   socket = new DatagramSocket(ConstantsUDP.SERVERPORT);
     	if (SoulissNetworkParameter.serverPort!= null){
-    		socket = new DatagramSocket(SoulissNetworkParameter.serverPort);
+    		SoulissNetworkParameter.datagramsocket = new DatagramSocket(SoulissNetworkParameter.serverPort);
     	}
     		else{
-    			socket = new DatagramSocket();
+    			SoulissNetworkParameter.datagramsocket = new DatagramSocket();
     		}
     			
     	
     	decoder=new UDPSoulissDecoder(typicals);
-        LOGGER.info("Avvio UDPServerThread - Server in ascolto sulla porta " + socket.getLocalPort());
+        LOGGER.info("Avvio UDPServerThread - Server in ascolto sulla porta " + SoulissNetworkParameter.datagramsocket.getLocalPort());
     }
  
     public void run() {
@@ -39,7 +39,7 @@ public class UDPServerThread extends Thread {
  
                 // receive request
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
-                socket.receive(packet);
+                SoulissNetworkParameter.datagramsocket.receive(packet);
                  buf= packet.getData();
               //  System.out.println(buf.toString());
                 
@@ -56,15 +56,16 @@ public class UDPServerThread extends Thread {
             }
         }
         
-        socket.close();
+        SoulissNetworkParameter.datagramsocket.close();
     }
  
    
     public DatagramSocket getSocket(){
-    	return socket;
+    	return SoulissNetworkParameter.datagramsocket;
     }
 
 	public void closeSocket() {
+		SoulissNetworkParameter.datagramsocket.close();
 		bExit=true;
 	}
 }

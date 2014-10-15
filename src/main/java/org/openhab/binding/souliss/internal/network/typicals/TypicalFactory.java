@@ -1,25 +1,27 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
+import java.net.DatagramSocket;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TypicalFactory {
 	private static Logger LOGGER = LoggerFactory.getLogger(TypicalFactory.class);
 	
-	public static SoulissGenericTypical getClass(short soulissType, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo ,int iSlot, String sOHType) {
+	public static SoulissGenericTypical getClass(short soulissType, DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo ,int iSlot, String sOHType) {
 		// TODO Auto-generated method stub
 		
 		SoulissGenericTypical T=null;
 		
 		switch (soulissType){
 		case Constants.Souliss_T11: 
-			T=new SoulissT11(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
+			T=new SoulissT11( SoulissNetworkParameter.datagramsocket, sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 			break;
 		case Constants.Souliss_T12: 
-			//T=new SoulissT12(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
+			T=new SoulissT12( _datagramsocket, sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 			break;
 		case Constants.Souliss_T13:
-			//T=new SoulissT13(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
+			T=new SoulissT13(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 			break;
 		case Constants.Souliss_T14:
 			//T=new SoulissT14(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
@@ -40,7 +42,7 @@ public class TypicalFactory {
 			//T=new SoulissT21(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot);
 			break;
 		case Constants.Souliss_T22:
-			T=new SoulissT22(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
+			T=new SoulissT22(_datagramsocket, sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 			break;
 		case Constants.Souliss_T_TemperatureSensor:
 			//T=new Souliss_T_TemperatureSensor(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);

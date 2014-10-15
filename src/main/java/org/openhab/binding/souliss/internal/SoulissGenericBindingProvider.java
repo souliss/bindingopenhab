@@ -58,7 +58,7 @@ public class SoulissGenericBindingProvider extends AbstractGenericBindingProvide
 		String sNote=item.getClass().getSimpleName();
 	
 	//SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),sIP_Wan, sIP_Lan,iNodeID, iSlot,sNote);
-		SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),SoulissNetworkParameter.IPAddress, SoulissNetworkParameter.IPAddressOnLAN,iNodeID, iSlot,sNote);
+		SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),SoulissNetworkParameter.datagramsocket , SoulissNetworkParameter.IPAddress, SoulissNetworkParameter.IPAddressOnLAN,iNodeID, iSlot,sNote);
 	SoulissTypicalsRecipients.addTypical(item.getName(), soulitTypicalNew );
 	
 	

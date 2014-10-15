@@ -1,5 +1,6 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
+import java.net.DatagramSocket;
 import java.util.ArrayList;
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
@@ -19,7 +20,7 @@ public class SoulissT22 extends SoulissGenericTypical {
 	private static final short commandSTOP=Constants.Souliss_T2n_StopCmd;
 	
 
-	public SoulissT22(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
+	public SoulissT22(DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
 		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
@@ -28,51 +29,52 @@ public class SoulissT22 extends SoulissGenericTypical {
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_T22);
 		this.setNote(sOHType);
+		this.setDatagramsocket(_datagramsocket);
 	}
 
 	/**
 	 * @return the commandclose
 	 */
 	public void CommandCLOSE() {
-		SoulissCommGate.sendFORCEFrame(this.getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(),  this.getSoulissNodeID(), this.getSlot(), commandCLOSE );
+		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(),this.getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(),  this.getSoulissNodeID(), this.getSlot(), commandCLOSE );
 	}
 
 	/**
 	 * @return the commandopen
 	 */
 	public void CommandOPEN() {
-		SoulissCommGate.sendFORCEFrame(this.getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandOPEN );
+		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(),this.getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandOPEN );
 	}
 
 	/**
 	 * @return the commandstop
 	 */
 	public void CommandSTOP() {
-		SoulissCommGate.sendFORCEFrame(this.getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandSTOP );
+		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(),this.getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandSTOP );
 	}
 	
 	public void CommandSEND(short command) {
-		SoulissCommGate.sendFORCEFrame(this.getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), command );
+		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(),this.getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), command );
 	}
 	/**
 	 * @return the CommandMulticastCLOSE
 	 */
 	public void CommandMulticastCLOSE() {
-		this.CommandMulticast(commandCLOSE);
+		this.CommandMulticast(this.getDatagramsocket(),commandCLOSE);
 	}
 	
 	/**
 	 * @return the CommandMulticastOPEN
 	 */
 	public void CommandMulticastOPEN() {
-		this.CommandMulticast(commandOPEN);
+		this.CommandMulticast(this.getDatagramsocket(), commandOPEN);
 	}
 	
 	/**
 	 * @return the CommandMulticastSTOP
 	 */
 	public void CommandMulticastSTOP() {
-		this.CommandMulticast(commandSTOP);
+		this.CommandMulticast(this.getDatagramsocket(),commandSTOP);
 	}
 
 	@Override

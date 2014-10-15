@@ -111,46 +111,46 @@ public class SoulissNetworkStart {
 		SoulissGenericTypical soulissTypicalNew;
 		//DEFINIZIONE RETE SOULISS
 		LOGGER.info("Creazione tipico: Souliss_T57_PowerSensor");
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T57_PowerSensor,sIPAddress, sIPAddressOnLAN, 0, 4,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T57_PowerSensor, SoulissNetworkParameter.datagramsocket, sIPAddress, sIPAddressOnLAN, 0, 4,"");
 		soulissTypicalsRecipients.addTypical("consumo", soulissTypicalNew);
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T53_HumiditySensor, sIPAddress, sIPAddressOnLAN, 0, 2,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T53_HumiditySensor, SoulissNetworkParameter.datagramsocket, sIPAddress, sIPAddressOnLAN, 0, 2,"");
 		soulissTypicalsRecipients.addTypical("temperaturaSoggiorno", soulissTypicalNew);
 		
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T52_TemperatureSensor,sIPAddress, sIPAddressOnLAN, 0, 0,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T52_TemperatureSensor,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 0, 0,"");
 		soulissTypicalsRecipients.addTypical("umidit�Soggiorno", soulissTypicalNew);
 				
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T11,sIPAddress, sIPAddressOnLAN, 0, 6,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T11,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 0, 6,"");
 		soulissTypicalsRecipients.addTypical("cancello", soulissTypicalNew);
 		
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T11,sIPAddress, sIPAddressOnLAN, 0, 6,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T11,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 0, 6,"");
 		soulissTypicalsRecipients.addTypical("cancello", soulissTypicalNew);
 		
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T52_TemperatureSensor,sIPAddress, sIPAddressOnLAN, 2, 0,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T52_TemperatureSensor,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 2, 0,"");
 		soulissTypicalsRecipients.addTypical("temperaturaGiardino", soulissTypicalNew);
 		
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T53_HumiditySensor,sIPAddress, sIPAddressOnLAN, 2, 2,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T53_HumiditySensor,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 2, 2,"");
 		soulissTypicalsRecipients.addTypical("umidit�Giardino", soulissTypicalNew);
 		
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T22,sIPAddress, sIPAddressOnLAN, 3, 0,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T22,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 3, 0,"");
 		soulissTypicalsRecipients.addTypical("tenda1", soulissTypicalNew);
 		((SoulissT22) soulissTypicalNew).CommandOPEN();
 		
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T22,sIPAddress, sIPAddressOnLAN, 3, 1,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T22,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 3, 1,"");
 		soulissTypicalsRecipients.addTypical("tenda2", soulissTypicalNew);
 		
 		
 		((SoulissT22) soulissTypicalNew).CommandOPEN();
 		
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T22,sIPAddress, sIPAddressOnLAN, 3, 2,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T22,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 3, 2,"");
 		soulissTypicalsRecipients.addTypical("tenda3", soulissTypicalNew);
 		
 		
@@ -162,32 +162,32 @@ public class SoulissNetworkStart {
 		
 		((SoulissT22) soulissTypicalNew).CommandSTOP();
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T11,sIPAddress, sIPAddressOnLAN, 3, 3,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T11,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 3, 3,"");
 		soulissTypicalsRecipients.addTypical("TYP11_1", soulissTypicalNew);
 		((SoulissT11) soulissTypicalNew).CommandON();
 		
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T11,sIPAddress, sIPAddressOnLAN, 3, 4,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_T11, SoulissNetworkParameter.datagramsocket, sIPAddress, sIPAddressOnLAN, 3, 4,"");
 		soulissTypicalsRecipients.addTypical("TYP11_2", soulissTypicalNew);
 		((SoulissT11) soulissTypicalNew).CommandON();
 		
 		//DEFINIZIONE TIPICI FITTIZI, PER COMUNICAZIONE DATI RETE
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_HEALTY,sIPAddress, sIPAddressOnLAN, 0,998,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_HEALTY,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 0,998,"");
 		soulissTypicalsRecipients.addTypical("HEALTY NODO 0", soulissTypicalNew);
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_HEALTY,sIPAddress, sIPAddressOnLAN, 1,998,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_HEALTY,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 1,998,"");
 		soulissTypicalsRecipients.addTypical("HEALTY NODO 1", soulissTypicalNew);
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_HEALTY,sIPAddress, sIPAddressOnLAN, 2,998,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_HEALTY,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 2,998,"");
 		soulissTypicalsRecipients.addTypical("HEALTY NODO 2", soulissTypicalNew);
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_HEALTY,sIPAddress, sIPAddressOnLAN, 3,998,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_HEALTY,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 3,998,"");
 		soulissTypicalsRecipients.addTypical("HEALTY NODO 3", soulissTypicalNew);
 		
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_TIMESTAMP,sIPAddress, sIPAddressOnLAN, 0,999,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_TIMESTAMP,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 0,999,"");
 		soulissTypicalsRecipients.addTypical("TIMESTAMP NODO 0", soulissTypicalNew);
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_TIMESTAMP,sIPAddress, sIPAddressOnLAN, 1,999,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_TIMESTAMP,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 1,999,"");
 		soulissTypicalsRecipients.addTypical("TIMESTAMP NODO 1", soulissTypicalNew);
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_TIMESTAMP,sIPAddress, sIPAddressOnLAN, 2,999,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_TIMESTAMP,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 2,999,"");
 		soulissTypicalsRecipients.addTypical("TIMESTAMP NODO 2", soulissTypicalNew);
-		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_TIMESTAMP,sIPAddress, sIPAddressOnLAN, 3,999,"");
+		soulissTypicalNew = TypicalFactory.getClass(Constants.Souliss_TService_NODE_TIMESTAMP,SoulissNetworkParameter.datagramsocket,sIPAddress, sIPAddressOnLAN, 3,999,"");
 		soulissTypicalsRecipients.addTypical("TIMESTAMP NODO 3", soulissTypicalNew);
 		
 		

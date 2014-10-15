@@ -1,5 +1,6 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
+import java.net.DatagramSocket;
 import java.util.ArrayList;
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
@@ -14,7 +15,7 @@ public class SoulissT11 extends SoulissGenericTypical {
 	private static final short commandOFF=Constants.Souliss_T1n_OffCmd;;
 	private static final short commandTOGGLE=Constants.Souliss_T1n_ToogleCmd;
 	
-	public SoulissT11(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
+	public SoulissT11(DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
 		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
@@ -23,52 +24,53 @@ public class SoulissT11 extends SoulissGenericTypical {
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_T11);
 		this.setNote(sOHType);
+		this.setDatagramsocket(_datagramsocket);
 	}
 		
 		/**
 	 * @return the CommandON
 	 */
 	public void CommandON() {
-		SoulissCommGate.sendFORCEFrame(this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN() ,this.getSoulissNodeID(), this.getSlot(), commandON );
+		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN() ,this.getSoulissNodeID(), this.getSlot(), commandON );
 	}
 
 	/**
 	 * @return the CommandOFF
 	 */
 	public void CommandOFF() {
-		SoulissCommGate.sendFORCEFrame(this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandOFF );	
+		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandOFF );	
 	}
 	
 	public void CommandSEND(short command) {
-		SoulissCommGate.sendFORCEFrame(this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), command );	
+		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), command );	
 	}
 
 	/**
 	 * @return the CommandTOGGLE
 	 */
 	public void CommandTOGGLE() {
-		SoulissCommGate.sendFORCEFrame(this.getSoulissNodeIPAddress(), this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandTOGGLE );
+		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(), this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandTOGGLE );
 	}
 
 	/**
 	 * @return the CommandMulticastON
 	 */
 	public void CommandMulticastON() {
-		this.CommandMulticast(commandON);
+		this.CommandMulticast(this.getDatagramsocket(), commandON);
 	}
 	
 	/**
 	 * @return the CommandMulticastOFF
 	 */
 	public void CommandMulticastOFF() {
-		this.CommandMulticast(commandOFF);
+		this.CommandMulticast(this.getDatagramsocket(), commandOFF);
 	}
 	
 	/**
 	 * @return the CommandMulticastTOGGLE
 	 */
 	public void CommandMulticastTOGGLE() {
-		this.CommandMulticast(commandTOGGLE);
+		this.CommandMulticast(this.getDatagramsocket(), commandTOGGLE);
 	}
 
 	//i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo

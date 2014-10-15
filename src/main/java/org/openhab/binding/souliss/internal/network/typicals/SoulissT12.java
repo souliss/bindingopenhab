@@ -1,5 +1,6 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
+import java.net.DatagramSocket;
 import java.util.ArrayList;
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
@@ -14,8 +15,8 @@ public class SoulissT12 extends SoulissT11 {
 	private static final short commandOFF=Constants.Souliss_T1n_OffCmd;;
 	private static final short commandTOGGLE=Constants.Souliss_T1n_ToogleCmd;
 	
-	public SoulissT12(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
-		super(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
+	public SoulissT12(DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
+		super(_datagramsocket, sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 		this.setType(Constants.Souliss_T12);
 	}
 }

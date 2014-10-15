@@ -14,7 +14,7 @@ public class SoulissCommGate {
 	static ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissCommGate.class);
 	
-	public static void sendFORCEFrame(String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand) {
+	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand) {
 		MACACOframe.clear();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_force);
 		
@@ -31,7 +31,7 @@ public class SoulissCommGate {
 		MACACOframe.add((byte) shortCommand);// PAYLOAD
 		
 		LOGGER.debug("sendFORCEFrame - "+ MaCacoToString(MACACOframe) + ", soulissNodeIPAddress: " + soulissNodeIPAddress+ ", soulissNodeIPAddressOnLAN: "+ soulissNodeIPAddressOnLAN);
-		send(MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
+		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 		
 	}
 	
@@ -70,9 +70,9 @@ public class SoulissCommGate {
 	}
 	
 	
-	private static void send(ArrayList<Byte> MACACOframe, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN) {
-		send(null, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
-	}
+//	private static void send(ArrayList<Byte> MACACOframe, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN) {
+//		send(null, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
+//	}
 
 	
 	
@@ -160,7 +160,7 @@ public class SoulissCommGate {
 		return merd;
 	}
 	
-	public static void sendMULTICASTFORCEFrame(String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, short typical, short shortCommand) {
+	public static void sendMULTICASTFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, short typical, short shortCommand) {
 		
 		MACACOframe.clear();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_force_massive);
@@ -174,7 +174,7 @@ public class SoulissCommGate {
 		
 		MACACOframe.add((byte) shortCommand);// PAYLOAD
 		LOGGER.debug("sendMULTICASTFORCEFrame - "+ MaCacoToString(MACACOframe) + ", soulissNodeIPAddress: " + soulissNodeIPAddress+ ", soulissNodeIPAddressOnLAN: "+ soulissNodeIPAddressOnLAN);
-		send(MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
+		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 	}
 
 	public static void sendPing(DatagramSocket datagramSocket, String soulissNodeIPAddress,  String soulissNodeIPAddressOnLAN, short putIn_1,	short punIn_2) {

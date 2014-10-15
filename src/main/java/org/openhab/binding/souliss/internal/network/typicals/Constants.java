@@ -264,16 +264,12 @@ public class Constants {
 	public static final byte Souliss_T_HumiditySensor_refresh = 0x03;
 
 	public static final String CONF_FIELD_DELIMITER ="_";
-	//public static final String LOGNAME = "SoulissLOG";
-	//public static final String LOG_FILE_TXT = "../../bundles/binding/org.openhab.binding.souliss/log/logging.txt";
-	//public static final String LOG_FILE_HTML = "../../bundles/binding/org.openhab.binding.souliss/log/logging.html";
-	
 	
 //	public static final String ConfigurationFileName_typicals_value_bytes = "../../bundles/binding/org.openhab.binding.souliss/properties/typicals_value_bytes.properties";
 //	public static final String ConfigurationFileName_commands_OHtoSOULISS = "../../bundles/binding/org.openhab.binding.souliss/properties/commands_OHtoSOULISS.properties";
 //	public static final String ConfigurationFileName_states_SOULISStoOH = "../../bundles/binding/org.openhab.binding.souliss/properties/states_SOULISStoOH.properties";
 //	public static final String ConfigurationFileName_ItemsType_SOULISS = "../../bundles/binding/org.openhab.binding.souliss/properties/itemsType_SOULISS.properties";;
-//	
+	
 	public static final String ConfigurationFileName_typicals_value_bytes = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/typicals_value_bytes.properties";
 	public static final String ConfigurationFileName_commands_OHtoSOULISS = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/commands_OHtoSOULISS.properties";
 	public static final String ConfigurationFileName_states_SOULISStoOH = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/states_SOULISStoOH.properties";

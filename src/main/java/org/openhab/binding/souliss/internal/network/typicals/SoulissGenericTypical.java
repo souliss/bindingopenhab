@@ -21,6 +21,7 @@ public class SoulissGenericTypical {
 	private boolean isUpdated=false;
 	private String sNote;
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissGenericTypical.class);
+	private DatagramSocket datagramsocket;
 	//*************************************
 	//*************************************
 
@@ -32,6 +33,12 @@ public class SoulissGenericTypical {
 	//*************************************
 	
 	
+	public DatagramSocket getDatagramsocket() {
+		return datagramsocket;
+	}
+	public void setDatagramsocket(DatagramSocket datagramsocket) {
+		this.datagramsocket = datagramsocket;
+	}
 	/**
 	 * @return the iSlot
 	 */
@@ -149,9 +156,9 @@ public class SoulissGenericTypical {
 	public void setNote(String sNote) {
 		this.sNote = sNote;
 	}
-	void CommandMulticast( short command){
+	void CommandMulticast(DatagramSocket datagramSocket, short command){
 		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - CommandMulticast: " + command);
-		SoulissCommGate.sendMULTICASTFORCEFrame(this.getSoulissNodeIPAddress(),  getSoulissNodeIPAddressOnLAN(), getType(), command );
+		SoulissCommGate.sendMULTICASTFORCEFrame(datagramSocket, this.getSoulissNodeIPAddress(),  getSoulissNodeIPAddressOnLAN(), getType(), command );
 	}
 	
 	public void sendDBStructFrame(DatagramSocket datagramSocket){

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.DatagramSocket;
 import java.net.SocketAddress;
 import java.util.Properties;
 
@@ -33,6 +34,7 @@ public class SoulissNetworkParameter {
 	public static int UserIndex = 133;
 	private static boolean bConfigured =false;
 	public static Integer serverPort;
+	public static DatagramSocket  datagramsocket;
 	
 	
 	/**
