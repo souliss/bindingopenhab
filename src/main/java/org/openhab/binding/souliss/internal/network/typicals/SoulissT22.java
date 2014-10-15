@@ -80,7 +80,10 @@ public class SoulissT22 extends SoulissGenericTypical {
 	@Override
 	public State getOHState() {
 		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),this.getState());
+		if (sOHState!=null)
 		return PercentType.valueOf(sOHState);
+		else 
+			return null;
 		
 
 	}
