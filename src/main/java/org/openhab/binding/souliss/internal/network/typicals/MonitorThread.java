@@ -55,7 +55,7 @@ public class MonitorThread extends Thread {
 					if (typ.getType()==Constants.Souliss_TService_NODE_TIMESTAMP){
 						//solo il valore TIMESTAMP si differenzia da tutti gli altri perchè nella classe SoulissTServiceNODE_TIMESTAMP il valore è rappresentato come stringa mentre i valori classici son rappr.come float
 						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + ((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP() );
-						//eventPublisher.postUpdate(typ.getName(),  new StringType(((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP()));
+						eventPublisher.postUpdate(typ.getName(),   typ.getOHState());
 						
 					//	EventBus.putOnOHEventBus(typ.getName(), ((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP());
 					}else {//if (typ.getNote().equals("SwitchItem")){

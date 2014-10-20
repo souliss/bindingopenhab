@@ -33,7 +33,6 @@ public class SendDispatcherThread  extends Thread {
 	public synchronized static void put(DatagramSocket socket, DatagramPacket packetToPUT) {
 		if(bCheck){	
 			bCheck=false;
-			LOGGER.debug("Ottimizzazione frame");
 			//OTTIMIZZAZIONE FRAME
 			boolean bPacchettoGestito=false;
 			int node=getNode(packetToPUT);
@@ -144,7 +143,8 @@ public class SendDispatcherThread  extends Thread {
 		}
 	}
 	
-	private String MaCacoToString(byte[] frame) {
+	private String MaCacoToString(byte[] frame2) {
+		byte[] frame= frame2.clone();
 		StringBuilder sb = new StringBuilder();
 		sb.append("HEX: [");
 	    for (byte b : frame) {
@@ -153,6 +153,7 @@ public class SendDispatcherThread  extends Thread {
 	    sb.append("]");
 	    return sb.toString();
 	}
+	
 }
 
 

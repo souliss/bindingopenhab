@@ -5,6 +5,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.sql.Ref;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,12 +125,12 @@ public class SoulissCommGate {
 
 		frame.addAll(MACACOframe2);
 
-		Byte[] ret = new Byte[frame.size()];
-
-		StringBuilder deb = new StringBuilder();
-		for (int i = 0; i < ret.length; i++) {
-			deb.append("0x" + Long.toHexString((long) frame.get(i) & 0xff) + " ");
-		}
+//		Byte[] ret = new Byte[frame.size()];
+//
+//		StringBuilder deb = new StringBuilder();
+//		for (int i = 0; i < ret.length; i++) {
+//			deb.append("0x" + Long.toHexString((long) frame.get(i) & 0xff) + " ");
+//		}
 				
 		return frame;
 		}
@@ -210,17 +211,23 @@ public class SoulissCommGate {
 		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 	}
 
-	private static String MaCacoToString(ArrayList<Byte> mACACOframe2) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("HEX: [");
-	    for (byte b : mACACOframe2) {
-	        sb.append(String.format("%02X ", b));
-	    }
-	    sb.append("]");
-	    return sb.toString();
+	static boolean flag=true;
+	private static String MaCacoToString(ArrayList<Byte> mACACOframe) {
+		while(!flag){};
+		//copio array per evitare modifiche concorrenti
+		ArrayList<Byte> mACACOframe2=new ArrayList<Byte> ();
+		mACACOframe2.addAll(mACACOframe);
+			flag=false;
+			StringBuilder sb = new StringBuilder();
+			sb.append("HEX: [");
+			for (byte b : mACACOframe2) {
+				sb.append(String.format("%02X ", b));
+			}
+			sb.append("]");
+			flag=true;
+			return sb.toString();
+		}
+		
 	}
 
 
-	
-	
-}
