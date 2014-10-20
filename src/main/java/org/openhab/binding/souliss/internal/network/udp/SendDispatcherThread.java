@@ -33,14 +33,16 @@ public class SendDispatcherThread  extends Thread {
 	public synchronized static void put(DatagramSocket socket, DatagramPacket packetToPUT) {
 		if(bCheck){	
 			bCheck=false;
-
+			LOGGER.debug("Ottimizzazione frame");
 			//OTTIMIZZAZIONE FRAME
 			boolean bPacchettoGestito=false;
 			int node=getNode(packetToPUT);
 			if (packetsList.size()==0 || node < 0) {
 				bPacchettoGestito=true;
+				LOGGER.debug("Aggiunto frame UPD in lista");
 				packetsList.add( new SocketAndPacket(socket, packetToPUT));
 			} else{
+				LOGGER.debug("Frame UPD per nodo " + node + " già presente il lista. Esecuzione ottimizzazione.");
 			for(int i=0; i<packetsList.size();i++){
 				//estraggo il nodo indirizzato dal pacchetto in ingresso
 				//node=getNode(packetToPUT);
@@ -62,7 +64,7 @@ public class SendDispatcherThread  extends Thread {
 						}
 				//		System.out.println("Ottimizzazione frame: aggiunti byte a pacchetto gi� esistente in lista");
 					}else {
-						//se il pacchetto da inserire � pi� lungo di quello in lista allora sovrascrivo i byte del pacchetto da inserire, poi elimino quello in lista ed inserisco quello nouvo 
+						//se il pacchetto da inserire  è più lungo di quello in lista allora sovrascrivo i byte del pacchetto da inserire, poi elimino quello in lista ed inserisco quello nuovo 
 						if(packetToPUT.getData().length>packetsList.get(i).packet.getData().length){
 							for (int j=12;j<packetsList.get(i).packet.getData().length;j++){
 								//se il j-esimo byte � diverso da zero allora lo sovrascrivo al byte del pacchetto gi� presente 
@@ -127,7 +129,6 @@ public class SendDispatcherThread  extends Thread {
 				Thread.sleep(iDelay);		  
 				SocketAndPacket sp= pop();
 				if(sp!=null) {
-					//System.out.println("SEND Frame - Functional Code 0x" + Integer.toHexString(sp.packet.getData()[7]) + " - Elementi rimanenti in lista: " + packetsList.size() );
 					LOGGER.debug("SendDispatcherThread - Functional Code 0x" + Integer.toHexString(sp.packet.getData()[7]) + " - Packet: " + MaCacoToString(sp.packet.getData()) +  " - Elementi rimanenti in lista: " + packetsList.size());	
 					sp.socket.send(sp.packet);
 				}
@@ -144,15 +145,13 @@ public class SendDispatcherThread  extends Thread {
 	}
 	
 	private String MaCacoToString(byte[] frame) {
-		String s="HEX: [";
-		for (int i = 0; i < frame.length; i++) {
-			s = s+ Integer.toHexString(frame[i]);
-			if((i +1) < frame.length) {
-				s=s+", ";
-			}
-		}
-		s=s+"]";
-		return s;
+		StringBuilder sb = new StringBuilder();
+		sb.append("HEX: [");
+	    for (byte b : frame) {
+	        sb.append(String.format("%02X ", b));
+	    }
+	    sb.append("]");
+	    return sb.toString();
 	}
 }
 

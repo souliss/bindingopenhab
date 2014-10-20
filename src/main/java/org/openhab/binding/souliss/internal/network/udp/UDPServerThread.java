@@ -45,6 +45,7 @@ public class UDPServerThread extends Thread {
                 
                 //**************** DECODER ********************
                 LOGGER.debug("Packet received");
+                LOGGER.debug(MaCacoToString(buf));
                 decoder.decodeVNetDatagram(packet);
                 
                 
@@ -67,5 +68,15 @@ public class UDPServerThread extends Thread {
 	public void closeSocket() {
 		SoulissNetworkParameter.datagramsocket.close();
 		bExit=true;
+	}
+
+	private String MaCacoToString(byte[] frame) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("HEX: [");
+	    for (byte b : frame) {
+	        sb.append(String.format("%02X ", b));
+	    }
+	    sb.append("]");
+	    return sb.toString();
 	}
 }

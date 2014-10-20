@@ -9,6 +9,11 @@
 package org.openhab.binding.souliss.internal;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
+
 import org.openhab.binding.souliss.internal.network.typicals.Constants;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
@@ -16,6 +21,8 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import sun.misc.CompoundEnumeration;
 
 
 
@@ -42,12 +49,21 @@ public final class SoulissActivator implements BundleActivator {
 	public void start(BundleContext bc) throws Exception {
 		LOGGER.info("souliss binding has been started.");
 		
-		//SoulissLogger.setup();
-	
-		SoulissNetworkParameter.load(sConfigurationFileName);
-		StateTraslator.loadCommands(sConfigurationFileName_commands_OHtoSOULISS);
-		StateTraslator.loadStates(sConfigurationFileName_states_SOULISStoOH);
-		StateTraslator.loadItemsType(sConfigurationFileName_ItemsType_OHtoSOULISS);
+        InputStream is = getClass().getResourceAsStream("/"+sConfigurationFileName);
+		LOGGER.info("Load parameter from file: " + sConfigurationFileName);  
+		SoulissNetworkParameter.load(is);
+		
+		LOGGER.info("Load parameter from file: " + sConfigurationFileName_commands_OHtoSOULISS);  
+		is = getClass().getResourceAsStream("/"+sConfigurationFileName_commands_OHtoSOULISS);
+		StateTraslator.loadCommands(is);
+		
+		LOGGER.info("Load parameter from file: " + sConfigurationFileName_states_SOULISStoOH);  
+		is = getClass().getResourceAsStream("/"+sConfigurationFileName_states_SOULISStoOH);
+		StateTraslator.loadStates(is);
+		
+		LOGGER.info("Load parameter from file: " + sConfigurationFileName_ItemsType_OHtoSOULISS);  
+		is = getClass().getResourceAsStream("/"+sConfigurationFileName_ItemsType_OHtoSOULISS);
+		StateTraslator.loadItemsType(is);
 	}
 
 

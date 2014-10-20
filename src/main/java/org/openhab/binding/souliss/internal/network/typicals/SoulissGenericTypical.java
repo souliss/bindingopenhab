@@ -11,8 +11,8 @@ public class SoulissGenericTypical {
 	//*************************************
 	//*************************************
 	private int iSlot;
-	private String sSoulissNodeIPAddress;
-	private String sIPAddressOnLAN;
+//	private String sSoulissNodeIPAddress;
+//	private String sIPAddressOnLAN;
 	//private String sSoulissNodeVNetAddress;
 	private int iSoulissNodeID;
 	private short sType;
@@ -66,22 +66,22 @@ public class SoulissGenericTypical {
 	/**
 	 * @return the sSoulissNode
 	 */
-	public String getSoulissNodeIPAddress() {
-		return sSoulissNodeIPAddress;
-	}
+//	public String getSoulissNodeIPAddress() {
+//		return sSoulissNodeIPAddress;
+//	}
 	/**
 	 * @param sSoulissNode the sSoulissNode to set
 	 */
-	public void setSoulissNodeIPAddress(String sSoulissNodeIPAddress) {
-		this.sSoulissNodeIPAddress = sSoulissNodeIPAddress;
-	}
+//	public void setSoulissNodeIPAddress(String sSoulissNodeIPAddress) {
+//		this.sSoulissNodeIPAddress = sSoulissNodeIPAddress;
+//	}
 	
-	public String getSoulissNodeIPAddressOnLAN() {
-		return sIPAddressOnLAN;
-	}
-	public void setSoulissNodeIPAddressOnLAN(String sIPAddressOnLAN) {
-		this.sIPAddressOnLAN = sIPAddressOnLAN;
-	}
+//	public String getSoulissNodeIPAddressOnLAN() {
+//		return sIPAddressOnLAN;
+//	}
+//	public void setSoulissNodeIPAddressOnLAN(String sIPAddressOnLAN) {
+//		this.sIPAddressOnLAN = sIPAddressOnLAN;
+//	}
 	/**
 	 * @param SoulissNode the SoulissNodeID to get
 	 */
@@ -158,17 +158,17 @@ public class SoulissGenericTypical {
 	}
 	void CommandMulticast(DatagramSocket datagramSocket, short command){
 		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - CommandMulticast: " + command);
-		SoulissCommGate.sendMULTICASTFORCEFrame(datagramSocket, this.getSoulissNodeIPAddress(),  getSoulissNodeIPAddressOnLAN(), getType(), command );
+		SoulissCommGate.sendMULTICASTFORCEFrame(datagramSocket, SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN, getType(), command );
 	}
 	
 	public void sendDBStructFrame(DatagramSocket datagramSocket){
 		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - sendDBStructFrame ");
-		SoulissCommGate.sendDBStructFrame(datagramSocket, getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN());
+		SoulissCommGate.sendDBStructFrame(datagramSocket, SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN);
 	}
 	
 	public void ping(DatagramSocket datagramSocket, short putIn_1, short punIn_2){
 		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - ping");
-		SoulissCommGate.sendPing(datagramSocket, getSoulissNodeIPAddress(), getSoulissNodeIPAddressOnLAN(), putIn_1, punIn_2);
+		SoulissCommGate.sendPing(datagramSocket,SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN, putIn_1, punIn_2);
 	}
 
 	public org.openhab.core.types.State getOHState() {

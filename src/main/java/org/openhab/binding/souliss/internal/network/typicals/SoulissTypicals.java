@@ -22,9 +22,9 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 			LOGGER.info("Add Item: " +  sItem + " - Typ: " + Integer.toHexString(typical.getType()) + ", Node: "+ typical.getSoulissNodeID() + ", Slot: " + typical.getSlot());
 			typical.setName(sItem);
 			//la chiave della hasttable è:  IP Address + VNET Address + slot
-			hashTableItemToAddress.put(sItem, typical.getSoulissNodeIPAddress() + typical.getSoulissNodeID() + typical.getSlot());
+			hashTableItemToAddress.put(sItem, SoulissNetworkParameter.IPAddressOnLAN + typical.getSoulissNodeID() + typical.getSlot());
 			//la chiave della hasttable è:  item
-			hashTableAddressToTypicals.put(typical.getSoulissNodeIPAddress() + typical.getSoulissNodeID() + typical.getSlot(), typical);	
+			hashTableAddressToTypicals.put(SoulissNetworkParameter.IPAddressOnLAN+ typical.getSoulissNodeID() + typical.getSlot(), typical);	
 		}
 		
 	}

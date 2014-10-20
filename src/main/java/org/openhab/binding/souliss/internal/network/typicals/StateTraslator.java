@@ -3,6 +3,7 @@ package org.openhab.binding.souliss.internal.network.typicals;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,12 +42,11 @@ public class StateTraslator {
 		return sRes;
 	}
 	
-	public static void loadCommands(String sConfigurationFileName) {
+	public static void loadCommands(InputStream is) {
 		try {
-			LOGGER.info("Load parameter from file: " + sConfigurationFileName);
-			FileInputStream fi=new FileInputStream(sConfigurationFileName);
-			propCommands.load(fi);
-			fi.close();
+			propCommands.load(is);
+			LOGGER.info("ok");
+			is.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,12 +54,11 @@ public class StateTraslator {
 		}
 	}
 	
-	public static void loadStates(String sConfigurationFileName) {
+	public static void loadStates(InputStream is) {
 		try {
-			LOGGER.info("Load parameter from file: " + sConfigurationFileName);
-			FileInputStream fi=new FileInputStream(sConfigurationFileName);
-			propStates.load(fi);
-			fi.close();
+			propStates.load(is);
+			LOGGER.info("ok");
+			is.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,12 +66,11 @@ public class StateTraslator {
 		}
 	}
 
-	public static void loadItemsType(String sConfigurationFileName) {
+	public static void loadItemsType(InputStream is) {
 		try {
-			LOGGER.info("Load parameter from file: " + sConfigurationFileName);
-			FileInputStream fi=new FileInputStream(sConfigurationFileName);
-			propTypes.load(fi);
-			fi.close();
+			propTypes.load(is);
+			LOGGER.info("ok");
+			is.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

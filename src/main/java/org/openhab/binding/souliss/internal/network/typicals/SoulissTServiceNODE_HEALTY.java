@@ -1,8 +1,5 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import java.util.ArrayList;
-
-import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.types.State;
 
@@ -14,8 +11,8 @@ public class SoulissTServiceNODE_HEALTY extends SoulissGenericTypical {
 	public SoulissTServiceNODE_HEALTY(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
-		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
-		this.setSoulissNodeIPAddressOnLAN(sSoulissNodeIPAddressOnLAN);
+//		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
+//		this.setSoulissNodeIPAddressOnLAN(sSoulissNodeIPAddressOnLAN);
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_TService_NODE_HEALTY);
 		this.setNote(sOHType);

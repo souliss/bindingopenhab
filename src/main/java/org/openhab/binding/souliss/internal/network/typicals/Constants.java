@@ -1,6 +1,5 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
@@ -270,11 +269,16 @@ public class Constants {
 //	public static final String ConfigurationFileName_states_SOULISStoOH = "../../bundles/binding/org.openhab.binding.souliss/properties/states_SOULISStoOH.properties";
 //	public static final String ConfigurationFileName_ItemsType_SOULISS = "../../bundles/binding/org.openhab.binding.souliss/properties/itemsType_SOULISS.properties";;
 	
-	public static final String ConfigurationFileName_typicals_value_bytes = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/typicals_value_bytes.properties";
-	public static final String ConfigurationFileName_commands_OHtoSOULISS = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/commands_OHtoSOULISS.properties";
-	public static final String ConfigurationFileName_states_SOULISStoOH = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/states_SOULISStoOH.properties";
-	public static final String ConfigurationFileName_ItemsType_SOULISS = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/itemsType_SOULISS.properties";
+//	public static final String ConfigurationFileName_typicals_value_bytes = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/typicals_value_bytes.properties";
+//	public static final String ConfigurationFileName_commands_OHtoSOULISS = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/commands_OHtoSOULISS.properties";
+//	public static final String ConfigurationFileName_states_SOULISStoOH = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/states_SOULISStoOH.properties";
+//	public static final String ConfigurationFileName_ItemsType_SOULISS = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/itemsType_SOULISS.properties";
 	
+	public static final String ConfigurationFileName_typicals_value_bytes = "/properties/typicals_value_bytes.properties";
+	public static final String ConfigurationFileName_commands_OHtoSOULISS = "/properties/commands_OHtoSOULISS.properties";
+	public static final String ConfigurationFileName_states_SOULISStoOH = "/properties/states_SOULISStoOH.properties";
+	public static final String ConfigurationFileName_ItemsType_SOULISS = "/properties/itemsType_SOULISS.properties";
 	
+
 	
 }

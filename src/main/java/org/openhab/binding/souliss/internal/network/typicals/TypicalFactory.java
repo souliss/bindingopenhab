@@ -15,7 +15,7 @@ public class TypicalFactory {
 		
 		switch (soulissType){
 		case Constants.Souliss_T11: 
-			T=new SoulissT11( SoulissNetworkParameter.datagramsocket, sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
+			T=new SoulissT11( _datagramsocket, sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 			break;
 		case Constants.Souliss_T12: 
 			T=new SoulissT12( _datagramsocket, sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);

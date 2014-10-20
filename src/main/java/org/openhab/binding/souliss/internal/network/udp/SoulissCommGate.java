@@ -35,18 +35,6 @@ public class SoulissCommGate {
 		
 	}
 	
-	private static String MaCacoToString(ArrayList<Byte> mACACOframe2) {
-		String s="HEX: [";
-		for (int i = 0; i < mACACOframe2.size(); i++) {
-			s = s+ Integer.toHexString(mACACOframe2.get(i));
-			if((i +1) < mACACOframe2.size()) {
-				s=s+", ";
-			}
-		}
-		s=s+"]";
-		return s;
-	}
-
 	public static void sendDBStructFrame(DatagramSocket socket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN) {
 		MACACOframe.clear();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_db_struct);
@@ -92,7 +80,7 @@ public class SoulissCommGate {
 		//	sender = getSenderSocket(serverAddr);
 			
 			//se il socket (quello passato è quello sulla porta 230) è null allora ne creo uno 
-			if(socket==null) socket= new DatagramSocket();
+			//if(socket==null) socket= new DatagramSocket();
 			
 			DatagramPacket packet = new DatagramPacket( merd, merd.length, serverAddr, ConstantsUDP.SOULISSPORT);
 			
@@ -220,6 +208,16 @@ public class SoulissCommGate {
 		MACACOframe.add((byte) iNodes); 
 		LOGGER.debug("sendHEALTY_REQUESTframe - "+ MaCacoToString(MACACOframe) + ", soulissNodeIPAddress: " + soulissNodeIPAddress+ ", soulissNodeIPAddressOnLAN: "+ soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
+	}
+
+	private static String MaCacoToString(ArrayList<Byte> mACACOframe2) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("HEX: [");
+	    for (byte b : mACACOframe2) {
+	        sb.append(String.format("%02X ", b));
+	    }
+	    sb.append("]");
+	    return sb.toString();
 	}
 
 

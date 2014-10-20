@@ -1,9 +1,5 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import java.net.DatagramSocket;
-import java.util.ArrayList;
-
-import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.types.State;
 
@@ -13,8 +9,8 @@ public class SoulissT51 extends SoulissGenericTypical {
 	public SoulissT51(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
-		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
-		this.setSoulissNodeIPAddressOnLAN(sSoulissNodeIPAddressOnLAN);
+//		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
+//		this.setSoulissNodeIPAddressOnLAN(sSoulissNodeIPAddressOnLAN);
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_T53_HumiditySensor);
 		this.setNote(sOHType);

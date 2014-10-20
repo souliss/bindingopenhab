@@ -20,7 +20,6 @@ import org.openhab.binding.souliss.internal.network.typicals.RefreshSUBSCRIPTION
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT11;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
-import org.openhab.binding.souliss.internal.network.typicals.SoulissT52;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
@@ -89,32 +88,17 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 		super.deactivate();
 	}
 
-
-
-	
-	private boolean isProperlyConfigured; 
-	
-	
 	public void updated(Dictionary<String, ?> config)
 			throws ConfigurationException {
 		// TODO Auto-generated method stub
 		if (config != null) {
-			isProperlyConfigured = false;
 			Enumeration<String> enumConfig= config.keys();
 						
 			while (enumConfig.hasMoreElements()){
 				String sName=enumConfig.nextElement();
-				String sPluginName="";
-				if (sName.equals("service.pid")) {
-					sPluginName=(String) config.get(sName);
-				}
-				
-//				String[] sNameArray=sName.split("\\.");
-//				if(sNameArray[0].equals("node")) {
-//					String sValue=(String) config.get(sName);
-//					String[] sValueArray=sValue.split("\\,");
-//					
-//					LOGGER.info(sNameArray[1] + " - " + sValueArray[0] + " - " + sValueArray[1] );	
+//				String sPluginName="";
+//				if (sName.equals("service.pid")) {
+//					sPluginName=(String) config.get(sName);
 //				}
 				
 				LOGGER.info("PARAMETER: " + sName + " = " + (String) config.get(sName));
@@ -257,7 +241,7 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			break;
 
 		case Constants.Souliss_T52_TemperatureSensor:
-			SoulissT52 Typ =  (SoulissT52) T;
+		//	SoulissT52 Typ =  (SoulissT52) T;
 			break;
 		case Constants.Souliss_T53_HumiditySensor:
 			//T=new SoulissT53(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot);
@@ -371,7 +355,7 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			
 			}
 		
-		super.setProperlyConfigured(properlyConfigured);
+	//	super.setProperlyConfigured(properlyConfigured);
 			
 	}
 
