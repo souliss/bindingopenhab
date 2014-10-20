@@ -21,7 +21,7 @@ public class SoulissGenericTypical {
 	private boolean isUpdated=false;
 	private String sNote;
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissGenericTypical.class);
-	private DatagramSocket datagramsocket;
+//	private DatagramSocket datagramsocket;
 	//*************************************
 	//*************************************
 
@@ -33,12 +33,12 @@ public class SoulissGenericTypical {
 	//*************************************
 	
 	
-	public DatagramSocket getDatagramsocket() {
-		return datagramsocket;
-	}
-	public void setDatagramsocket(DatagramSocket datagramsocket) {
-		this.datagramsocket = datagramsocket;
-	}
+//	public DatagramSocket getDatagramsocket() {
+//		return datagramsocket;
+//	}
+//	public void setDatagramsocket(DatagramSocket datagramsocket) {
+//		this.datagramsocket = datagramsocket;
+//	}
 	/**
 	 * @return the iSlot
 	 */
