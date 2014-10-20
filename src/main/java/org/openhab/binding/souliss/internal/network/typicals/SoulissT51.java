@@ -9,8 +9,6 @@ public class SoulissT51 extends SoulissGenericTypical {
 	public SoulissT51(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
-//		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
-//		this.setSoulissNodeIPAddressOnLAN(sSoulissNodeIPAddressOnLAN);
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_T53_HumiditySensor);
 		this.setNote(sOHType);

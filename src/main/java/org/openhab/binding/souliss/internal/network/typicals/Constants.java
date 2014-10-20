@@ -264,16 +264,6 @@ public class Constants {
 
 	public static final String CONF_FIELD_DELIMITER ="_";
 	
-//	public static final String ConfigurationFileName_typicals_value_bytes = "../../bundles/binding/org.openhab.binding.souliss/properties/typicals_value_bytes.properties";
-//	public static final String ConfigurationFileName_commands_OHtoSOULISS = "../../bundles/binding/org.openhab.binding.souliss/properties/commands_OHtoSOULISS.properties";
-//	public static final String ConfigurationFileName_states_SOULISStoOH = "../../bundles/binding/org.openhab.binding.souliss/properties/states_SOULISStoOH.properties";
-//	public static final String ConfigurationFileName_ItemsType_SOULISS = "../../bundles/binding/org.openhab.binding.souliss/properties/itemsType_SOULISS.properties";;
-	
-//	public static final String ConfigurationFileName_typicals_value_bytes = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/typicals_value_bytes.properties";
-//	public static final String ConfigurationFileName_commands_OHtoSOULISS = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/commands_OHtoSOULISS.properties";
-//	public static final String ConfigurationFileName_states_SOULISStoOH = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/states_SOULISStoOH.properties";
-//	public static final String ConfigurationFileName_ItemsType_SOULISS = "../../bundles/binding/org.openhab.binding.souliss/src/main/resources/properties/itemsType_SOULISS.properties";
-	
 	public static final String ConfigurationFileName_typicals_value_bytes = "/properties/typicals_value_bytes.properties";
 	public static final String ConfigurationFileName_commands_OHtoSOULISS = "/properties/commands_OHtoSOULISS.properties";
 	public static final String ConfigurationFileName_states_SOULISStoOH = "/properties/states_SOULISStoOH.properties";

@@ -1,7 +1,5 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
-
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

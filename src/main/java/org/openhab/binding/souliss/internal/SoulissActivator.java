@@ -8,11 +8,7 @@
  */
 package org.openhab.binding.souliss.internal;
 
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Properties;
 
 import org.openhab.binding.souliss.internal.network.typicals.Constants;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
@@ -21,10 +17,6 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import sun.misc.CompoundEnumeration;
-
-
 
 /**
  * Extension of the default OSGi bundle activator

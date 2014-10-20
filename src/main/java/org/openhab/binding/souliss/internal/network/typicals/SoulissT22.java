@@ -17,13 +17,9 @@ public class SoulissT22 extends SoulissGenericTypical {
 	public SoulissT22(DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
-//		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
-//		this.setSoulissNodeIPAddressOnLAN(sSoulissNodeIPAddressOnLAN);
-		//this.setSoulissNodeVNetAddress(sSoulissNodeVNetAddress);
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_T22);
 		this.setNote(sOHType);
-//		this.setDatagramsocket(_datagramsocket);
 	}
 //
 //	/**

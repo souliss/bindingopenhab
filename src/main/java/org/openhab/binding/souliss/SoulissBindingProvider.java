@@ -9,9 +9,6 @@
 package org.openhab.binding.souliss;
 
 import org.openhab.core.binding.BindingProvider;
-import org.openhab.core.items.Item;
-
-
 
 /**
  * This interface is implemented by classes that can provide mapping information

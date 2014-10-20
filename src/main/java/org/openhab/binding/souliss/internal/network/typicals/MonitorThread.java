@@ -1,16 +1,11 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
-
-
 import java.util.Iterator;
 import java.util.Map.Entry;
 import org.openhab.core.events.EventPublisher;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
-
 
 public class MonitorThread extends Thread {
 

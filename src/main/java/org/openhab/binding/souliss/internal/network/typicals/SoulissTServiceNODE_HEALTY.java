@@ -11,8 +11,6 @@ public class SoulissTServiceNODE_HEALTY extends SoulissGenericTypical {
 	public SoulissTServiceNODE_HEALTY(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
-//		this.setSoulissNodeIPAddress(sSoulissNodeIPAddress);
-//		this.setSoulissNodeIPAddressOnLAN(sSoulissNodeIPAddressOnLAN);
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_TService_NODE_HEALTY);
 		this.setNote(sOHType);
