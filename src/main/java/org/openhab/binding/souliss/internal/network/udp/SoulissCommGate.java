@@ -16,6 +16,10 @@ public class SoulissCommGate {
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissCommGate.class);
 	
 	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand) {
+		sendFORCEFrame(datagramSocket, soulissNodeIPAddress, soulissNodeIPAddressOnLAN, IDNode, slot, shortCommand, null, null, null);
+	}
+	
+	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand, Short R, Short G, Short B) {
 		MACACOframe.clear();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_force);
 		
@@ -24,18 +28,28 @@ public class SoulissCommGate {
 		MACACOframe.add((byte) 0x0);// PUTIN
 		
 		MACACOframe.add((byte) (IDNode));// Start Offset
-		MACACOframe.add((byte) ((byte) slot+ 1)); //Number Of
+		if( R==null ||G==null || B==null )
+			MACACOframe.add((byte) ((byte) slot+ 1)); //Number Of
+		else
+			MACACOframe.add((byte) ((byte) slot+ 4)); //Number Of slot= OnOFF + Red + Green + Blu
 		
 		for (int i=0;i<=slot-1;i++){
 			MACACOframe.add((byte) 00); //pongo a zero i byte precedenti lo slot da modificare
 		}
 		MACACOframe.add((byte) shortCommand);// PAYLOAD
+
+		if( R!=null || G!=null || B!=null ) {
+			MACACOframe.add(R.byteValue());// PAYLOAD
+			MACACOframe.add(G.byteValue());// PAYLOAD
+			MACACOframe.add(B.byteValue());// PAYLOAD	
+		}
+				
 		
 		LOGGER.debug("sendFORCEFrame - "+ MaCacoToString(MACACOframe) + ", soulissNodeIPAddress: " + soulissNodeIPAddress+ ", soulissNodeIPAddressOnLAN: "+ soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 		
 	}
-	
+
 	public static void sendDBStructFrame(DatagramSocket socket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN) {
 		MACACOframe.clear();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_db_struct);

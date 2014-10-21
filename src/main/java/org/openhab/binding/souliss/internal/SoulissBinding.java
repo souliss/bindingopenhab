@@ -8,6 +8,7 @@
  */
 package org.openhab.binding.souliss.internal;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Enumeration;
@@ -19,6 +20,7 @@ import org.openhab.binding.souliss.internal.network.typicals.RefreshHEALTYThread
 import org.openhab.binding.souliss.internal.network.typicals.RefreshSUBSCRIPTIONThread;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT11;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 
@@ -203,7 +205,15 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			
 			break;
 		case Constants.Souliss_T16:
-			
+			SoulissT16 T16 =  (SoulissT16) T;
+			String cmd=command.getClass().getSimpleName();
+			if(cmd.equals(Constants.Openhab_RGB_TYPE)){
+				Short R=0,G=0,B=0;
+				String HSB[]=command.toString().split(",");
+				short RGB[] = HSBtoRGB(Float.parseFloat(HSB[0]), Float.parseFloat(HSB[1]), Float.parseFloat(HSB[2]));
+				T16.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(), command.getClass().getSimpleName()), RGB[0], RGB[1], RGB[2]);
+			} else
+				T16.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(), command.toString()));
 			break;
 		case Constants.Souliss_T18:
 			
@@ -272,6 +282,14 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 	}
 
 
+
+	private short[] HSBtoRGB(Float H, Float S, Float B) {
+		
+		int RGB =Color.HSBtoRGB(H, S, B);
+		Color c=new Color(RGB);
+		short RGBList[]={(short) c.getRed(),(short) c.getGreen(), (short) c.getBlue()};
+		return RGBList;
+	}
 
 	@Override
 	protected void internalReceiveCommand(String itemName, Command command) {

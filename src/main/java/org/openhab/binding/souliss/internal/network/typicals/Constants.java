@@ -269,6 +269,6 @@ public class Constants {
 	public static final String ConfigurationFileName_states_SOULISStoOH = "/properties/states_SOULISStoOH.properties";
 	public static final String ConfigurationFileName_ItemsType_SOULISS = "/properties/itemsType_SOULISS.properties";
 	
-
+	public static final String Openhab_RGB_TYPE="HSBType";
 	
 }

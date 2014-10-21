@@ -30,7 +30,7 @@ public class TypicalFactory {
 			//T=new Souliss_T1n_RGB(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
 			break;
 		case Constants.Souliss_T16:
-			//T=new SoulissT16(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
+			T=new SoulissT16( _datagramsocket, sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 			break;
 		case Constants.Souliss_T18:
 			//T=new SoulissT18(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
