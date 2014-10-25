@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTServiceUpdater;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 
@@ -247,8 +248,22 @@ public class UDPSoulissDecoder {
 						val=getFloatAtSlot(mac, slot);
 						typ.setState(val);
 						//System.out.println("Nodo " + tgtnode + ", Slot: " + slot + ", Float val: " + getFloatAtSlot( mac, slot) );
+					} else if(iNumBytes==4){
+						//T16 RGB
+						val=getByteAtSlot(mac, slot);
+						typ.setState(val);
+						((SoulissT16) typ).setStateRED(getByteAtSlot( mac, slot+1));
+						((SoulissT16) typ).setStateGREEN(getByteAtSlot( mac, slot+2));
+						((SoulissT16) typ).setStateBLU(getByteAtSlot( mac, slot+3));
+						
 					}
-					LOGGER.debug("decodeStateRequest:  " + typ.getName() + " ( " + Short.valueOf(typ.getType()) + ") = " + Float.valueOf(val));
+					
+					if(iNumBytes==4)
+						//RGB Log
+						LOGGER.debug("decodeStateRequest:  " + typ.getName() + " ( " + Short.valueOf(typ.getType()) + ") = " + ((SoulissT16) typ).getState()+ ". RGB= "+((SoulissT16) typ).getStateRED()+ ", "+((SoulissT16) typ).getStateGREEN()+ ", "+((SoulissT16) typ).getStateBLU());
+					else
+						LOGGER.debug("decodeStateRequest:  " + typ.getName() + " ( " + Short.valueOf(typ.getType()) + ") = " + Float.valueOf(val));
+						
 				}
 			}
 		}

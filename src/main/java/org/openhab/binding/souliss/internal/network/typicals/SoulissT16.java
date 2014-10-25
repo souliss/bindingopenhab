@@ -1,11 +1,14 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
+import java.awt.Color;
 import java.net.DatagramSocket;
 
 import org.openhab.binding.souliss.internal.network.udp.ConstantsUDP;
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
+import org.openhab.core.library.types.HSBType;
 import org.openhab.core.library.types.OnOffType;
 import org.openhab.core.library.types.OpenClosedType;
+import org.openhab.core.library.types.PercentType;
 import org.openhab.core.types.State;
 
 public class SoulissT16 extends SoulissGenericTypical {
@@ -15,13 +18,13 @@ public class SoulissT16 extends SoulissGenericTypical {
 	int stateBLU;
 	boolean stateONOFF;
 	
-	public boolean isStateONOFF() {
-		return stateONOFF;
-	}
-
-	public void setStateONOFF(boolean stateONOFF) {
-		this.stateONOFF = stateONOFF;
-	}
+//	public boolean getStateONOFF() {
+//		return stateONOFF;
+//	}
+//
+//	public void setStateONOFF(boolean stateONOFF) {
+//		this.stateONOFF = stateONOFF;
+//	}
 
 	public int getStateRED() {
 		return stateRED;
@@ -111,12 +114,17 @@ public class SoulissT16 extends SoulissGenericTypical {
 	@Override
 	public State getOHState() {
 		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),this.getState());
-		if(sOHState!=null){
-		if (this.getNote().equals("ContactItem"))
-			return OpenClosedType.valueOf(sOHState);
-		else return OnOffType.valueOf(sOHState);
-		}
-		return null;
+		if (sOHState!=null)
+			return PercentType.valueOf(sOHState);
+		else 
+			return null;
+			
+	}
+
+	public org.openhab.core.types.State getOHStateRGB() {
+		Color colr = new Color(this.stateRED, this.stateGREEN, this.stateBLU);
+		HSBType hsb =new HSBType(colr);
+		return hsb;
 	}
 
 }

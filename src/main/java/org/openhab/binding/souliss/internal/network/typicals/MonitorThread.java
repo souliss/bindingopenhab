@@ -1,5 +1,6 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import org.openhab.core.events.EventPublisher;
@@ -55,15 +56,13 @@ public class MonitorThread extends Thread {
 					if (typ.getType()==Constants.Souliss_TService_NODE_TIMESTAMP){
 						//solo il valore TIMESTAMP si differenzia da tutti gli altri perchè nella classe SoulissTServiceNODE_TIMESTAMP il valore è rappresentato come stringa mentre i valori classici son rappr.come float
 						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + ((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP() );
-						eventPublisher.postUpdate(typ.getName(),   typ.getOHState());
-						
-					//	EventBus.putOnOHEventBus(typ.getName(), ((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP());
-					}else {//if (typ.getNote().equals("SwitchItem")){
-						//fare lo StateTraslate
+					} else if(typ.getType()==Constants.Souliss_T16){
+						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + ((SoulissT16) typ).getState() + ", R=" + ((SoulissT16) typ).stateRED + ", G=" + ((SoulissT16) typ).stateGREEN+ ", B=" + ((SoulissT16) typ).stateBLU);
+						eventPublisher.postUpdate(typ.getName(),   ((SoulissT16) typ).getOHStateRGB());
+					} else {
 						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + Float.toString(typ.getState()) );
-						eventPublisher.postUpdate(typ.getName(),  typ.getOHState());
 					}
-
+					eventPublisher.postUpdate(typ.getName(),   typ.getOHState());
 					typ.resetUpdate();
 				}
 			}
