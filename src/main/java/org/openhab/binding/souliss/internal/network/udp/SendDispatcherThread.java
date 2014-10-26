@@ -33,17 +33,16 @@ public class SendDispatcherThread  extends Thread {
 	}
 
 	public synchronized static void put(DatagramSocket socket, DatagramPacket packetToPUT) {
-		if(bCheck){	
-			bCheck=false;
-			//OTTIMIZZAZIONE FRAME
+		
+	//		if(bCheck){	
+//			bCheck=false;
+//			//OTTIMIZZAZIONE FRAME
 			boolean bPacchettoGestito=false;
 			int node=getNode(packetToPUT);
+			LOGGER.debug("Push");
 			if (packetsList.size()==0 || node < 0) {
-				bPacchettoGestito=true;
-				LOGGER.debug("Aggiunto frame UPD in lista");
-				packetsList.add( new SocketAndPacket(socket, packetToPUT));
+				bPacchettoGestito=false;
 			} else{
-				LOGGER.debug("Frame UPD per nodo " + node + " già presente il lista. Esecuzione ottimizzazione.");
 			for(int i=0; i<packetsList.size();i++){
 				//estraggo il nodo indirizzato dal pacchetto in ingresso
 				//node=getNode(packetToPUT);
@@ -52,35 +51,38 @@ public class SendDispatcherThread  extends Thread {
 				//e se il socket � lo stesso uguale a quello packetsList.get(i).socket presente in lista
 				//if(node >=0 && getNode(packetsList.get(i).packet)==node && packetsList.get(i).socket==socket)
 				if(node >=0 && getNode(packetsList.get(i).packet)==node ) {
+					LOGGER.debug("Frame UPD per nodo " + node + " già presente il lista. Esecuzione ottimizzazione.");
 					bPacchettoGestito=true;
-					//se il pacchetto da inserire � pi� corto (o uguale) di quello in lista allora sovrascrivo i byte del pacchetto presente in lista
+					//se il pacchetto da inserire  è più corto (o uguale) di quello in lista allora sovrascrivo i byte del pacchetto presente in lista
 					if(packetToPUT.getData().length<=packetsList.get(i).packet.getData().length){
 						//scorre i byte di comando e se il byte � diverso da zero sovrascrive il byte presente nel pacchetto in lista
+						LOGGER.debug("Optimizer.             Packet to push: " + MaCacoToString(packetToPUT.getData()));
+						LOGGER.debug("Optimizer.             Previous frame: " + MaCacoToString(packetsList.get(i).packet.getData()));
 						for (int j=12;j<packetToPUT.getData().length;j++){
-							//se il j-esimo byte � diverso da zero allora lo sovrascrivo al byte del pacchetto gi� presente 
+							//se il j-esimo byte è diverso da zero allora lo sovrascrivo al byte del pacchetto già presente 
 							if(packetToPUT.getData()[j]!=0){
 								packetsList.get(i).packet.getData()[j]=packetToPUT.getData()[j];
 							}
-							
 						}
-				//		System.out.println("Ottimizzazione frame: aggiunti byte a pacchetto gi� esistente in lista");
+						LOGGER.debug("Optimizer. Previous frame modified to: " + MaCacoToString(packetsList.get(i).packet.getData()));
 					}else {
 						//se il pacchetto da inserire  è più lungo di quello in lista allora sovrascrivo i byte del pacchetto da inserire, poi elimino quello in lista ed inserisco quello nuovo 
 						if(packetToPUT.getData().length>packetsList.get(i).packet.getData().length){
 							for (int j=12;j<packetsList.get(i).packet.getData().length;j++){
-								//se il j-esimo byte � diverso da zero allora lo sovrascrivo al byte del pacchetto gi� presente 
+								//se il j-esimo byte è diverso da zero allora lo sovrascrivo al byte del pacchetto gi� presente 
 								if(packetsList.get(i).packet.getData()[j]!=0){
 									if(packetToPUT.getData()[j]==0){
-										//sovrascrive i byte dell'ultimo frame soltanto se il byte � uguale a zero. Se � diverso da zero l'ultimo frame ha la precedenza e deve sovrascrivere
+										//sovrascrive i byte dell'ultimo frame soltanto se il byte è uguale a zero. Se è diverso da zero l'ultimo frame ha la precedenza e deve sovrascrivere
 									packetToPUT.getData()[j]=packetsList.get(i).packet.getData()[j];
 									}
 								}
 							}
 							//rimuove il pacchetto
+							LOGGER.debug("Optimizer. Remove frame: " + MaCacoToString( packetsList.get(i).packet.getData()));
 							packetsList.remove(i);
 							//inserisce il nuovo
+							LOGGER.debug("Optimizer.    Add frame: " + MaCacoToString(packetToPUT.getData()));
 							packetsList.add( new SocketAndPacket(socket, packetToPUT));
-			//				System.out.println("Ottimizzazione frame: aggiunti byte a pacchetto da inserire, eliminato quello in lista ed aggiunto quello nuovo");
 						}
 					}
 				}
@@ -88,16 +90,17 @@ public class SendDispatcherThread  extends Thread {
 			}
 			
 			if(!bPacchettoGestito){
+				LOGGER.debug("Add frame: " + MaCacoToString(packetToPUT.getData()));
 				packetsList.add( new SocketAndPacket(socket, packetToPUT));
 			}
-			bCheck=true;
+//			bCheck=true;
 		}
-		
-	}
+
+	
 
 	private static int getNode(DatagramPacket packet) {
-		//7 � il byte del frame VNet al quale trovo il codice comando
-		//10 � il byte del frame VNet al quale trovo l'ID del nodo
+		//7  è il byte del frame VNet al quale trovo il codice comando
+		//10 è il byte del frame VNet al quale trovo l'ID del nodo
 		if (packet.getData()[7]==(byte) ConstantsUDP.Souliss_UDP_function_force){
 			return packet.getData()[10];
 		}
@@ -112,13 +115,14 @@ public class SendDispatcherThread  extends Thread {
 			//riporta l'intervallo al minimo solo se:
 			//- la lista è minore o uguale a 1;
 			//- se è trascorso il tempo SEND_DELAY.
-			if (packetsList.size()<=1 && (t-t_prec)>=SEND_DELAY) 
+			if (packetsList.size()<=1 && (t-t_prec)>=SEND_DELAY)
 				iDelay=SEND_MIN_DELAY; 
 			else 
 				iDelay=SEND_DELAY;
 
 			if (packetsList.size()>0){
 				t_prec=System.currentTimeMillis();
+				LOGGER.debug("Pop - Delay for 'SendDispatcherThread' setted to " + iDelay + " mills.");
 				bCheck=true;
 				return packetsList.remove(0);
 			}
@@ -151,7 +155,7 @@ public class SendDispatcherThread  extends Thread {
 		}
 	}
 	
-	private String MaCacoToString(byte[] frame2) {
+	private static String MaCacoToString(byte[] frame2) {
 		byte[] frame= frame2.clone();
 		StringBuilder sb = new StringBuilder();
 		sb.append("HEX: [");
