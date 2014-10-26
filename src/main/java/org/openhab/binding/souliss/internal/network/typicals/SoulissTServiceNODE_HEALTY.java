@@ -17,7 +17,7 @@ public class SoulissTServiceNODE_HEALTY extends SoulissGenericTypical {
 	}
 	@Override
 	public State getOHState() {
-		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),this.getState());
+		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(), (short)this.getState());
 		if (sOHState == null) return DecimalType.valueOf(Float.toString(this.getState()));
 		else return DecimalType.valueOf(sOHState);
 	}

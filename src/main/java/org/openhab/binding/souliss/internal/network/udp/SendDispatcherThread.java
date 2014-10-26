@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.ArrayList;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,15 +104,21 @@ public class SendDispatcherThread  extends Thread {
 		return -1;
 	}
 
+	long t,t_prec=0;
 	private synchronized SocketAndPacket pop(){
 		if(bCheck){	
 			bCheck=false;
-			if (packetsList.size()<=1) 
+			t=System.currentTimeMillis();
+			//riporta l'intervallo al minimo solo se:
+			//- la lista è minore o uguale a 1;
+			//- se è trascorso il tempo SEND_DELAY.
+			if (packetsList.size()<=1 && (t-t_prec)>=SEND_DELAY) 
 				iDelay=SEND_MIN_DELAY; 
 			else 
 				iDelay=SEND_DELAY;
 
 			if (packetsList.size()>0){
+				t_prec=System.currentTimeMillis();
 				bCheck=true;
 				return packetsList.remove(0);
 			}

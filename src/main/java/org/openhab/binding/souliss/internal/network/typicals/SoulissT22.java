@@ -69,9 +69,9 @@ public class SoulissT22 extends SoulissGenericTypical {
 
 	@Override
 	public State getOHState() {
-		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),this.getState());
+		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),(short)this.getState());
 		if (sOHState!=null)
-		return PercentType.valueOf(sOHState);
+		return new PercentType(Integer.parseInt(sOHState));
 		else 
 			return null;
 		

@@ -174,23 +174,12 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 		//comando ricevuto 12:10:12.150 INFO  runtime.busevents[:22] - Shutter_GF_Toilet received command DOWN
 		//qui bisogna cercare nella hastable ed inviare i comandi
 		SoulissGenericTypical T =SoulissGenericBindingProvider.SoulissTypicalsRecipients.getTypicalFromItem(itemName);
-		LOGGER.info("receiveCommand - " + itemName + " = " + command );
+		LOGGER.info("receiveCommand - " + itemName + " = " + command + " - Typical: "+ T.getType());
 		
 		switch (T.getType()){
 		case Constants.Souliss_T11: 
 			SoulissT11 T11 =  (SoulissT11) T;
 			T11.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),command.toString()));
-			
-//			if(command.toString().equals("ON")){
-//				T11.CommandON();
-//				LOGGER.fine("T11 ON");
-//			} else if (command.toString().equals("OFF")){
-//				T11.CommandOFF();
-//				LOGGER.fine("T11 OFF");
-//			}
-
-			//StateTraslator.commandsOHtoSOULISS(T.getType(),command.toString()));
-			
 			break;
 		case Constants.Souliss_T12: 
 			//SoulissT12 Typ =  (SoulissT12) T;

@@ -21,7 +21,7 @@ public class SoulissT13 extends SoulissGenericTypical {
 	
 	@Override
 	public State getOHState() {
-		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),this.getState());
+		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(), (short)this.getState());
 		if(sOHState!=null){
 		if (this.getNote().equals("ContactItem"))
 			return OpenClosedType.valueOf(sOHState);

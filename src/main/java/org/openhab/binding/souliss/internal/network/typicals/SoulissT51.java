@@ -16,7 +16,7 @@ public class SoulissT51 extends SoulissGenericTypical {
 	}
 	@Override
 	public State getOHState() {
-		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),this.getState());
+		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),(short)this.getState());
 		if (sOHState == null) { 
 			if (!Float.isNaN(this.getState())){
 				return DecimalType.valueOf(Float.toString(this.getState()));

@@ -3,11 +3,8 @@ package org.openhab.binding.souliss.internal.network.typicals;
 import java.awt.Color;
 import java.net.DatagramSocket;
 
-import org.openhab.binding.souliss.internal.network.udp.ConstantsUDP;
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 import org.openhab.core.library.types.HSBType;
-import org.openhab.core.library.types.OnOffType;
-import org.openhab.core.library.types.OpenClosedType;
 import org.openhab.core.library.types.PercentType;
 import org.openhab.core.types.State;
 
@@ -16,16 +13,7 @@ public class SoulissT16 extends SoulissGenericTypical {
 	int stateRED;
 	int stateGREEN;
 	int stateBLU;
-	boolean stateONOFF;
 	
-//	public boolean getStateONOFF() {
-//		return stateONOFF;
-//	}
-//
-//	public void setStateONOFF(boolean stateONOFF) {
-//		this.stateONOFF = stateONOFF;
-//	}
-
 	public int getStateRED() {
 		return stateRED;
 	}
@@ -113,7 +101,7 @@ public class SoulissT16 extends SoulissGenericTypical {
 	
 	@Override
 	public State getOHState() {
-		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),this.getState());
+		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),(short)this.getState());
 		if (sOHState!=null)
 			return PercentType.valueOf(sOHState);
 		else 
