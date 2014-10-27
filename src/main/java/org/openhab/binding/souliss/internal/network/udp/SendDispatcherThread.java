@@ -115,20 +115,21 @@ public class SendDispatcherThread  extends Thread {
 			//riporta l'intervallo al minimo solo se:
 			//- la lista è minore o uguale a 1;
 			//- se è trascorso il tempo SEND_DELAY.
-			boolean tFlag=(t-t_prec)>=SEND_DELAY;
-			if (packetsList.size()<=1 && tFlag)
+		
+			if (packetsList.size()<=1)
 				iDelay=SEND_MIN_DELAY; 
 			else 
 				iDelay=SEND_DELAY;
-
+			
+			boolean tFlag=(t-t_prec)>=SEND_DELAY;
 			if (packetsList.size()>0 && tFlag){
 				t_prec=System.currentTimeMillis();
 				LOGGER.debug("Pop - Delay for 'SendDispatcherThread' setted to " + iDelay + " mills.");
 				bCheck=true;
 				return packetsList.remove(0);
 			}
+			bCheck=true;
 		}
-		bCheck=true;
 		return null;
 	}
 	
