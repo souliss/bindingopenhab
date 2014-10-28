@@ -16,6 +16,7 @@ public class SendDispatcherThread  extends Thread {
 	static int iDelay=0; //equal to 0 if array is empty
 	int SEND_DELAY;
 	int SEND_MIN_DELAY;
+	static boolean bPopSuspend=false;
 	private static Logger LOGGER = LoggerFactory.getLogger(SendDispatcherThread.class);
 	
 	private static boolean bCheck=true;		
@@ -33,10 +34,7 @@ public class SendDispatcherThread  extends Thread {
 	}
 
 	public synchronized static void put(DatagramSocket socket, DatagramPacket packetToPUT) {
-		
-	//		if(bCheck){	
-//			bCheck=false;
-//			//OTTIMIZZAZIONE FRAME
+		bPopSuspend=true;
 			boolean bPacchettoGestito=false;
 			int node=getNode(packetToPUT);
 			LOGGER.debug("Push");
@@ -93,7 +91,7 @@ public class SendDispatcherThread  extends Thread {
 				LOGGER.debug("Add frame: " + MaCacoToString(packetToPUT.getData()));
 				packetsList.add( new SocketAndPacket(socket, packetToPUT));
 			}
-//			bCheck=true;
+			bPopSuspend=false;
 		}
 
 	
@@ -109,26 +107,29 @@ public class SendDispatcherThread  extends Thread {
 
 	long t,t_prec=0;
 	private synchronized SocketAndPacket pop(){
-		if(bCheck){	
-			bCheck=false;
-			t=System.currentTimeMillis();
-			//riporta l'intervallo al minimo solo se:
-			//- la lista è minore o uguale a 1;
-			//- se è trascorso il tempo SEND_DELAY.
-		
-			if (packetsList.size()<=1)
-				iDelay=SEND_MIN_DELAY; 
-			else 
-				iDelay=SEND_DELAY;
-			
-			boolean tFlag=(t-t_prec)>=SEND_DELAY;
-			if (packetsList.size()>0 && tFlag){
-				t_prec=System.currentTimeMillis();
-				LOGGER.debug("Pop - Delay for 'SendDispatcherThread' setted to " + iDelay + " mills.");
-				bCheck=true;
-				return packetsList.remove(0);
+		synchronized (this) {
+			//non esegue il pop se bPopSuspend=true
+			//bPopSuspend è impostato dal metodo put
+			if(!bPopSuspend) {
+				t=System.currentTimeMillis();
+				//riporta l'intervallo al minimo solo se:
+				//- la lista è minore o uguale a 1;
+				//- se è trascorso il tempo SEND_DELAY.
+
+				if (packetsList.size()<=1)
+					iDelay=SEND_MIN_DELAY; 
+				else 
+					iDelay=SEND_DELAY;
+
+				boolean tFlag=(t-t_prec)>=SEND_DELAY;
+				if (packetsList.size()>0 && tFlag){
+					t_prec=System.currentTimeMillis();
+					SocketAndPacket sp=packetsList.remove(0);
+					LOGGER.debug("Pop frame "+ MaCacoToString(sp.packet.getData()) + " - Delay for 'SendDispatcherThread' setted to " + iDelay + " mills.");
+					bCheck=true;
+					return sp;
+				}
 			}
-			bCheck=true;
 		}
 		return null;
 	}
