@@ -54,7 +54,10 @@ public class SoulissNetworkParameter {
 		return (String) prop.get("0x"+sPar);
 	}
 
-	
+	/**
+	 * Carica in memoria il contenuto dell'inputstrean is
+	 * @param is
+	 */
 	public static void load(InputStream is) {
 		try {
 			prop.load(is);

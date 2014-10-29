@@ -3,6 +3,7 @@ package org.openhab.binding.souliss.internal.network.typicals;
 import java.util.Date;
 
 import org.openhab.core.library.types.DateTimeType;
+import org.openhab.core.library.types.StringType;
 import org.openhab.core.types.State;
 
 public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
@@ -41,6 +42,7 @@ public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 	 * REstituisce il valore del tipico nel formato di OH DateTimeType 
 	 */
 	public State getOHState() {
+			//return	StringType.valueOf(timestamp);
 			return	DateTimeType.valueOf(timestamp);
 
 	}

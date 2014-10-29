@@ -36,7 +36,7 @@ public class SoulissTServiceUpdater {
  */
 	private static String getTimestamp() {
 		//pattern da ottenere: yyyy-MM-dd'T'HH:mm:ssz
-		SimpleDateFormat sdf =	new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
+		SimpleDateFormat sdf =	new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz");
 		Date n=new Date();
 		return sdf.format( n.getTime() ) ;
 	}

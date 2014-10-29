@@ -106,21 +106,38 @@ public class SoulissGenericTypical {
 	public void setNote(String sNote) {
 		this.sNote = sNote;
 	}
+	
+	/**
+	 * Invio un comando in Multicast 
+	 * @param datagramSocket
+	 * @param command
+	 */
 	void CommandMulticast(DatagramSocket datagramSocket, short command){
 		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - CommandMulticast: " + command);
 		SoulissCommGate.sendMULTICASTFORCEFrame(datagramSocket, SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN, getType(), command );
 	}
 	
+	/**
+	 * Invia il comando DBStruct
+	 * @param datagramSocket
+	 */
 	public void sendDBStructFrame(DatagramSocket datagramSocket){
 		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - sendDBStructFrame ");
 		SoulissCommGate.sendDBStructFrame(datagramSocket, SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN);
 	}
 	
+	/**
+	 * Invia un ping
+	 * @param datagramSocket
+	 * @param putIn_1
+	 * @param punIn_2
+	 */
 	public void ping(DatagramSocket datagramSocket, short putIn_1, short punIn_2){
 		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()  +" - ping");
 		SoulissCommGate.sendPing(datagramSocket,SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN, putIn_1, punIn_2);
 	}
 
+	
 	public org.openhab.core.types.State getOHState() {
 		return null;
 	}

@@ -17,6 +17,11 @@ private Map<String, SoulissGenericTypical> hashTableAddressToTypicals = Collecti
 private Map<String, String> hashTableItemToAddress =Collections.synchronizedMap(new Hashtable<String, String>());
 private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 
+/**
+ * Aggiunge un tipo SoulissGenericTypical in due HashTable, una indicizzata con il nome ITEM e l'altra con IP+NodeID+slot 
+ * @param sItem
+ * @param typical
+ */
 	public void addTypical(String sItem, SoulissGenericTypical typical){
 		synchronized (typical) {
 			LOGGER.info("Add Item: " +  sItem + " - Typ: " + Integer.toHexString(typical.getType()) + ", Node: "+ typical.getSoulissNodeID() + ", Slot: " + typical.getSlot());
@@ -28,31 +33,48 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 		}
 		
 	}
-	
+	/**
+	 * Cancella entrambe le Hashtable 
+	 */
 	public void clear(){
 		LOGGER.debug("Clear hashtable");
 		hashTableAddressToTypicals.clear();
 		hashTableItemToAddress.clear();
 	}
 	
+	/**
+	 * Cerca un tipico nella Hashtable in base all'indirizzo IP+Nodo+Slot
+	 * @param sSoulissNodeIPAddress
+	 * @param getSoulissNodeID
+	 * @param iSlot
+	 * @return
+	 */
 	public SoulissGenericTypical getTypicalFromAddress(String sSoulissNodeIPAddress, int getSoulissNodeID, int iSlot){
 		return hashTableAddressToTypicals.get(sSoulissNodeIPAddress + getSoulissNodeID + iSlot);
 	}
 	
+	
+	/**
+	 * Cerca un tipico nella Hashtable in base al nome ITEM
+	 * @param sItem
+	 * @return
+	 */
 	public SoulissGenericTypical getTypicalFromItem(String sItem){
 		String sKey=hashTableItemToAddress.get(sItem);
 		if(sKey==null) return null;
 		return hashTableAddressToTypicals.get(sKey);
 	}
-
+/**
+ * REstituisce un iteratore 
+ */
 	public Iterator<Entry<String, SoulissGenericTypical>> getIterator(){
-		//CopyOnWriteArraySet<SoulissGenericTypical> cw = new CopyOnWriteArraySet<SoulissGenericTypical>();
-			
-	//	Iterator<Entry<String, SoulissGenericTypical>> it= hashTableAddressToTypicals.entrySet().iterator();
-		return hashTableAddressToTypicals.entrySet().iterator();	
+			return hashTableAddressToTypicals.entrySet().iterator();	
 	}
 
-
+/**
+ * Esamina la Hashtable e restituisce il numero di nodi presenti in rete Souliss
+ * @return intero
+ */
 	public int getNodeNumbers() {
 		//restituisce il numero massimo di IDNodo
 		SoulissGenericTypical typ;

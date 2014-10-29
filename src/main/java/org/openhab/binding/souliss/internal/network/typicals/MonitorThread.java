@@ -24,9 +24,6 @@ public class MonitorThread extends Thread {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see java.lang.Thread#run()
-	 */
 	@Override
 	public void run() {
 		while (true) {
@@ -43,7 +40,10 @@ public class MonitorThread extends Thread {
 		}
 	}
 
-
+/**
+ * Scansiona la HashTableinviando sul BUS Openhab soltanto i tipici contrassegnati come "updated"
+ * @param typicals
+ */
 	private void check(SoulissTypicals typicals) {
 		// TODO Auto-generated method stub
 		Iterator<Entry<String, SoulissGenericTypical>> iteratorTypicals= soulissTypicalsRecipients.getIterator();
