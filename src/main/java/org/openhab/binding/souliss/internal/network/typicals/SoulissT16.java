@@ -45,61 +45,26 @@ public class SoulissT16 extends SoulissGenericTypical {
 		this.setType(Constants.Souliss_T16);
 		this.setNote(sOHType);
  	}
-		
-//		/**
-//	 * @return the CommandON
-//	 */
-//	public void CommandON() {
-//		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN() ,this.getSoulissNodeID(), this.getSlot(), commandON );
-//	}
-//
-//	/**
-//	 * @return the CommandOFF
-//	 */
-//	public void CommandOFF() {
-//		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandOFF );	
-//	}
-//	
+/**
+ * Invia un comando senza valori RGB
+ * @param command
+ */
 	public void CommandSEND(short command) {
 		SoulissCommGate.sendFORCEFrame(SoulissNetworkParameter.datagramsocket,SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN, this.getSoulissNodeID(), this.getSlot(), command );	
 	}
 	
+	/**
+	 * Invia un comando includendo i valori RGB
+	 * @param command
+	 */	
 	public void CommandSEND(short command, short R, short G, short B) {
 		SoulissCommGate.sendFORCEFrame(SoulissNetworkParameter.datagramsocket,SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN, this.getSoulissNodeID(), this.getSlot(), command, R, G, B );	
 	}
 	
-
-//	/**
-//	 * @return the CommandTOGGLE
-//	 */
-//	public void CommandTOGGLE() {
-//		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(), this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandTOGGLE );
-//	}
-//
-//	/**
-//	 * @return the CommandMulticastON
-//	 */
-//	public void CommandMulticastON() {
-//		this.CommandMulticast(this.getDatagramsocket(), commandON);
-//	}
-//	
-//	/**
-//	 * @return the CommandMulticastOFF
-//	 */
-//	public void CommandMulticastOFF() {
-//		this.CommandMulticast(this.getDatagramsocket(), commandOFF);
-//	}
-//	
-//	/**
-//	 * @return the CommandMulticastTOGGLE
-//	 */
-//	public void CommandMulticastTOGGLE() {
-//		this.CommandMulticast(this.getDatagramsocket(), commandTOGGLE);
-//	}
-
-	//i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
-	
 	@Override
+	/**
+	 * Restituisce lo stato del tipico, in termini di percentuale
+	 */
 	public State getOHState() {
 		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),(short)this.getState());
 		if (sOHState!=null)
@@ -109,6 +74,10 @@ public class SoulissT16 extends SoulissGenericTypical {
 			
 	}
 
+	/**
+	 * Restituisce il colore nel formato HSB accetto da OT
+	 * @return org.openhab.core.types.State
+	 */
 	public org.openhab.core.types.State getOHStateRGB() {
 		Color colr = new Color(this.stateRED, this.stateGREEN, this.stateBLU);
 		HSBType hsb =new HSBType(colr);

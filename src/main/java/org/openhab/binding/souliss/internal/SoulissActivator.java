@@ -21,16 +21,13 @@ import org.slf4j.LoggerFactory;
 /**
  * Extension of the default OSGi bundle activator
  * 
- * @author Thomas.Eichstaedt-Engelen
- * @since 0.8.0
+ * @author Tonino Fazio
  */
 public final class SoulissActivator implements BundleActivator {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissActivator.class); 
 	
 	String sConfigurationFileName=Constants.ConfigurationFileName_typicals_value_bytes;
-	
-	
 	String sConfigurationFileName_commands_OHtoSOULISS=Constants.ConfigurationFileName_commands_OHtoSOULISS;
 	String sConfigurationFileName_states_SOULISStoOH=Constants.ConfigurationFileName_states_SOULISStoOH;
 	String sConfigurationFileName_ItemsType_OHtoSOULISS=Constants.ConfigurationFileName_ItemsType_SOULISS;

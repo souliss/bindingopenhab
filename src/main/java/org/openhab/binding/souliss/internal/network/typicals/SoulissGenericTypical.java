@@ -11,9 +11,6 @@ public class SoulissGenericTypical {
 	//*************************************
 	//*************************************
 	private int iSlot;
-//	private String sSoulissNodeIPAddress;
-//	private String sIPAddressOnLAN;
-	//private String sSoulissNodeVNetAddress;
 	private int iSoulissNodeID;
 	private short sType;
 	private float fState;
@@ -21,24 +18,7 @@ public class SoulissGenericTypical {
 	private boolean isUpdated=false;
 	private String sNote;
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissGenericTypical.class);
-//	private DatagramSocket datagramsocket;
-	//*************************************
-	//*************************************
 
-	
-	//*************************************
-	//*************************************
-	//GETTER & SETTER
-	//*************************************
-	//*************************************
-	
-	
-//	public DatagramSocket getDatagramsocket() {
-//		return datagramsocket;
-//	}
-//	public void setDatagramsocket(DatagramSocket datagramsocket) {
-//		this.datagramsocket = datagramsocket;
-//	}
 	/**
 	 * @return the iSlot
 	 */
@@ -51,37 +31,7 @@ public class SoulissGenericTypical {
 	public void setSlot(int iSlot) {
 		this.iSlot = iSlot;
 	}
-	/**
-	 * @return the sSoulissNodeVNetAddress
-	 */
-//	public String getSoulissNodeVNetAddress() {
-//		return sSoulissNodeVNetAddress;
-//	}
-	/**
-	 * @param sSoulissNodeVNetAddress the sSoulissNodeVNetAddress to set
-	 */
-//	public void setSoulissNodeVNetAddress(String sSoulissNodeVNetAddress) {
-//		this.sSoulissNodeVNetAddress = sSoulissNodeVNetAddress;
-//	}
-	/**
-	 * @return the sSoulissNode
-	 */
-//	public String getSoulissNodeIPAddress() {
-//		return sSoulissNodeIPAddress;
-//	}
-	/**
-	 * @param sSoulissNode the sSoulissNode to set
-	 */
-//	public void setSoulissNodeIPAddress(String sSoulissNodeIPAddress) {
-//		this.sSoulissNodeIPAddress = sSoulissNodeIPAddress;
-//	}
 	
-//	public String getSoulissNodeIPAddressOnLAN() {
-//		return sIPAddressOnLAN;
-//	}
-//	public void setSoulissNodeIPAddressOnLAN(String sIPAddressOnLAN) {
-//		this.sIPAddressOnLAN = sIPAddressOnLAN;
-//	}
 	/**
 	 * @param SoulissNode the SoulissNodeID to get
 	 */
@@ -172,7 +122,6 @@ public class SoulissGenericTypical {
 	}
 
 	public org.openhab.core.types.State getOHState() {
-		
 		return null;
 	}
 

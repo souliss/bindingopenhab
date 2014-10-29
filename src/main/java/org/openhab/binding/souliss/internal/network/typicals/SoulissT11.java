@@ -10,10 +10,15 @@ import org.openhab.core.types.State;
 public class SoulissT11 extends SoulissGenericTypical {
 //i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
 	
-//	private static final short commandON=Constants.Souliss_T1n_OnCmd;
-//	private static final short commandOFF=Constants.Souliss_T1n_OffCmd;;
-//	private static final short commandTOGGLE=Constants.Souliss_T1n_ToogleCmd;
-	
+	/**
+	 * Tipico T11
+	 * @param _datagramsocket
+	 * @param sSoulissNodeIPAddress
+	 * @param sSoulissNodeIPAddressOnLAN
+	 * @param iIDNodo
+	 * @param iSlot
+	 * @param sOHType
+	 */
 	public SoulissT11(DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
@@ -22,55 +27,19 @@ public class SoulissT11 extends SoulissGenericTypical {
 		this.setNote(sOHType);
  	}
 		
-//		/**
-//	 * @return the CommandON
-//	 */
-//	public void CommandON() {
-//		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN() ,this.getSoulissNodeID(), this.getSlot(), commandON );
-//	}
-//
-//	/**
-//	 * @return the CommandOFF
-//	 */
-//	public void CommandOFF() {
-//		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(),this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandOFF );	
-//	}
-//	
+/**
+ * Invia comando in formato esadecimale. Es: Souliss_T1n_OnCmd = 0x02; short Souliss_T1n_OffCmd = 0x04;
+ * @param command
+ */
 	public void CommandSEND(short command) {
 		SoulissCommGate.sendFORCEFrame(SoulissNetworkParameter.datagramsocket,SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN, this.getSoulissNodeID(), this.getSlot(), command );	
 	}
 
-//	/**
-//	 * @return the CommandTOGGLE
-//	 */
-//	public void CommandTOGGLE() {
-//		SoulissCommGate.sendFORCEFrame(this.getDatagramsocket(), this.getSoulissNodeIPAddress(), this.getSoulissNodeIPAddressOnLAN(), this.getSoulissNodeID(), this.getSlot(), commandTOGGLE );
-//	}
-//
-//	/**
-//	 * @return the CommandMulticastON
-//	 */
-//	public void CommandMulticastON() {
-//		this.CommandMulticast(this.getDatagramsocket(), commandON);
-//	}
-//	
-//	/**
-//	 * @return the CommandMulticastOFF
-//	 */
-//	public void CommandMulticastOFF() {
-//		this.CommandMulticast(this.getDatagramsocket(), commandOFF);
-//	}
-//	
-//	/**
-//	 * @return the CommandMulticastTOGGLE
-//	 */
-//	public void CommandMulticastTOGGLE() {
-//		this.CommandMulticast(this.getDatagramsocket(), commandTOGGLE);
-//	}
-
-	//i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
-	
 	@Override
+	/**
+	 * Restituisce un tipo openhab che rappresenta lo stato del tipico
+	 * @return org.openhab.core.types.State
+	 */
 	public State getOHState() {
 		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),(short) this.getState());
 		if(sOHState!=null){

@@ -6,8 +6,7 @@ import org.openhab.core.types.State;
 
 public class SoulissT13 extends SoulissGenericTypical {
 //i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
-	
-	
+
 	public SoulissT13(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
@@ -16,9 +15,6 @@ public class SoulissT13 extends SoulissGenericTypical {
 		this.setNote(sOHType);
 	}
 		
-	
-	//i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
-	
 	@Override
 	public State getOHState() {
 		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(), (short)this.getState());

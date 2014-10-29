@@ -20,6 +20,8 @@ import org.openhab.binding.souliss.internal.network.typicals.RefreshHEALTYThread
 import org.openhab.binding.souliss.internal.network.typicals.RefreshSUBSCRIPTIONThread;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT11;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT12;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT13;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
@@ -41,15 +43,6 @@ import org.osgi.service.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * The souliss Refresh Service polls the configured timeserver with a configurable 
- * interval and posts a new event of type ({@link DateTimeType} to the event bus.
- * The interval is 15 minutes by default and can be changed via openhab.cfg. 
- * 
- * @author Thomas.Eichstaedt-Engelen
- * @param <E>
- * @since 0.8.0
- */
 public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvider> implements ManagedService {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissBinding.class);
@@ -90,19 +83,16 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 		super.deactivate();
 	}
 
+	/**
+	 * Legge i parametri dal file di configurazione di Openhab 
+	 */
 	public void updated(Dictionary<String, ?> config)
 			throws ConfigurationException {
-		// TODO Auto-generated method stub
 		if (config != null) {
 			Enumeration<String> enumConfig= config.keys();
 						
 			while (enumConfig.hasMoreElements()){
 				String sName=enumConfig.nextElement();
-//				String sPluginName="";
-//				if (sName.equals("service.pid")) {
-//					sPluginName=(String) config.get(sName);
-//				}
-				
 				LOGGER.info("PARAMETER: " + sName + " = " + (String) config.get(sName));
 				switch (sName) {
 				case "IP_WAN":
@@ -147,13 +137,9 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 				default:
 					break;
 				}
-				
-				
-			
 	}
 		SoulissNetworkParameter.setConfigured(true);
 		setProperlyConfigured(true);
-		
 	}
 	}
 
@@ -165,14 +151,14 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 	}
 
 
-
 	@Override
+	/**
+	 * I parametri contengono il nome item di OH ed il relativo comando
+	 * Il metodo recupera il tipico dalla hashtable e chiama il metodo CommandSend della relativa classe
+	 */
 	public void receiveCommand(String itemName, Command command) {
-		// TODO Auto-generated method stub
-		super.receiveCommand(itemName, command);
-		
-		//comando ricevuto 12:10:12.150 INFO  runtime.busevents[:22] - Shutter_GF_Toilet received command DOWN
-		//qui bisogna cercare nella hastable ed inviare i comandi
+
+		//cerca nella hastable ed invia i comandi
 		SoulissGenericTypical T =SoulissGenericBindingProvider.SoulissTypicalsRecipients.getTypicalFromItem(itemName);
 		LOGGER.info("receiveCommand - " + itemName + " = " + command + " - Typical: "+ T.getType());
 		
@@ -182,15 +168,10 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			T11.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),command.toString()));
 			break;
 		case Constants.Souliss_T12: 
-			//SoulissT12 Typ =  (SoulissT12) T;
-			break;
-		case Constants.Souliss_T13:
-			
+			SoulissT12 T12 =  (SoulissT12) T;
+			T12.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),command.toString()));
 			break;
 		case Constants.Souliss_T14:
-			
-			break;
-		case Constants.Souliss_T1n_RGB:
 			
 			break;
 		case Constants.Souliss_T16:
@@ -232,46 +213,19 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 		case Constants.Souliss_T42_Antitheft_Peer:
 			//T=new SoulissT42(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
 			break;
-		case Constants.Souliss_T_related:
-			//T=new Souliss_T_related(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
-			break;
-		case Constants.Souliss_T51:
-			//T=new SoulissT51(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
-			break;
-
-		case Constants.Souliss_T52_TemperatureSensor:
-		//	SoulissT52 Typ =  (SoulissT52) T;
-			break;
-		case Constants.Souliss_T53_HumiditySensor:
-			//T=new SoulissT53(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot);
-			break;
-		case Constants.Souliss_T54_LuxSensor:
-			//T=new SoulissT54(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
-			break;
-		case Constants.Souliss_T55_VoltageSensor:
-			//T=new SoulissT44(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
-			break;
-		case Constants.Souliss_T56_CurrentSensor:
-			//T=new SoulissT56(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
-			break;
-		case Constants.Souliss_T57_PowerSensor:
-			//T=new SoulissT57(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot);
-			break;
-		case Constants.Souliss_TService_NODE_HEALTY:
-			//T=new SoulissTServiceNODE_HEALTY(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot);
-			break;
-		case Constants.Souliss_TService_NODE_TIMESTAMP:
-			//T=new SoulissTServiceNODE_TIMESTAMP(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot);
-			break;
 		default:
 			LOGGER.debug("Typical Unknow");	
 		}
-		
-		
 	}
 
 
-
+/**
+ * Converte il formato colore da HSB in RGB
+ * @param H
+ * @param S
+ * @param B
+ * @return short RGBList[] contenente i valori di colore RGB
+ */
 	private short[] HSBtoRGB(Float H, Float S, Float B) {
 		
 		int RGB =Color.HSBtoRGB(H, S, B);

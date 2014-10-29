@@ -4,8 +4,7 @@ import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.types.State;
 
 public class SoulissT51 extends SoulissGenericTypical {
-//i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
-	
+
 	public SoulissT51(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);

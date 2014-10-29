@@ -19,16 +19,27 @@ public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 		this.setNote(sOHType);
 	}
 
+	/**
+	 * Metodo usato solo per loggare il valore timestamp
+	 * @return String timestamp
+	 */
 	public String getTIMESTAMP() {
 		return timestamp;
 	}
 
+	/**
+	 * Imposta il valore del timestamp
+	 * @param string
+	 */
 	public void setTIMESTAMP(String string) {
 		timestamp = string;
 		setUpdatedTrue();
 	}
 		
 	@Override
+	/**
+	 * REstituisce il valore del tipico nel formato di OH DateTimeType 
+	 */
 	public State getOHState() {
 			return	DateTimeType.valueOf(timestamp);
 
