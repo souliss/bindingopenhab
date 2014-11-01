@@ -41,8 +41,8 @@ public class Constants {
 	public static final short Souliss_T_empty = 0;
 	public static final short Souliss_T_related = 0xFF;
 	
-	public static final short Souliss_TService_NODE_HEALTY = 0x99;
-	public static final short Souliss_TService_NODE_TIMESTAMP = 0x98;
+	public static final short Souliss_TService_NODE_HEALTY = 0x98;
+	public static final short Souliss_TService_NODE_TIMESTAMP = 0x99;
 
 	public static final int Souliss_TService_NODE_HEALTY_VIRTUAL_SLOT = 998;
 	public static final int Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT = 999;

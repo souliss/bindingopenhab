@@ -40,15 +40,5 @@ public class ConstantsUDP {
 	public static final Byte[] PING_PAYLOAD = { Souliss_UDP_function_ping, 0, 0, 0, 0 };
 	public static final Byte[] PING_BCAST_PAYLOAD = { Souliss_UDP_function_ping_bcast, 0, 0, 0, 0 };
 	public static final Byte[] DBSTRUCT_PAYLOAD = { Souliss_UDP_function_db_struct, 0, 0, 0, 0 };
-	
-	//WEBSERVER
-	public static final String AWS_MESSAGE = "awsmessage";
-    
-    public static final String PREF_DIRECTORY_LISTING = "prefDirectotyListing";
-    public static final String PREF_DIRECTORY = "prefDirectory";
-    public static final String PREF_VIBRATE = "prefVibrate";
-    public static final String PREF_PLAYSOUND = "prefPlaysound";
-    public static final String PREF_RINGTONE = "prefMessageringtone";
-    public static final String PREF_SERVER_PORT = "prefServerPort";
 
 }
