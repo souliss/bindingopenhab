@@ -5,7 +5,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.Ref;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -225,6 +224,21 @@ public class SoulissCommGate {
 		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 	}
 
+	public static void sendTYPICAL_REQUESTframe(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int iNodes) {
+
+		MACACOframe.clear();
+		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_typreq);
+		// PUTIN, STARTOFFEST, NUMBEROF
+		MACACOframe.add((byte) 0x00);// PUTIN
+		MACACOframe.add((byte) 0x00);// PUTIN
+		MACACOframe.add((byte)  0x00); //startOffset
+		MACACOframe.add((byte) iNodes); 
+		LOGGER.debug("sendHEALTY_REQUESTframe - "+ MaCacoToString(MACACOframe) + ", soulissNodeIPAddress: " + soulissNodeIPAddress+ ", soulissNodeIPAddressOnLAN: "+ soulissNodeIPAddressOnLAN);
+		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
+	}
+
+	
+	
 	static boolean flag=true;
 	private static String MaCacoToString(ArrayList<Byte> mACACOframe) {
 		while(!flag){};

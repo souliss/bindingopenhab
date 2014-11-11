@@ -1,8 +1,12 @@
-//package org.openhab.binding.souliss.internal;
-//
-//import java.io.File;
-//import java.io.IOException;
-//
+package org.openhab.binding.souliss.internal;
+
+import org.openhab.binding.souliss.internal.network.typicals.Constants;
+import org.openhab.binding.souliss.internal.network.typicals.RefreshHEALTYThread;
+import org.openhab.binding.souliss.internal.network.typicals.RefreshSUBSCRIPTIONThread;
+
+
+import java.io.IOException;//
+import java.util.logging.Logger;
 //
 ////import org.openhab.binding.souliss.internal.network.SoulissLogger;
 //import org.openhab.binding.souliss.internal.network.typicals.Constants;
@@ -10,78 +14,89 @@
 //import org.openhab.binding.souliss.internal.network.typicals.RefreshHEALTYThread;
 //import org.openhab.binding.souliss.internal.network.typicals.RefreshSUBSCRIPTIONThread;
 //import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
-//import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 //import org.openhab.binding.souliss.internal.network.typicals.SoulissT11;
 //import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
-//import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 //import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
-//import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
+import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
+import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
+import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 //import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
-//import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//
-//public class SoulissNetworkStart {
-//
-//	/**
-//	 * @param args
-//	 */
-//	public static void main(String[] args) {
-//		// PARAMETRI RETE SOULISS
-//		String sIPAddress="192.168.1.105";
-//		//String sIPAddress="78.12.99.62";
-//		String sIPAddressOnLAN="192.168.1.105";
-//		
-//		
-//		String sConfigurationFileName=".."+ File.separator  +"properties"+ File.separator  +"typicals_value_bytes.properties";
-//		String sConfigurationFileName_commands_OHtoSOULISS= ".." + File.separator  +"properties"+ File.separator  +"commands_OHtoSOULISS.properties";
-//		String sConfigurationFileName_states_SOULISStoOH= ".."+ File.separator  +"properties"+ File.separator  +"states_SOULISStoOH.properties";
-//		//time in mills
-//		final int REFRESH_DBSTRUCT_TIME=600000;
-//		final int REFRESH_SUBSCRIPTION_TIME=120000;
-//		final int REFRESH_HEALTY_TIME=10000;
-//		final int REFRESH_MONITOR_TIME=500;
-//		final int SEND_DELAY=1500;
-//		final int SEND_MIN_DELAY=10;
-//
-//		Logger LOGGER = LoggerFactory.getLogger(SoulissNetworkStart.class);
-//
-//	
+import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
+
+
+public class SoulissNetworkStart {
+
+	private static final Logger LOGGER = Logger.getLogger( SoulissNetworkStart.class.getName() );
+	
+	
+	
+	public static void main(String[] args) {
+		 
+		// PARAMETRI RETE SOULISS
+		String sIPAddress="192.168.1.105";
+		//String sIPAddress="78.12.99.62";
+		String sIPAddressOnLAN="192.168.1.105";
+		
+		
+		String sConfigurationFileName=Constants.ConfigurationFileName_typicals_value_bytes;
+
+		//time in mills
+		final int REFRESH_DBSTRUCT_TIME=600000;
+		final int REFRESH_SUBSCRIPTION_TIME=120000;
+		final int REFRESH_HEALTY_TIME=10000;
+		final int REFRESH_MONITOR_TIME=500;
+		final int SEND_DELAY=1500;
+		final int SEND_MIN_DELAY=10;
+		SoulissNetworkParameter.serverPort=230;
+	
 //		//Definizione dell'array che contiene i tipici
-//		SoulissTypicals soulissTypicalsRecipients= new SoulissTypicals();
+		SoulissTypicals soulissTypicalsRecipients= new SoulissTypicals();
 //		//**********************************************************
 //		//**********************************************************
 //		//**********************************************************
 //		//******* S T A R T ****************************************
 //		//**********************************************************
-//		//DOPO LA CREAZIONE DELLA RETE SOULISS, AVVIARE IL THREAD CHE SI OCCUPA DELLA SOTTOSCRIZIONE, AL QUALE SERVE IL NUMERO DI NODI. VEDERE ALLA FINE 
-//						UDPServerThread Q=null;
-//						try {
-//						//	SoulissLogger.setup();
-//							LOGGER.info("START");
-//							//continuare logger
-//							//http://www.vogella.com/tutorials/Logging/article.html
-//							SoulissNetworkParameter.IPAddress=sIPAddress;
-//							SoulissNetworkParameter.IPAddressOnLAN=sIPAddressOnLAN;
-//							SoulissNetworkParameter.load(sConfigurationFileName);
-//							StateTraslator.loadCommands(sConfigurationFileName_commands_OHtoSOULISS);
-//							StateTraslator.loadStates(sConfigurationFileName_states_SOULISStoOH);
+		//DOPO LA CREAZIONE DELLA RETE SOULISS, AVVIARE IL THREAD CHE SI OCCUPA DELLA SOTTOSCRIZIONE, AL QUALE SERVE IL NUMERO DI NODI. VEDERE ALLA FINE 
+						UDPServerThread Q=null;
+						try {
+						//	SoulissLogger.setup();
+							LOGGER.info("START");
+							//continuare logger
+							//http://www.vogella.com/tutorials/Logging/article.html
+							SoulissNetworkParameter.IPAddress=sIPAddress;
+							SoulissNetworkParameter.IPAddressOnLAN=sIPAddressOnLAN;
+							//SoulissNetworkParameter.load(sConfigurationFileName);
 //							//passo anche la lista dei tipici (adesso � vuota ma comunque � passata per riferimento
-//							Q=new UDPServerThread(soulissTypicalsRecipients);
-//							Q.start();
-//							new SendDispatcherThread(SEND_DELAY, SEND_MIN_DELAY).start();	
+							Q=new UDPServerThread(soulissTypicalsRecipients);
+							Q.start();
+							new SendDispatcherThread(SEND_DELAY, SEND_MIN_DELAY).start();	
 //							//� necessario passare il socket, gi� aperto sulla porta 230, perch� DBSTRUCT risponde sulla porta 230
 //						//	new RefreshDBSTRUCTThread(Q.getSocket(), sIPAddress, sIPAddressOnLAN, REFRESH_DBSTRUCT_TIME).start();
 //							new MonitorThread(soulissTypicalsRecipients, REFRESH_MONITOR_TIME, null).start();
 //									
-//						} catch (IOException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 		
-	    //SoulissCommGate.sendDBStructFrame(Q.getSocket() ,sIPAddress, sIPAddressOnLAN);
+						
+	    SoulissCommGate.sendDBStructFrame(Q.getSocket() ,sIPAddress, sIPAddressOnLAN);
+	    while(SoulissNetworkParameter.maxTypicalXnode==0){
+	    	try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    };
 	    
-	    
+	    SoulissCommGate.sendTYPICAL_REQUESTframe(Q.getSocket() ,sIPAddress, sIPAddressOnLAN,SoulissNetworkParameter.maxTypicalXnode);
+								
+								
+								
+								
 		//String sNodo4="0x6514";
 //		int iIDNodo=3;
 //		
@@ -191,14 +206,14 @@
 //		
 //		//******* S T A R T ****************************************
 //		//*** AVVIO THREAD CHE SI OCCUPA DELE SOTTOSCRIZIONI *******	
-//		int nodes=soulissTypicalsRecipients.getNodeNumbers();
+	//	int nodes=soulissTypicalsRecipients.getNodeNumbers();
 //		new RefreshSUBSCRIPTIONThread(Q.getSocket(), sIPAddress, sIPAddressOnLAN, nodes, REFRESH_SUBSCRIPTION_TIME).start();
 //		new RefreshHEALTYThread(Q.getSocket(), sIPAddress, sIPAddressOnLAN, nodes, REFRESH_HEALTY_TIME).start();
-//	}
+	}
 //
 //
 //
-//}
+}
 //**********************************************************
 		//*********** ESEMPI VARI **********************************
 		

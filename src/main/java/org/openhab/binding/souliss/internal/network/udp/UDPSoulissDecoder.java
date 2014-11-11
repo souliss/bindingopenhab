@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.openhab.binding.souliss.internal.network.typicals.Constants;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
@@ -71,11 +72,11 @@ public class UDPSoulissDecoder {
 		//	processTriggers();
 		break;
 
-		//		case ConstantsUDP.Souliss_UDP_function_typreq_resp:// Answer for assigned
+		case ConstantsUDP.Souliss_UDP_function_typreq_resp:// Answer for assigned
 		//														// typical logic
-		//		//	Log.d(Constants.TAG, "** TypReq answer");
-		//			decodeTypRequest(macacoPck);
-		//			break;
+				LOGGER.info("** TypReq answer");
+					decodeTypRequest(macacoPck);
+					break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_health_resp:// Answer nodes healty
 			LOGGER.info("function_health_resp");
 			decodeHealthRequest(macacoPck);
@@ -160,41 +161,38 @@ public class UDPSoulissDecoder {
 	 * 
 	 * @param mac
 	 */
-	//	private void decodeTypRequest(ArrayList<Short> mac) {
-	//		try {
-	//			assertEquals(Constants.Souliss_UDP_function_typreq_resp, (short) mac.get(0));
-	//			SharedPreferences.Editor editor = soulissSharedPreference.edit();
-	//			short tgtnode = mac.get(3);
-	//			int numberOf = mac.get(4);
-	//			int done = 0;
-	//			// SoulissNode node = database.getSoulissNode(tgtnode);
-	//			int typXnodo = soulissSharedPreference.getInt("TipiciXNodo", 1);
-	//			Log.i(Constants.TAG, "--DECODE MACACO OFFSET:" + tgtnode + " NUMOF:" + numberOf + " TYPICALSXNODE: "
-	//					+ typXnodo);
-	//			// creates Souliss nodes
-	//			for (int j = 0; j < numberOf; j++) {
-	//				if (mac.get(5 + j) != 0) {// create only not-empty typicals
-	//					SoulissTypicalDTO dto = new SoulissTypicalDTO();
-	//					dto.setTypical(mac.get(5 + j));
-	//					dto.setSlot(((short) (j % typXnodo)));// magia
-	//					dto.setNodeId((short) (j / typXnodo + tgtnode));
-	//					// conta solo i master
-	//					if (mac.get(5 + j) != it.angelic.soulissclient.model.typicals.Constants.Souliss_T_related)
-	//						done++;
-	//					Log.d(Constants.TAG, "---PERSISTING TYPICAL ON NODE:" + ((short) (j / typXnodo + tgtnode))
-	//							+ " SLOT:" + ((short) (j % typXnodo)) + " TYP:" + (mac.get(5 + j)));
-	//					dto.persist();
-	//				}
-	//			}
-	//			if (soulissSharedPreference.contains("numTipici"))
-	//				editor.remove("numTipici");// unused
-	//			editor.putInt("numTipici", done);
-	//			editor.commit();
-	//			Log.i(Constants.TAG, "Refreshed " + numberOf + " typicals for node " + tgtnode);
-	//		} catch (Exception uy) {
-	//			Log.e(Constants.TAG, "decodeTypRequest ERROR", uy);
-	//		}
-	//	}
+		private void decodeTypRequest(ArrayList<Short> mac) {
+			try {
+				short typ=(short) mac.get(0);
+				short tgtnode = mac.get(3);
+				int numberOf = mac.get(4);
+				int done = 0;
+				// SoulissNode node = database.getSoulissNode(tgtnode);
+				
+				int typXnodo = SoulissNetworkParameter.maxnodes;
+				LOGGER.info("--DECODE MACACO OFFSET:" + tgtnode + " NUMOF:" + numberOf + " TYPICALSXNODE: " + typXnodo);
+				// creates Souliss nodes
+				for (int j = 0; j < numberOf; j++) {
+					if (mac.get(5 + j) != 0) {// create only not-empty typicals
+						if(!(mac.get(5 + j)==Constants.Souliss_T_related)){
+							String hTyp=Integer.toHexString(mac.get(5 + j));
+							short slot=(short) (j % typXnodo);
+							short node=(short) (j / typXnodo + tgtnode);
+							
+							System.out.println("{souliss=\"T"+hTyp+":"+node+":"+slot+"}");
+							
+							
+//						System.out.println("Typ: " + "0x"+hTyp);
+//						System.out.println("Node: "+ node);
+//						System.out.println("Slot: " +slot);// magia
+//						
+						}
+					}
+				}
+			} catch (Exception uy) {
+				LOGGER.error("decodeTypRequest ERROR"); 
+			}
+		}
 
 	/**
 	 * puo giungere in seguito a state request oppure come subscription data
@@ -257,7 +255,8 @@ public class UDPSoulissDecoder {
 						((SoulissT16) typ).setStateBLU(getByteAtSlot( mac, slot+3));
 						
 					}
-					
+				
+					if(typ.getType()!=152 && typ.getType()!=153) //non esegue per healt e timestamp, perchè il LOG viene inserito in un altro punto del codice
 					if(iNumBytes==4)
 						//RGB Log
 						LOGGER.debug("decodeStateRequest:  " + typ.getName() + " ( " + Short.valueOf(typ.getType()) + ") = " + ((SoulissT16) typ).getState()+ ". RGB= "+((SoulissT16) typ).getStateRED()+ ", "+((SoulissT16) typ).getStateGREEN()+ ", "+((SoulissT16) typ).getStateBLU());
@@ -299,7 +298,7 @@ public class UDPSoulissDecoder {
 		for (int i = 5; i < 5 + numberOf; i++) {
 			//healths.add(Short.valueOf(mac.get(i)));
 			SoulissTServiceUpdater.updateHEALTY(soulissTypicalsRecipients, i-5,Short.valueOf(mac.get(i)) );
-			LOGGER.debug("decodeHealthRequest: node " + (i-5) + " = "+ Short.valueOf(mac.get(i)));
+			//LOGGER.debug("decodeHealthRequest: node " + (i-5) + " = "+ Short.valueOf(mac.get(i)));
 		}
 	}
 }
