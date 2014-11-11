@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 
 public class SoulissCommGate {
-	static ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
+	
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissCommGate.class);
 	
 	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand) {
@@ -19,7 +19,7 @@ public class SoulissCommGate {
 	}
 	
 	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand, Short R, Short G, Short B) {
-		MACACOframe.clear();
+		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_force);
 		
 		// PUTIN, STARTOFFEST, NUMBEROF
@@ -50,7 +50,7 @@ public class SoulissCommGate {
 	}
 
 	public static void sendDBStructFrame(DatagramSocket socket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN) {
-		MACACOframe.clear();
+		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_db_struct);
 		MACACOframe.add((byte) 0x0);// PUTIN
 		MACACOframe.add((byte) 0x0);// PUTIN
@@ -71,17 +71,8 @@ public class SoulissCommGate {
 
 	}
 	
-	
-//	private static void send(ArrayList<Byte> MACACOframe, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN) {
-//		send(null, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
-//	}
-
-	
-	
-	
 	private static void send(DatagramSocket socket, ArrayList<Byte> MACACOframe, String soulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN) {
-//		int iUserIndex=70;
-//		int iNodeIndex= 133;
+
 		int iUserIndex=SoulissNetworkParameter.UserIndex;
 		int iNodeIndex= SoulissNetworkParameter.NodeIndex;;
 		
@@ -91,20 +82,9 @@ public class SoulissCommGate {
 		InetAddress serverAddr;
 		try {
 			serverAddr = InetAddress.getByName(soulissNodeIPAddress);
-		//	sender = getSenderSocket(serverAddr);
-			
-			//se il socket (quello passato è quello sulla porta 230) è null allora ne creo uno 
-			//if(socket==null) socket= new DatagramSocket();
-			
 			DatagramPacket packet = new DatagramPacket( merd, merd.length, serverAddr, ConstantsUDP.SOULISSPORT);
-			
 			SendDispatcherThread.put(socket, packet);
-			
-		//	socket.send(packet);
-
-			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			LOGGER.error(e.getMessage());
 		}
@@ -164,7 +144,7 @@ public class SoulissCommGate {
 	
 	public static void sendMULTICASTFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, short typical, short shortCommand) {
 		
-		MACACOframe.clear();
+		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_force_massive);
 		
 		// PUTIN, STARTOFFEST, NUMBEROF
@@ -181,7 +161,7 @@ public class SoulissCommGate {
 
 	public static void sendPing(DatagramSocket datagramSocket, String soulissNodeIPAddress,  String soulissNodeIPAddressOnLAN, short putIn_1,	short punIn_2) {
 
-		MACACOframe.clear();
+		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_ping);
 		
 		// PUTIN, STARTOFFEST, NUMBEROF
@@ -196,7 +176,7 @@ public class SoulissCommGate {
 
 	public static void sendSUBSCRIPTIONframe(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int iNodes) {
 
-		MACACOframe.clear();
+		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_subscribe);
 		
 		// PUTIN, STARTOFFEST, NUMBEROF
@@ -212,7 +192,7 @@ public class SoulissCommGate {
 
 	public static void sendHEALTY_REQUESTframe(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int iNodes) {
 
-		MACACOframe.clear();
+		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_healthReq);
 		
 		// PUTIN, STARTOFFEST, NUMBEROF
@@ -226,7 +206,7 @@ public class SoulissCommGate {
 
 	public static void sendTYPICAL_REQUESTframe(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int iNodes) {
 
-		MACACOframe.clear();
+		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_typreq);
 		// PUTIN, STARTOFFEST, NUMBEROF
 		MACACOframe.add((byte) 0x00);// PUTIN

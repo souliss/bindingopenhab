@@ -18,9 +18,7 @@ public class SendDispatcherThread  extends Thread {
 	int SEND_MIN_DELAY;
 	static boolean bPopSuspend=false;
 	private static Logger LOGGER = LoggerFactory.getLogger(SendDispatcherThread.class);
-	
-	private static boolean bCheck=true;		
-	
+		
 	public SendDispatcherThread(int SEND_DELAY, int SEND_MIN_DELAY) throws IOException {
 	    this("SendDispatcher");
 	    this.SEND_DELAY=SEND_DELAY;
@@ -34,16 +32,16 @@ public class SendDispatcherThread  extends Thread {
 	}
 
 	public synchronized static void put(DatagramSocket socket, DatagramPacket packetToPUT) {
+			
 		bPopSuspend=true;
 			boolean bPacchettoGestito=false;
+			//estraggo il nodo indirizzato dal pacchetto in ingresso
 			int node=getNode(packetToPUT);
 			LOGGER.debug("Push");
 			if (packetsList.size()==0 || node < 0) {
 				bPacchettoGestito=false;
 			} else{
 			for(int i=0; i<packetsList.size();i++){
-				//estraggo il nodo indirizzato dal pacchetto in ingresso
-				//node=getNode(packetToPUT);
 				//se il nodo da inserire � un comando FORCE restituisce valore > -1 uguale al numero di nodo indirizzato
 				//e se il nodo indirizzato � uguale a quello packetsList.get(i).packet presente in lista
 				//e se il socket � lo stesso uguale a quello packetsList.get(i).socket presente in lista
@@ -126,7 +124,6 @@ public class SendDispatcherThread  extends Thread {
 					t_prec=System.currentTimeMillis();
 					SocketAndPacket sp=packetsList.remove(0);
 					LOGGER.debug("Pop frame "+ MaCacoToString(sp.packet.getData()) + " - Delay for 'SendDispatcherThread' setted to " + iDelay + " mills.");
-					bCheck=true;
 					return sp;
 				}
 			}
