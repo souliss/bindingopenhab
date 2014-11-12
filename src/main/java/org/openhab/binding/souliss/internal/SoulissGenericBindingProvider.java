@@ -51,38 +51,17 @@ public class SoulissGenericBindingProvider extends AbstractGenericBindingProvide
 		super.processBindingConfiguration(context, item, bindingConfig);
 		String[] sNameArray=bindingConfig.split("\\:");
 		String sTypical= sNameArray[0];
-		//String sIP_Wan= sNameArray[1];
-		//String sIP_Lan = sNameArray[2];
 		int iNodeID=Integer.parseInt(sNameArray[1]);
 		int iSlot=Integer.parseInt(sNameArray[2]);
 		String sNote=item.getClass().getSimpleName();
 	
-	//SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),sIP_Wan, sIP_Lan,iNodeID, iSlot,sNote);
 		SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),SoulissNetworkParameter.datagramsocket ,  SoulissNetworkParameter.IPAddress, SoulissNetworkParameter.IPAddressOnLAN,iNodeID, iSlot,sNote);
-	SoulissTypicalsRecipients.addTypical(item.getName(), soulitTypicalNew );
-	
-	
+		SoulissTypicalsRecipients.addTypical(item.getName(), soulitTypicalNew );
 	}
 
-//	public String getNodeId(String itemName) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	public String getSlot(String itemName) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	public void validateItemType(Item item, String bindingConfig)
 			throws BindingConfigParseException {
-		// TODO Auto-generated method stub
-		
 	}
-
-//	public String getValue(String itemName) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 }

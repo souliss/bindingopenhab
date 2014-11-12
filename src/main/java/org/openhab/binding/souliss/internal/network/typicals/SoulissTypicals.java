@@ -27,11 +27,11 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 			LOGGER.info("Add Item: " +  sItem + " - Typ: " + Integer.toHexString(typical.getType()) + ", Node: "+ typical.getSoulissNodeID() + ", Slot: " + typical.getSlot());
 			typical.setName(sItem);
 			//la chiave della hasttable è:  IP Address + VNET Address + slot
-			LOGGER.info("hashTableItemToAddress <-- [" + sItem + " - " + SoulissNetworkParameter.IPAddressOnLAN + typical.getSoulissNodeID() + typical.getSlot() + "]");
-			hashTableItemToAddress.put(sItem, SoulissNetworkParameter.IPAddressOnLAN + typical.getSoulissNodeID() + typical.getSlot());
+			LOGGER.info("hashTableItemToAddress <-- [key: " + sItem + " - value: " + String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()) + "]");
+			hashTableItemToAddress.put(sItem, String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()));
 			//la chiave della hasttable è:  item
-			LOGGER.info("hashTableAddressToTypicals <-- [" + SoulissNetworkParameter.IPAddressOnLAN+ typical.getSoulissNodeID() + typical.getSlot() + " - " + typical + "]");
-			hashTableAddressToTypicals.put(SoulissNetworkParameter.IPAddressOnLAN+ typical.getSoulissNodeID() + typical.getSlot(), typical);	
+			LOGGER.info("hashTableAddressToTypicals <-- [key: " + typical.getSoulissNodeID() + String.valueOf(typical.getSlot()) + " - value: " + typical + "]");
+			hashTableAddressToTypicals.put(String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()), typical);	
 		}
 		
 	}
@@ -51,8 +51,8 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 	 * @param iSlot
 	 * @return
 	 */
-	public SoulissGenericTypical getTypicalFromAddress(String sSoulissNodeIPAddress, int getSoulissNodeID, int iSlot){
-		return hashTableAddressToTypicals.get(sSoulissNodeIPAddress + getSoulissNodeID + iSlot);
+	public SoulissGenericTypical getTypicalFromAddress(int getSoulissNodeID, int iSlot){
+		return hashTableAddressToTypicals.get(String.valueOf(getSoulissNodeID) + String.valueOf(iSlot));
 	}
 	
 	

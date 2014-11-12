@@ -21,12 +21,12 @@ public class SoulissTServiceUpdater {
 	public static void updateHEALTY(SoulissTypicals soulissTypicalsRecipients, int idNodo, Short valueOf) {
 		//CREAZIONE / AGGIORNAMENTO NODI FITTIZI
 		LOGGER.debug("request to updateHEALTY. Node:  " + idNodo + "; Value: " + valueOf);
-		SoulissTServiceNODE_HEALTY VirtualTypical = (SoulissTServiceNODE_HEALTY) soulissTypicalsRecipients.getTypicalFromAddress(SoulissNetworkParameter.IPAddress, idNodo, Constants.Souliss_TService_NODE_HEALTY_VIRTUAL_SLOT);
+		SoulissTServiceNODE_HEALTY VirtualTypical = (SoulissTServiceNODE_HEALTY) soulissTypicalsRecipients.getTypicalFromAddress(idNodo, Constants.Souliss_TService_NODE_HEALTY_VIRTUAL_SLOT);
 		if(VirtualTypical!=null){
 			VirtualTypical.setState(valueOf);
 			LOGGER.debug("updateHEALTY:  " + VirtualTypical.getName() + " ( " + Short.valueOf(VirtualTypical.getType()) + ") = " + valueOf);
 		} else {
-			LOGGER.debug("Error for retrieving VirtualTypical from HashTable: "+ SoulissNetworkParameter.IPAddress + ", "+ idNodo+", "+  Constants.Souliss_TService_NODE_HEALTY_VIRTUAL_SLOT);
+			LOGGER.debug("Error for retrieving VirtualTypical from HashTable: "+ idNodo+", "+  Constants.Souliss_TService_NODE_HEALTY_VIRTUAL_SLOT);
 		}
 		
 		
@@ -39,14 +39,14 @@ public class SoulissTServiceUpdater {
 	public static void updateTIMESTAMP(	SoulissTypicals soulissTypicalsRecipients, int idNodo) {
 		//CREAZIONE / AGGIORNAMENTO NODI FITTIZI
 		LOGGER.debug("request to updateTIMESTAMP. Node:  " + idNodo);
-		SoulissTServiceNODE_TIMESTAMP VirtualTypical = (SoulissTServiceNODE_TIMESTAMP) soulissTypicalsRecipients.getTypicalFromAddress(SoulissNetworkParameter.IPAddress, idNodo, Constants.Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT);
+		SoulissTServiceNODE_TIMESTAMP VirtualTypical = (SoulissTServiceNODE_TIMESTAMP) soulissTypicalsRecipients.getTypicalFromAddress(idNodo, Constants.Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT);
 		
 		if(VirtualTypical!=null){ 
 			String tstamp = getTimestamp();
 			VirtualTypical.setTIMESTAMP(tstamp);
 			LOGGER.debug("updateTIMESTAMP:  " + VirtualTypical.getName() + " ( " + Short.valueOf(VirtualTypical.getType()) + ") = " + tstamp);
 		} else {
-			LOGGER.debug("Error for retrieving VirtualTypical from HashTable: "+ SoulissNetworkParameter.IPAddress + ", "+ idNodo+", "+  Constants.Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT);
+			LOGGER.debug("Error for retrieving VirtualTypical from HashTable: "+ idNodo+", "+  Constants.Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT);
 		}
 	
 }
