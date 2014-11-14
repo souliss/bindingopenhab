@@ -1,6 +1,5 @@
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import java.awt.Color;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import org.openhab.core.events.EventPublisher;
@@ -22,7 +21,6 @@ public class MonitorThread extends Thread {
 		LOGGER.info("Avvio MonitorThread");
 		eventPublisher=_eventPublisher;
 	}
-
 
 	@Override
 	public void run() {
@@ -59,11 +57,18 @@ public class MonitorThread extends Thread {
 					} else if(typ.getType()==Constants.Souliss_T16){
 						//solo se è RGB
 						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + ((SoulissT16) typ).getState() + ", R=" + ((SoulissT16) typ).stateRED + ", G=" + ((SoulissT16) typ).stateGREEN+ ", B=" + ((SoulissT16) typ).stateBLU);
-						eventPublisher.postUpdate(typ.getName(),   ((SoulissT16) typ).getOHStateRGB());
-					} else {
+					}else if(typ.getType()==Constants.Souliss_T1A){
+						LOGGER.debug("Put on Bus Events - " + typ.getName() + " - Bit " +((SoulissT1A)typ).getBit() + " = " + Float.toString(typ.getState()) );
+					}else {
 						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + Float.toString(typ.getState()) );
 					}
-					eventPublisher.postUpdate(typ.getName(),   typ.getOHState());
+					
+					if(typ.getType()==Constants.Souliss_T16) {
+						eventPublisher.postUpdate(typ.getName(),   ((SoulissT16) typ).getOHStateRGB());
+					} else {
+						eventPublisher.postUpdate(typ.getName(),   typ.getOHState());	
+					}
+					
 					typ.resetUpdate();
 				}
 			}

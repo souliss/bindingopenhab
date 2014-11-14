@@ -253,7 +253,6 @@ public class UDPSoulissDecoder {
 						((SoulissT16) typ).setStateRED(getByteAtSlot( mac, slot+1));
 						((SoulissT16) typ).setStateGREEN(getByteAtSlot( mac, slot+2));
 						((SoulissT16) typ).setStateBLU(getByteAtSlot( mac, slot+3));
-						
 					}
 				
 					if(typ.getType()!=152 && typ.getType()!=153) //non esegue per healt e timestamp, perchè il LOG viene inserito in un altro punto del codice

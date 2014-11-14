@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 
 public class SoulissTypicals {
 
-//	private Hashtable<String, SoulissGenericTypical> hashTableAddressToTypicals_notSync= new Hashtable<String, SoulissGenericTypical>();
-//	private Hashtable<String, String> hashTableItemToAddress_notSync= new Hashtable<String, String>();
 private Map<String, SoulissGenericTypical> hashTableAddressToTypicals = Collections.synchronizedMap(new Hashtable<String, SoulissGenericTypical>());
 private Map<String, String> hashTableItemToAddress =Collections.synchronizedMap(new Hashtable<String, String>());
 private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
@@ -24,14 +22,20 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
  */
 	public void addTypical(String sItem, SoulissGenericTypical typical){
 		synchronized (typical) {
-			LOGGER.info("Add Item: " +  sItem + " - Typ: " + Integer.toHexString(typical.getType()) + ", Node: "+ typical.getSoulissNodeID() + ", Slot: " + typical.getSlot());
+			int iBit=0;
+			if(typical.getType()==Constants.Souliss_T1A){
+				LOGGER.info("Add Item: " +  sItem + " - Typ: " + Integer.toHexString(typical.getType()) + ", Node: "+ typical.getSoulissNodeID() + ", Slot: " + typical.getSlot()+ ", Bit: " + ((SoulissT1A)typical).getBit());
+				iBit=((SoulissT1A)typical).getBit();
+			} else {
+				LOGGER.info("Add Item: " +  sItem + " - Typ: " + Integer.toHexString(typical.getType()) + ", Node: "+ typical.getSoulissNodeID() + ", Slot: " + typical.getSlot());
+			}
 			typical.setName(sItem);
 			//la chiave della hasttable è:  IP Address + VNET Address + slot
-			LOGGER.info("hashTableItemToAddress <-- [key: " + sItem + " - value: " + String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()) + "]");
+			LOGGER.info("hashTableItemToAddress <-- [key: " + sItem + " - value: " + String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()) +iBit +"]");
 			hashTableItemToAddress.put(sItem, String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()));
 			//la chiave della hasttable è:  item
-			LOGGER.info("hashTableAddressToTypicals <-- [key: " + typical.getSoulissNodeID() + String.valueOf(typical.getSlot()) + " - value: " + typical + "]");
-			hashTableAddressToTypicals.put(String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()), typical);	
+			LOGGER.info("hashTableAddressToTypicals <-- [key: " + typical.getSoulissNodeID() + String.valueOf(typical.getSlot()) + iBit + " - value: " + typical + "]");
+			hashTableAddressToTypicals.put(String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()) + iBit, typical);	
 		}
 		
 	}
@@ -51,8 +55,9 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 	 * @param iSlot
 	 * @return
 	 */
-	public SoulissGenericTypical getTypicalFromAddress(int getSoulissNodeID, int iSlot){
-		return hashTableAddressToTypicals.get(String.valueOf(getSoulissNodeID) + String.valueOf(iSlot));
+	public SoulissGenericTypical getTypicalFromAddress(int getSoulissNodeID, int iSlot, Integer iBit){
+		if (iBit==null) iBit=0;
+		return hashTableAddressToTypicals.get(String.valueOf(getSoulissNodeID) + String.valueOf(iSlot)+iBit);
 	}
 	
 	

@@ -53,9 +53,14 @@ public class SoulissGenericBindingProvider extends AbstractGenericBindingProvide
 		String sTypical= sNameArray[0];
 		int iNodeID=Integer.parseInt(sNameArray[1]);
 		int iSlot=Integer.parseInt(sNameArray[2]);
+		int iBit=0;
+		if(sNameArray.length>3){
+		iBit=Integer.parseInt(sNameArray[3]);
+		}
+		
 		String sNote=item.getClass().getSimpleName();
 	
-		SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),SoulissNetworkParameter.datagramsocket ,  SoulissNetworkParameter.IPAddress, SoulissNetworkParameter.IPAddressOnLAN,iNodeID, iSlot,sNote);
+		SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),SoulissNetworkParameter.datagramsocket ,  SoulissNetworkParameter.IPAddress, SoulissNetworkParameter.IPAddressOnLAN,iNodeID, iSlot,sNote, iBit);
 		SoulissTypicalsRecipients.addTypical(item.getName(), soulitTypicalNew );
 	}
 

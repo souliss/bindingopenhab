@@ -56,7 +56,8 @@ public class Constants {
 	public static final short Souliss_T16 = 0x16;
 	public static final short Souliss_T18 = 0x18;
 	public static final short Souliss_T19 = 0x19;
-
+	public static final short Souliss_T1A = 0x1A;
+	
 	public static final short Souliss_T21 = 0x21;// Motorized devices with limit
 													// switches
 	public static final short Souliss_T22 = 0x22;// Motorized devices with limit
