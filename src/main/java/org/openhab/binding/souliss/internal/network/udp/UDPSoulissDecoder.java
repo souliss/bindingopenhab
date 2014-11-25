@@ -10,6 +10,7 @@ import org.openhab.binding.souliss.internal.network.typicals.Constants;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT1A;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTServiceUpdater;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 
@@ -202,7 +203,7 @@ public class UDPSoulissDecoder {
 	 * @param mac
 	 */
 	private void decodeStateRequest(ArrayList<Short> mac) {
-
+		boolean bDecoded_forLOG=false;
 		int tgtnode = mac.get(3);
 //		QUI. AGGIORNAMENTO DEL TIMESTAMP PER OGNI NODO. DA FARE USANDO NODI FITTIZI
 		SoulissTServiceUpdater.updateTIMESTAMP(soulissTypicalsRecipients, tgtnode);
@@ -212,13 +213,12 @@ public class UDPSoulissDecoder {
 
 		//sfoglio hashtable e scelgo tipici nodo indicato nel frame
 		// leggo valore tipico in base allo slot
-
-		Iterator<Entry<String, SoulissGenericTypical>> iteratorTypicals= soulissTypicalsRecipients.getIterator();
-		synchronized (iteratorTypicals) {
+		synchronized (this) {
+			Iterator<Entry<String, SoulissGenericTypical>> iteratorTypicals= soulissTypicalsRecipients.getIterator();
 			while (iteratorTypicals.hasNext()){
 				SoulissGenericTypical typ=iteratorTypicals.next().getValue();
 				//se il tipico estratto appartiene al nodo che il frame deve aggiornare...
-
+				bDecoded_forLOG=false;
 				if(typ.getSoulissNodeID()==tgtnode){
 
 					//...allora controllo lo slot
@@ -228,7 +228,7 @@ public class UDPSoulissDecoder {
 
 				try {
 						String sHex=Integer.toHexString(typ.getType());
-						String sRes=SoulissNetworkParameter.getPropTypicalBytes(sHex);
+						String sRes=SoulissNetworkParameter.getPropTypicalBytes(sHex.toUpperCase());
 						if (sRes!=null) iNumBytes=Integer.parseInt(sRes);
 					} catch (NumberFormatException e) {
 						// TODO Auto-generated catch block
@@ -236,15 +236,23 @@ public class UDPSoulissDecoder {
 						iNumBytes=0;
 					}
 				float val = 0;
-					if(iNumBytes==1){
+				if(typ.getType()==0x1A){
+					//short sVal=getShortAtSlot(mac, slot);
+					short sVal=getByteAtSlot(mac, slot);
+					((SoulissT1A) typ).setState(sVal);
+					bDecoded_forLOG=true;
+					
+				}else if(iNumBytes==1){
 						//caso valori digitali
 						val=getByteAtSlot( mac, slot);
 						typ.setState(val);
+						bDecoded_forLOG=true;
 						//System.out.println("Nodo " + tgtnode + ", Slot: " + slot + ", Byte val: " + getByteAtSlot( mac, slot) );
 					}else if(iNumBytes==2){
 						//caso valori float
 						val=getFloatAtSlot(mac, slot);
 						typ.setState(val);
+						bDecoded_forLOG=true;
 						//System.out.println("Nodo " + tgtnode + ", Slot: " + slot + ", Float val: " + getFloatAtSlot( mac, slot) );
 					} else if(iNumBytes==4){
 						//T16 RGB
@@ -253,6 +261,7 @@ public class UDPSoulissDecoder {
 						((SoulissT16) typ).setStateRED(getByteAtSlot( mac, slot+1));
 						((SoulissT16) typ).setStateGREEN(getByteAtSlot( mac, slot+2));
 						((SoulissT16) typ).setStateBLU(getByteAtSlot( mac, slot+3));
+						bDecoded_forLOG=true;
 					}
 				
 					if(typ.getType()!=152 && typ.getType()!=153) //non esegue per healt e timestamp, perchè il LOG viene inserito in un altro punto del codice
@@ -260,8 +269,12 @@ public class UDPSoulissDecoder {
 						//RGB Log
 						LOGGER.debug("decodeStateRequest:  " + typ.getName() + " ( " + Short.valueOf(typ.getType()) + ") = " + ((SoulissT16) typ).getState()+ ". RGB= "+((SoulissT16) typ).getStateRED()+ ", "+((SoulissT16) typ).getStateGREEN()+ ", "+((SoulissT16) typ).getStateBLU());
 					else
-						LOGGER.debug("decodeStateRequest:  " + typ.getName() + " ( " + Short.valueOf(typ.getType()) + ") = " + Float.valueOf(val));
-						
+						if(bDecoded_forLOG){
+							if(typ.getType()==0x1A){
+							LOGGER.debug("decodeStateRequest: " + typ.getName() + " (0x" + Integer.toHexString(typ.getType()) + ") = "+ Integer.toBinaryString(((SoulissT1A) typ).getRawState()));
+							}else
+							LOGGER.debug("decodeStateRequest: " + typ.getName() + " (0x" + Integer.toHexString(typ.getType()) + ") = " + Float.valueOf(val));
+						}
 				}
 			}
 		}
@@ -281,6 +294,14 @@ public class UDPSoulissDecoder {
 				return ret;
 	}
 
+	
+//	private short getShortAtSlot(ArrayList<Short> mac, int slot) {
+//		int iOutput=mac.get(5 + slot);
+//		int iOutput2=mac.get(5 + slot+1);
+//		//ora ho i due bytes, li converto
+//		int shifted = iOutput2 << 8;
+//		return (short) (iOutput+shifted);
+//}
 /**
 	 * Decodes a souliss nodes health request
 	 * 

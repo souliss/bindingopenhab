@@ -53,9 +53,9 @@ public class SoulissGenericBindingProvider extends AbstractGenericBindingProvide
 		String sTypical= sNameArray[0];
 		int iNodeID=Integer.parseInt(sNameArray[1]);
 		int iSlot=Integer.parseInt(sNameArray[2]);
-		int iBit=0;
-		if(sNameArray.length>3){
-		iBit=Integer.parseInt(sNameArray[3]);
+		byte iBit=0;
+		if(sNameArray.length > 3){
+		iBit=Byte.parseByte(sNameArray[3]);
 		}
 		
 		String sNote=item.getClass().getSimpleName();

@@ -58,7 +58,7 @@ public class MonitorThread extends Thread {
 						//solo se è RGB
 						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + ((SoulissT16) typ).getState() + ", R=" + ((SoulissT16) typ).stateRED + ", G=" + ((SoulissT16) typ).stateGREEN+ ", B=" + ((SoulissT16) typ).stateBLU);
 					}else if(typ.getType()==Constants.Souliss_T1A){
-						LOGGER.debug("Put on Bus Events - " + typ.getName() + " - Bit " +((SoulissT1A)typ).getBit() + " = " + Float.toString(typ.getState()) );
+						LOGGER.debug("Put on Bus Events - " + typ.getName() + " - Bit " +((SoulissT1A)typ).getBit() + " - RawState: " + Integer.toBinaryString(((SoulissT1A)typ).getRawState()) + " - Bit State: " + ((SoulissT1A) typ).getBitState()); 
 					}else {
 						LOGGER.debug("Put on Bus Events - " + typ.getName() + " = " + Float.toString(typ.getState()) );
 					}

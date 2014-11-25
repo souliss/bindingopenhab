@@ -68,7 +68,7 @@ public class SoulissGenericTypical {
 	 * @param iState the iState to set
 	 */
 	public void setState(float iState) {
-		LOGGER.debug("Update State. Name: "+ getName() +", Typ: " + getType() + ", Node: "+ getSoulissNodeID() + ", Slot: " + getSlot() + ". New State: "+ iState);
+		LOGGER.debug("Update State. Name: "+ getName() +", Typ: " + "0x"+Integer.toHexString(getType()) + ", Node: "+ getSoulissNodeID() + ", Slot: " + getSlot() + ". New State: "+ iState);
 		this.fState = iState;
 		setUpdatedTrue();
 	}

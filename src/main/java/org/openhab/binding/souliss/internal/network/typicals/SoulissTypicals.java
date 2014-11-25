@@ -32,7 +32,7 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 			typical.setName(sItem);
 			//la chiave della hasttable è:  IP Address + VNET Address + slot
 			LOGGER.info("hashTableItemToAddress <-- [key: " + sItem + " - value: " + String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()) +iBit +"]");
-			hashTableItemToAddress.put(sItem, String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()));
+			hashTableItemToAddress.put(sItem, String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot())+ iBit);
 			//la chiave della hasttable è:  item
 			LOGGER.info("hashTableAddressToTypicals <-- [key: " + typical.getSoulissNodeID() + String.valueOf(typical.getSlot()) + iBit + " - value: " + typical + "]");
 			hashTableAddressToTypicals.put(String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()) + iBit, typical);	

@@ -31,10 +31,10 @@ public class StateTraslator {
 
 	public static String statesSoulissToOH(String sOHType, short s, short f) {
 		String s1=Integer.toHexString(s); 
-		s1= s1.length() < 2 ? "0x0" + s1 : "0x"+s1;
+		s1= s1.length() < 2 ? "0x0" + s1.toUpperCase() : "0x"+s1.toUpperCase();
 		
 		String s2=Integer.toHexString(f);
-		s2= s2.length() < 2 ? "0x0" + s2 : "0x"+s2;
+		s2= s2.length() < 2 ? "0x0" + s2.toUpperCase(): "0x"+s2.toUpperCase();
 		
 		
 		String sRes=null;

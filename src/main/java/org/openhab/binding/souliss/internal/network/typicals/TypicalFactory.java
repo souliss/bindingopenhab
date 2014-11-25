@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 public class TypicalFactory {
 	private static Logger LOGGER = LoggerFactory.getLogger(TypicalFactory.class);
 	
-	public static SoulissGenericTypical getClass(short soulissType, DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo ,int iSlot, String sOHType, int iBit) {
+	public static SoulissGenericTypical getClass(short soulissType, DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo ,int iSlot, String sOHType, byte iBit) {
 		// TODO Auto-generated method stub
 		
 		SoulissGenericTypical T=null;
