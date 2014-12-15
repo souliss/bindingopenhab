@@ -18,6 +18,8 @@ import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
 import org.openhab.core.items.Item;
 import org.openhab.model.item.binding.AbstractGenericBindingProvider;
 import org.openhab.model.item.binding.BindingConfigParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -37,7 +39,7 @@ import org.openhab.model.item.binding.BindingConfigParseException;
  * @since 0.8.0
  */
 public class SoulissGenericBindingProvider extends AbstractGenericBindingProvider implements SoulissBindingProvider {
-
+	private static Logger LOGGER = LoggerFactory.getLogger(TypicalFactory.class);
 	public static SoulissTypicals SoulissTypicalsRecipients= new SoulissTypicals();
 	
 	public String getBindingType() {
@@ -61,7 +63,12 @@ public class SoulissGenericBindingProvider extends AbstractGenericBindingProvide
 		String sNote=item.getClass().getSimpleName();
 	
 		SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(StateTraslator.stringToSOULISSTypicalCode(sTypical),SoulissNetworkParameter.datagramsocket ,  SoulissNetworkParameter.IPAddress, SoulissNetworkParameter.IPAddressOnLAN,iNodeID, iSlot,sNote, iBit);
-		SoulissTypicalsRecipients.addTypical(item.getName(), soulitTypicalNew );
+		if(soulitTypicalNew!=null){
+			SoulissTypicalsRecipients.addTypical(item.getName(), soulitTypicalNew );
+		} else {
+			LOGGER.debug("Typical Unknow");	
+		}
+		
 	}
 
 

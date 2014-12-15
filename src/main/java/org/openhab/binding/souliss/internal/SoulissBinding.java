@@ -23,6 +23,7 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissT11;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT12;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT13;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT19;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 
@@ -189,7 +190,8 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			
 			break;
 		case Constants.Souliss_T19:
-			
+			SoulissT19 T19 =  (SoulissT19) T;
+			T19.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(), command.toString()));
 			break;
 		case Constants.Souliss_T21: 
 			

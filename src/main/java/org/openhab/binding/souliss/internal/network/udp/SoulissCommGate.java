@@ -17,7 +17,8 @@ public class SoulissCommGate {
 	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand) {
 		sendFORCEFrame(datagramSocket, soulissNodeIPAddress, soulissNodeIPAddressOnLAN, IDNode, slot, shortCommand, null, null, null);
 	}
-	
+
+	//send force frame with command and RGB value
 	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand, Short R, Short G, Short B) {
 		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_force);
@@ -27,8 +28,10 @@ public class SoulissCommGate {
 		MACACOframe.add((byte) 0x0);// PUTIN
 		
 		MACACOframe.add((byte) (IDNode));// Start Offset
-		if( R==null ||G==null || B==null )
+		if( R==null && G==null && B==null )
 			MACACOframe.add((byte) ((byte) slot+ 1)); //Number Of
+		else if ( G==null && B==null )
+			MACACOframe.add((byte) ((byte) slot+ 2)); //Number Of
 		else
 			MACACOframe.add((byte) ((byte) slot+ 4)); //Number Of slot= OnOFF + Red + Green + Blu
 		
@@ -42,13 +45,12 @@ public class SoulissCommGate {
 			MACACOframe.add(G.byteValue());// PAYLOAD
 			MACACOframe.add(B.byteValue());// PAYLOAD	
 		}
-				
 		
 		LOGGER.debug("sendFORCEFrame - "+ MaCacoToString(MACACOframe) + ", soulissNodeIPAddress: " + soulissNodeIPAddress+ ", soulissNodeIPAddressOnLAN: "+ soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 		
 	}
-
+	
 	public static void sendDBStructFrame(DatagramSocket socket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN) {
 		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_db_struct);

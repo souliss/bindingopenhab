@@ -102,9 +102,6 @@ public class UDPSoulissDecoder {
 	}
 
 	//	/**
-	//	 * Alla ricezione di una risposta ping, aggiorna il cached address F e`
-	//	 * locale, se trovo B e` Remoto
-	//	 * 
 	//	 * @param mac
 	//	 */
 	private void decodePing(ArrayList<Short> mac) {
@@ -241,7 +238,11 @@ public class UDPSoulissDecoder {
 					short sVal=getByteAtSlot(mac, slot);
 					((SoulissT1A) typ).setState(sVal);
 					bDecoded_forLOG=true;
-					
+				}else if(typ.getType()==0x19){
+					//set value of T19 at number of second slot
+					short sVal=getByteAtSlot(mac, slot+1);
+					typ.setState(sVal);
+					bDecoded_forLOG=true;
 				}else if(iNumBytes==1){
 						//caso valori digitali
 						val=getByteAtSlot( mac, slot);
