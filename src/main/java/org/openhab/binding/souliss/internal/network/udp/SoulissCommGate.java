@@ -18,8 +18,13 @@ public class SoulissCommGate {
 		sendFORCEFrame(datagramSocket, soulissNodeIPAddress, soulissNodeIPAddressOnLAN, IDNode, slot, shortCommand, null, null, null);
 	}
 
+	//used for set dimmer value. It set command at first byte and dimmerVal to second byte
+	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand, short lDimmer) {
+		sendFORCEFrame(datagramSocket, soulissNodeIPAddress, soulissNodeIPAddressOnLAN, IDNode, slot, shortCommand, lDimmer, null, null);
+	}
+
 	//send force frame with command and RGB value
-	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand, Short R, Short G, Short B) {
+	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand, Short byte1, Short byte2, Short byte3) {
 		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_force);
 		
@@ -28,22 +33,24 @@ public class SoulissCommGate {
 		MACACOframe.add((byte) 0x0);// PUTIN
 		
 		MACACOframe.add((byte) (IDNode));// Start Offset
-		if( R==null && G==null && B==null )
+		if( byte1==null && byte2==null && byte3==null )
 			MACACOframe.add((byte) ((byte) slot+ 1)); //Number Of
-		else if ( G==null && B==null )
-			MACACOframe.add((byte) ((byte) slot+ 2)); //Number Of
+		else if ( byte2==null && byte3==null )
+			MACACOframe.add((byte) ((byte) slot+ 2)); //Number Of byte of payload= command + set byte
 		else
-			MACACOframe.add((byte) ((byte) slot+ 4)); //Number Of slot= OnOFF + Red + Green + Blu
+			MACACOframe.add((byte) ((byte) slot+ 4)); //Number Of byte of payload= OnOFF + Red + Green + Blu
 		
 		for (int i=0;i<=slot-1;i++){
 			MACACOframe.add((byte) 00); //pongo a zero i byte precedenti lo slot da modificare
 		}
 		MACACOframe.add((byte) shortCommand);// PAYLOAD
 
-		if( R!=null || G!=null || B!=null ) {
-			MACACOframe.add(R.byteValue());// PAYLOAD
-			MACACOframe.add(G.byteValue());// PAYLOAD
-			MACACOframe.add(B.byteValue());// PAYLOAD	
+		if( byte1!=null && byte2!=null && byte3!=null ) {
+			MACACOframe.add(byte1.byteValue());// PAYLOAD RED
+			MACACOframe.add(byte2.byteValue());// PAYLOAD GREEN
+			MACACOframe.add(byte3.byteValue());// PAYLOAD BLUE	
+		} else if( byte1!=null) {
+			MACACOframe.add(byte1.byteValue());// PAYLOAD DIMMER
 		}
 		
 		LOGGER.debug("sendFORCEFrame - "+ MaCacoToString(MACACOframe) + ", soulissNodeIPAddress: " + soulissNodeIPAddress+ ", soulissNodeIPAddressOnLAN: "+ soulissNodeIPAddressOnLAN);

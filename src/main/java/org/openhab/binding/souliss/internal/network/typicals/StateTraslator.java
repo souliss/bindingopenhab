@@ -26,7 +26,9 @@ public class StateTraslator {
 		String sRes=null;
 		sRes=propCommands.getProperty("0x"+Short.decode(Integer.toHexString(typ))+Constants.CONF_FIELD_DELIMITER+sCommand);
 		LOGGER.debug("translate commands: " + sCommand +" -> " + sRes);
+		if(sRes!=null)
 		return Short.decode(sRes);
+		else return null;
 	}
 
 	public static String statesSoulissToOH(String sOHType, short s, short f) {

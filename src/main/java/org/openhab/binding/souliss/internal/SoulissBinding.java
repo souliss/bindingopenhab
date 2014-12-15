@@ -28,6 +28,7 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
+import org.openhab.binding.souliss.internal.network.udp.ConstantsUDP;
 import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
 import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
 
@@ -35,6 +36,7 @@ import org.openhab.core.binding.AbstractActiveBinding;
 import org.openhab.core.binding.BindingProvider;
 import org.openhab.core.events.EventPublisher;
 import org.openhab.core.library.types.DateTimeType;
+import org.openhab.core.library.types.PercentType;
 import org.openhab.core.library.types.StringType;
 import org.openhab.core.types.Command;
 import org.openhab.core.types.State;
@@ -191,7 +193,11 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			break;
 		case Constants.Souliss_T19:
 			SoulissT19 T19 =  (SoulissT19) T;
-			T19.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(), command.toString()));
+			if(command instanceof  PercentType){
+				int percentToShort = (((PercentType) command).shortValue()*255/100);
+				T19.CommandSEND(Constants.Souliss_T1n_Set, Short.parseShort(String.valueOf(percentToShort)));
+			} else
+				T19.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(), command.toString()));
 			break;
 		case Constants.Souliss_T21: 
 			
