@@ -242,37 +242,37 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 		return RGBList;
 	}
 
-	@Override
-	protected void internalReceiveCommand(String itemName, Command command) {
-		// TODO Auto-generated method stub
-		super.internalReceiveCommand(itemName, command);
-		LOGGER.info("openHAB Event Bus -> External System - COMMAND. " + itemName + " = " + command );
-	}
+//	@Override
+//	protected void internalReceiveCommand(String itemName, Command command) {
+//		// TODO Auto-generated method stub
+//		super.internalReceiveCommand(itemName, command);
+////		LOGGER.info("openHAB Event Bus -> External System - COMMAND. " + itemName + " = " + command );
+//	}
 
-	@Override
-	public void receiveUpdate(String itemName, State newState) {
-		// TODO Auto-generated method stub
-		super.receiveUpdate(itemName, newState);
-		LOGGER.info("receiveUpdate - " + itemName + " = " + newState );
-	}
+//	@Override
+//	public void receiveUpdate(String itemName, State newState) {
+//		// TODO Auto-generated method stub
+//		super.receiveUpdate(itemName, newState);
+////		LOGGER.info("receiveUpdate - " + itemName + " = " + newState );
+//	}
+//
+//	@Override
+//	protected boolean providesBindingFor(String itemName) {
+//		// TODO Auto-generated method stub
+//		return super.providesBindingFor(itemName);
+//	}
 
-	@Override
-	protected boolean providesBindingFor(String itemName) {
-		// TODO Auto-generated method stub
-		return super.providesBindingFor(itemName);
-	}
-
-	@Override
-	protected void internalReceiveUpdate(String itemName, State newState) {
-		// TODO Auto-generated method stub
-		super.internalReceiveUpdate(itemName, newState);
-		LOGGER.info("openHAB Event Bus -> External System. " + itemName + " = " + newState );
-	    for (SoulissBindingProvider provider : providers) {
-	    	LOGGER.info("Checking provider with names " + provider.getItemNames());
-	 
-	    }
-	
-			}
+//	@Override
+//	protected void internalReceiveUpdate(String itemName, State newState) {
+//		// TODO Auto-generated method stub
+//		super.internalReceiveUpdate(itemName, newState);
+////		LOGGER.info("openHAB Event Bus -> External System. " + itemName + " = " + newState );
+////	    for (SoulissBindingProvider provider : providers) {
+////	    	LOGGER.info("Checking provider with names " + provider.getItemNames());
+////	 
+////	    }
+////	
+//			}
 
 	@Override
 	protected void execute() {
@@ -288,7 +288,7 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 	@Override
 	protected String getName() {
 		// TODO Auto-generated method stub
-		return null;
+	return null;
 	}
 
 	/* (non-Javadoc)
