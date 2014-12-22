@@ -58,7 +58,7 @@ public class SoulissT19 extends SoulissGenericTypical {
 		if(sOHState!=null){
 			return OnOffType.valueOf(sOHState);
 		} else {
-			return new PercentType(String.valueOf((this.getState()/255)*100));
+			return new PercentType(String.valueOf((this.getState()/250)*100));
 		}
 	}
 
