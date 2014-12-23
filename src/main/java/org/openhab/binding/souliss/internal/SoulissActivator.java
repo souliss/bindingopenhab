@@ -34,6 +34,7 @@ public final class SoulissActivator implements BundleActivator {
 	
 	/**
 	 * Called whenever the OSGi framework starts our bundle
+	 * Load informations from properties files
 	 */
 	public void start(BundleContext bc) throws Exception {
 		LOGGER.info("souliss binding has been started.");

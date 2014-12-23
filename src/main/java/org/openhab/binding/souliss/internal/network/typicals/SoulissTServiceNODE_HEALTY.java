@@ -11,6 +11,13 @@ package org.openhab.binding.souliss.internal.network.typicals;
 import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.types.State;
 
+/**
+ * Typical D98
+ * Service Typical
+ * HEALTY
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissTServiceNODE_HEALTY extends SoulissGenericTypical {
 
 	public SoulissTServiceNODE_HEALTY(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {

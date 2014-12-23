@@ -12,8 +12,13 @@ import org.openhab.core.library.types.OnOffType;
 import org.openhab.core.library.types.OpenClosedType;
 import org.openhab.core.types.State;
 
+/**
+ * Typical T13
+ * Digital Input Value
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissT13 extends SoulissGenericTypical {
-//i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
 
 	public SoulissT13(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();

@@ -21,31 +21,33 @@ import org.openhab.binding.souliss.internal.network.typicals.RefreshSUBSCRIPTION
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT11;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT12;
-import org.openhab.binding.souliss.internal.network.typicals.SoulissT13;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT19;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
-import org.openhab.binding.souliss.internal.network.udp.ConstantsUDP;
 import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
 import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
 
 import org.openhab.core.binding.AbstractActiveBinding;
 import org.openhab.core.binding.BindingProvider;
 import org.openhab.core.events.EventPublisher;
-import org.openhab.core.library.types.DateTimeType;
 import org.openhab.core.library.types.PercentType;
 import org.openhab.core.library.types.StringType;
 import org.openhab.core.types.Command;
-import org.openhab.core.types.State;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.osgi.service.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * This class provide to load parameter from cfg file (method updated)
+ * 
+ * @author Tonino Fazio
+ */
 public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvider> implements ManagedService {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissBinding.class);
@@ -56,11 +58,13 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
     protected EventPublisher eventPublisher = null;
    
    
-    public void setEventPublisher(EventPublisher eventPublisher) {
+    @Override
+	public void setEventPublisher(EventPublisher eventPublisher) {
             this.eventPublisher = eventPublisher;
     }
 
-    public void unsetEventPublisher(EventPublisher eventPublisher) {
+    @Override
+	public void unsetEventPublisher(EventPublisher eventPublisher) {
             this.eventPublisher = null;
     }
 
@@ -87,8 +91,9 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 	}
 
 	/**
-	 * Legge i parametri dal file di configurazione di Openhab 
+	 * Read parameters from cfg file 
 	 */
+	@Override
 	public void updated(Dictionary<String, ?> config)
 			throws ConfigurationException {
 		if (config != null) {
@@ -156,8 +161,7 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 
 	@Override
 	/**
-	 * I parametri contengono il nome item di OH ed il relativo comando
-	 * Il metodo recupera il tipico dalla hashtable e chiama il metodo CommandSend della relativa classe
+	 * This method find typical requested from hastable and send it commands
 	 */
 	public void receiveCommand(String itemName, Command command) {
 
@@ -228,11 +232,11 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 
 
 /**
- * Converte il formato colore da HSB in RGB
+ * Convert color format from HSB to RGB
  * @param H
  * @param S
  * @param B
- * @return short RGBList[] contenente i valori di colore RGB
+ * @return short RGBList[] contain RGB components
  */
 	private short[] HSBtoRGB(Float H, Float S, Float B) {
 		

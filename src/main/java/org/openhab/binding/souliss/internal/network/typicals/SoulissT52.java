@@ -8,7 +8,14 @@
  */
 package org.openhab.binding.souliss.internal.network.typicals;
 
-
+/**
+ * Typical T52
+ * Temperature Sensor
+ * Derived from T51
+ * Analog input, half-precision floating point
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissT52 extends SoulissT51 {
 
 	public SoulissT52(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {

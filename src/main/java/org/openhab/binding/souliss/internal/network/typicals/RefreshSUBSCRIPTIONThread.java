@@ -13,6 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 
+/**
+ * This class implements the Souliss commmand SUBSCRIPTION.
+ * The thread send SUBSCRIPTION every "iRefreshTime" milliseconds
+ * 
+ * @author Antonino-Fazio
+ */
 public class RefreshSUBSCRIPTIONThread extends Thread {
 
 	int REFRESH_TIME;

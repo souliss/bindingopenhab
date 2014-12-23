@@ -8,12 +8,12 @@
  */
 package org.openhab.binding.souliss.internal.network.udp;
 
-
 /**
  * Network constants
+ * This class contains Souliss constants.
+ * Original version is taken from SoulissApp. For scope of this binding not all constants are used.
  * 
- * @author Ale
- *
+ * @author Alessandro-Del-Pex
  */
 public class ConstantsUDP {
 	

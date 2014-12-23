@@ -13,6 +13,10 @@ import java.net.DatagramSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class return istance of Typical
+ * @author Antonino-Fazio
+ */
 public class TypicalFactory {
 	private static Logger LOGGER = LoggerFactory.getLogger(TypicalFactory.class);
 	

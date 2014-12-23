@@ -18,6 +18,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 
+/**
+ * This class provide to construct MaCaco and UDP frame
+ * @author Antonino-Fazio
+ */
 public class SoulissCommGate {
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissCommGate.class);

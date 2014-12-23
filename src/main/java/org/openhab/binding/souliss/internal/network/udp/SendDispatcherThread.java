@@ -17,6 +17,10 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class provide to take packet, and send it to regular interval to Souliss Network
+ * @author Antonino-Fazio
+ */
 public class SendDispatcherThread  extends Thread {
 
 	static ArrayList<SocketAndPacket> packetsList = new ArrayList<SocketAndPacket>();	

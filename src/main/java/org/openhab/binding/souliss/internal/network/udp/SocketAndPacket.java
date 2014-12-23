@@ -11,6 +11,10 @@ package org.openhab.binding.souliss.internal.network.udp;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
+/**
+ * Data Structure for class SendDispatcherThread
+ * @author Antonino-Fazio
+ */
 public class SocketAndPacket {
 	public SocketAndPacket(DatagramSocket socketPar, DatagramPacket packetPar) {
 		socket=socketPar;

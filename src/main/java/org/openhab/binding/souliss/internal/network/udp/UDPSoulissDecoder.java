@@ -24,11 +24,10 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 
 
 /**
- * Classe per il decode dei pacchetti nativi souliss
- * 
  * This class decodes incoming Souliss packets, starting from decodevNet
- * 
- * @author Ale
+ * @author Alessandro-Del-Pex
+ * revision
+ * @author Antonino-Fazio
  * 
  */
 public class UDPSoulissDecoder {
@@ -303,15 +302,7 @@ public class UDPSoulissDecoder {
 				return ret;
 	}
 
-	
-//	private short getShortAtSlot(ArrayList<Short> mac, int slot) {
-//		int iOutput=mac.get(5 + slot);
-//		int iOutput2=mac.get(5 + slot+1);
-//		//ora ho i due bytes, li converto
-//		int shifted = iOutput2 << 8;
-//		return (short) (iOutput+shifted);
-//}
-/**
+	/**
 	 * Decodes a souliss nodes health request
 	 * 
 	 * @param macaco

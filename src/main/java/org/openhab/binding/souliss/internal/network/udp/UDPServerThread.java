@@ -16,6 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
  
+/**
+ * This class provide receive packet from network
+ * @author Antonino-Fazio
+ */
 public class UDPServerThread extends Thread {
  
    // protected DatagramSocket socket = null;

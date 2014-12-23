@@ -16,6 +16,10 @@ import org.openhab.binding.souliss.internal.network.udp.UDPSoulissDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class take service tipicals from hastable and update it with new values from Souliss Network
+ * @author Antonino-Fazio
+ */
 public class SoulissTServiceUpdater {
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(UDPSoulissDecoder.class);

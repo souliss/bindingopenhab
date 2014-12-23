@@ -15,6 +15,12 @@ import org.slf4j.LoggerFactory;
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 
+/**
+ * This class implements the Souliss commmand DBSTRUCT.
+ * The thread send DBSTRUCT every "iRefreshTime" milliseconds
+ * 
+ * @author Antonino-Fazio
+ */
 public class RefreshDBSTRUCTThread extends Thread {
 
 	int REFRESH_TIME;

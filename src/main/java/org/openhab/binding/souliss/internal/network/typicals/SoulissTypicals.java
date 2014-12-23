@@ -16,7 +16,10 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * This class implement method to push and pop tipicals from two hashtables with different keys: IP Address + VNET Address + slot AND item
+ * @author Antonino-Fazio
+ */
 public class SoulissTypicals {
 
 private Map<String, SoulissGenericTypical> hashTableAddressToTypicals = Collections.synchronizedMap(new Hashtable<String, SoulissGenericTypical>());

@@ -15,6 +15,13 @@ import org.openhab.core.library.types.OnOffType;
 import org.openhab.core.library.types.OpenClosedType;
 import org.openhab.core.types.State;
 
+
+/**
+ * Typical T11
+ * SWITCH
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissT11 extends SoulissGenericTypical {
 //i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
 	

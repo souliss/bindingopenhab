@@ -8,14 +8,19 @@
  */
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import org.openhab.binding.souliss.internal.network.udp.UDPSoulissDecoder;
 import org.openhab.core.library.types.OnOffType;
 import org.openhab.core.library.types.OpenClosedType;
 import org.openhab.core.types.State;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * Typical T1A
+ * Digital bit input value
+ * Digital pass through
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissT1A extends SoulissGenericTypical {
 //i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissT1A.class);

@@ -14,6 +14,12 @@ import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 import org.openhab.core.library.types.PercentType;
 import org.openhab.core.types.State;
 
+/**
+ * Typical T22
+ * Motorized devices with limit switches and middle position
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissT22 extends SoulissGenericTypical {
 
 	public SoulissT22(DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {

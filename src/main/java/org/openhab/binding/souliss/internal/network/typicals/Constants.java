@@ -8,36 +8,15 @@
  */
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-
+/**
+ * This class contains Souliss constants.
+ * Original version is taken from SoulissApp. For scope of this binding not all constants are used.
+ * 
+ * @author Alessandro-Del-Pex
+ * @author Antonino-Fazio
+ */
 public class Constants {
 	public static final String TAG = "SoulissApp:Typicals";
-
-	/**
-	 * 
-	 * @author Ale
-	 * 
-	 */
-	@Override
-	public String toString() {
-		StringBuilder ret = new StringBuilder();
-		Field[] consts = getClass().getDeclaredFields();
-		for (int i = 0; i < consts.length; i++) {
-			if ((consts[i].getModifiers() & (Modifier.FINAL | Modifier.STATIC)) != 0) {
-				try {
-					ret.append(consts[i].getName() + " = " + consts[i].get(null) + "<br/>");
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return ret.toString();
-	}
 
 	/**
 	 * /** // Defines for Typicals C LIBRARY
@@ -48,13 +27,13 @@ public class Constants {
 	 */
 	public static final short Souliss_T_empty = 0;
 	public static final short Souliss_T_related = 0xFF;
-	
+
 	public static final short Souliss_TService_NODE_HEALTY = 0x98;
 	public static final short Souliss_TService_NODE_TIMESTAMP = 0x99;
 
 	public static final int Souliss_TService_NODE_HEALTY_VIRTUAL_SLOT = 998;
 	public static final int Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT = 999;
-	
+
 	// Defines for Typicals
 	public static final short Souliss_T11 = 0x11;
 	public static final short Souliss_T12 = 0x12;
@@ -65,7 +44,7 @@ public class Constants {
 	public static final short Souliss_T18 = 0x18;
 	public static final short Souliss_T19 = 0x19;
 	public static final short Souliss_T1A = 0x1A;
-	
+
 	public static final short Souliss_T21 = 0x21;// Motorized devices with limit
 													// switches
 	public static final short Souliss_T22 = 0x22;// Motorized devices with limit
@@ -271,13 +250,13 @@ public class Constants {
 	public static final short Souliss_T_HumiditySensor = 0x69;
 	public static final byte Souliss_T_HumiditySensor_refresh = 0x03;
 
-	public static final String CONF_FIELD_DELIMITER ="_";
-	
+	public static final String CONF_FIELD_DELIMITER = "_";
+
 	public static final String ConfigurationFileName_typicals_value_bytes = "/properties/typicals_value_bytes.properties";
 	public static final String ConfigurationFileName_commands_OHtoSOULISS = "/properties/commands_OHtoSOULISS.properties";
 	public static final String ConfigurationFileName_states_SOULISStoOH = "/properties/states_SOULISStoOH.properties";
 	public static final String ConfigurationFileName_ItemsType_SOULISS = "/properties/itemsType_SOULISS.properties";
-	
-	public static final String Openhab_RGB_TYPE="HSBType";
-	
+
+	public static final String Openhab_RGB_TYPE = "HSBType";
+
 }

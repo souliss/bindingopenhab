@@ -16,6 +16,12 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class contain parameter of Souliss Nertwork.
+ * It are loaded at startup
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissNetworkParameter {
 	public static String IPAddress="";
 	public static String IPAddressOnLAN="";

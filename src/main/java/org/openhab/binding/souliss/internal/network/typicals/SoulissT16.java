@@ -16,6 +16,12 @@ import org.openhab.core.library.types.HSBType;
 import org.openhab.core.library.types.PercentType;
 import org.openhab.core.types.State;
 
+/**
+ * Typical T16
+ * RGB LED Strip
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissT16 extends SoulissGenericTypical {
 
 	int stateRED;

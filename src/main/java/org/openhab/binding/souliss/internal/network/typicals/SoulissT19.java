@@ -8,22 +8,21 @@
  */
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import java.awt.Color;
 import java.net.DatagramSocket;
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
-import org.openhab.core.library.items.DimmerItem;
-import org.openhab.core.library.types.HSBType;
 import org.openhab.core.library.types.OnOffType;
-import org.openhab.core.library.types.OpenClosedType;
 import org.openhab.core.library.types.PercentType;
 import org.openhab.core.types.State;
 
-public class SoulissT19 extends SoulissGenericTypical {
-//TIPICO CLONATO DAL T16 DA ADATTARE
 
-//POI VEDERE ANCHE SEND E DECODER
-//AMBIENTE OK
+/**
+ * Typical T19
+ * RGB LED Strip
+ * 
+ * @author Antonino-Fazio
+ */
+public class SoulissT19 extends SoulissGenericTypical {
 	int stateLED;
 	
 	public int getStateLED() {

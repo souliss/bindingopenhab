@@ -8,12 +8,16 @@
  */
 package org.openhab.binding.souliss.internal.network.typicals;
 
-import java.util.Date;
-
 import org.openhab.core.library.types.DateTimeType;
-import org.openhab.core.library.types.StringType;
 import org.openhab.core.types.State;
 
+/**
+ * Typical D99
+ * Service Typical
+ * TIMESTAMP - LAST NODE UPGRADE
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 //i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
 	

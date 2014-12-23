@@ -22,8 +22,4 @@ import org.openhab.core.binding.BindingProvider;
  */
 public interface SoulissBindingProvider extends BindingProvider {
 	
-//	String getValue(String itemName);
-//	String getNodeId(String itemName);
-//	String getSlot(String itemName);
-	
 }

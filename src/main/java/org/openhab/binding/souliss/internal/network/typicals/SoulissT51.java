@@ -11,6 +11,12 @@ package org.openhab.binding.souliss.internal.network.typicals;
 import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.types.State;
 
+/**
+ * Typical T51
+ * Analog input, half-precision floating point
+ * 
+ * @author Antonino-Fazio
+ */
 public class SoulissT51 extends SoulissGenericTypical {
 
 	public SoulissT51(String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
