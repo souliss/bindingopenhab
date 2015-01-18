@@ -23,10 +23,8 @@ import org.openhab.core.types.State;
  * @author Antonino-Fazio
  */
 public class SoulissT11 extends SoulissGenericTypical {
-//i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
-	
 	/**
-	 * Tipico T11
+	 * Typical T11
 	 * @param _datagramsocket
 	 * @param sSoulissNodeIPAddress
 	 * @param sSoulissNodeIPAddressOnLAN
@@ -34,6 +32,8 @@ public class SoulissT11 extends SoulissGenericTypical {
 	 * @param iSlot
 	 * @param sOHType
 	 */
+	 
+	 // Parameters sSoulissNode, iSlot, Type and State are stored in the class
 	public SoulissT11(DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
@@ -43,7 +43,7 @@ public class SoulissT11 extends SoulissGenericTypical {
  	}
 		
 /**
- * Invia comando in formato esadecimale. Es: Souliss_T1n_OnCmd = 0x02; short Souliss_T1n_OffCmd = 0x04;
+ * Send a command as hexadecimal, e.g.: Souliss_T1n_OnCmd = 0x02; short Souliss_T1n_OffCmd = 0x04;
  * @param command
  */
 	public void CommandSEND(short command) {
@@ -52,7 +52,7 @@ public class SoulissT11 extends SoulissGenericTypical {
 
 	@Override
 	/**
-	 * Restituisce un tipo openhab che rappresenta lo stato del tipico
+	 * Returns a type used by openHAB to show the actual state of the souliss' typical
 	 * @return org.openhab.core.types.State
 	 */
 	public State getOHState() {

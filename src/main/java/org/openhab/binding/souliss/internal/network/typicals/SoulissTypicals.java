@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class implement method to push and pop tipicals from two hashtables with different keys: IP Address + VNET Address + slot AND item
+ * This class push and pop typicals from two hash tables with different keys: IP Address + VNET Address + slot AND item
  * @author Antonino-Fazio
  */
 public class SoulissTypicals {
@@ -27,7 +27,7 @@ private Map<String, String> hashTableItemToAddress =Collections.synchronizedMap(
 private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 
 /**
- * Aggiunge un tipo SoulissGenericTypical in due HashTable, una indicizzata con il nome ITEM e l'altra con IP+NodeID+slot 
+ * Add type SoulissGenericTypical in two hash tables, first one use ITEM as index, the other IP+NodeID+slot 
  * @param sItem
  * @param typical
  */
@@ -41,17 +41,17 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 				LOGGER.info("Add Item: " +  sItem + " - Typ: " + Integer.toHexString(typical.getType()) + ", Node: "+ typical.getSoulissNodeID() + ", Slot: " + typical.getSlot());
 			}
 			typical.setName(sItem);
-			//la chiave della hasttable è:  IP Address + VNET Address + slot
+			// Index is :  IP Address + VNET Address + slot
 			LOGGER.info("hashTableItemToAddress <-- [key: " + sItem + " - value: " + String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()) +iBit +"]");
 			hashTableItemToAddress.put(sItem, String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot())+ iBit);
-			//la chiave della hasttable è:  item
+			// Index is :  item
 			LOGGER.info("hashTableAddressToTypicals <-- [key: " + typical.getSoulissNodeID() + String.valueOf(typical.getSlot()) + iBit + " - value: " + typical + "]");
 			hashTableAddressToTypicals.put(String.valueOf(typical.getSoulissNodeID()) + String.valueOf(typical.getSlot()) + iBit, typical);	
 		}
 		
 	}
 	/**
-	 * Cancella entrambe le Hashtable 
+	 * Delete the hash tables
 	 */
 	public void clear(){
 		LOGGER.debug("Clear hashtable");
@@ -60,7 +60,7 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 	}
 	
 	/**
-	 * Cerca un tipico nella Hashtable in base all'indirizzo IP+Nodo+Slot
+	 * Add a souliss' typical in the hash table using IP+Nodo+Slot as index
 	 * @param sSoulissNodeIPAddress
 	 * @param getSoulissNodeID
 	 * @param iSlot
@@ -73,7 +73,7 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 	
 	
 	/**
-	 * Cerca un tipico nella Hashtable in base al nome ITEM
+	 * Add a souliss' typical in the hash table using ITEM as index
 	 * @param sItem
 	 * @return
 	 */
@@ -83,18 +83,17 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 		return hashTableAddressToTypicals.get(sKey);
 	}
 /**
- * REstituisce un iteratore 
+ * Returns Iterator
  */
 	public Iterator<Entry<String, SoulissGenericTypical>> getIterator(){
 			return hashTableAddressToTypicals.entrySet().iterator();	
 	}
 
 /**
- * Esamina la Hashtable e restituisce il numero di nodi presenti in rete Souliss
- * @return intero
+ * Returns the number of nodes parsing the hash table
+ * @return integer
  */
 	public int getNodeNumbers() {
-		//restituisce il numero massimo di IDNodo
 		SoulissGenericTypical typ;
 		int iTmp=0;
 		Iterator<Entry<String, SoulissGenericTypical>> iteratorTypicals=getIterator();

@@ -42,7 +42,7 @@ public class SoulissT19 extends SoulissGenericTypical {
 		this.setNote(sOHType);
  	}
 /**
- * Invia un comando 
+ * Send a command 
  * @param command
  */
 	public void CommandSEND(short command) {
@@ -57,7 +57,7 @@ public class SoulissT19 extends SoulissGenericTypical {
 	}
 	@Override
 	/**
-	 * Restituisce un tipo openhab che rappresenta lo stato del tipico
+	 * Returns a type used in openHAB to show the actual state of the souliss' typical
 	 * @return org.openhab.core.types.State
 	 */
 	public State getOHState() {
@@ -68,5 +68,4 @@ public class SoulissT19 extends SoulissGenericTypical {
 			return new PercentType(String.valueOf((this.getState()/250)*100));
 		}
 	}
-
 }

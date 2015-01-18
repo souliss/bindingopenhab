@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * This class provide to load parameter from cfg file (method updated)
+ * This class load parameters from cfg files (method updated)
  * 
  * @author Tonino Fazio
  */
@@ -161,11 +161,11 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 
 	@Override
 	/**
-	 * This method find typical requested from hastable and send it commands
+	 * Get the souliss' typical from the hash table and send a command
 	 */
 	public void receiveCommand(String itemName, Command command) {
 
-		//cerca nella hastable ed invia i comandi
+		// Get the typical defined in the hash table
 		SoulissGenericTypical T =SoulissGenericBindingProvider.SoulissTypicalsRecipients.getTypicalFromItem(itemName);
 		LOGGER.info("receiveCommand - " + itemName + " = " + command + " - Typical: "+ T.getType());
 		
@@ -226,7 +226,7 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			//T=new SoulissT42(sSoulissNodeIPAddress, sSoulissNodeVNetAddress, iSlot);
 			break;
 		default:
-			LOGGER.debug("Typical Unknow");	
+			LOGGER.debug("Typical Unknown");	
 		}
 	}
 
@@ -303,19 +303,17 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			LOGGER.info("START");
 			
 			try {
-			//passo anche la lista dei tipici (adesso � vuota ma comunque � passata per riferimento
 			
-			//AVVIO THREAD PER RICEZIONE PACHETTI UDP	
+			// Start listening on the UDP socket
 			UDPServerThread Q=null;
 			Q=new UDPServerThread(SoulissGenericBindingProvider.SoulissTypicalsRecipients);
 			Q.start();
 			
-			//AVVIO THREAD CHE SI OCCUPA DI INVIARE I PACCHETTI ALLA RETE SOULISS
+			// Start the thread that send network packets to the Souliss network
 			new SendDispatcherThread(SoulissNetworkParameter.SEND_DELAY,SoulissNetworkParameter.SEND_MIN_DELAY).start();	
-			//AVVIO THREAD CHE SI OCCUPA DI COMUNICARE A OH I TIPICI AGGIORNATI 
+			// Start the thread that send back to openHAB the souliss' typical values
 			new MonitorThread(SoulissGenericBindingProvider.SoulissTypicalsRecipients, SoulissNetworkParameter.REFRESH_MONITOR_TIME, eventPublisher).start();
-			//AVVIO THREAD CHE SI OCCUPA DELE SOTTOSCRIZIONI *******
-			
+			// Start the thread that subscribe data from the Souliss network
 			new RefreshSUBSCRIPTIONThread(Q.getSocket(),SoulissNetworkParameter.IPAddress, SoulissNetworkParameter.IPAddressOnLAN, SoulissNetworkParameter.nodes,SoulissNetworkParameter.REFRESH_SUBSCRIPTION_TIME).start();
 			new RefreshHEALTYThread(Q.getSocket(), SoulissNetworkParameter.IPAddress, SoulissNetworkParameter.IPAddressOnLAN, SoulissNetworkParameter.nodes,SoulissNetworkParameter.REFRESH_HEALTY_TIME).start();
 			
@@ -335,7 +333,4 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 		
 		eventPublisher.postUpdate(itemName, new StringType(value));
 			}
-		
-	
-	
 }

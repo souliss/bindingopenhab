@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class take service tipicals from hastable and update it with new values from Souliss Network
+ * This class take service typicals from hash table and update it with new values coming from the souliss network
  * @author Antonino-Fazio
  */
 public class SoulissTServiceUpdater {
@@ -25,13 +25,13 @@ public class SoulissTServiceUpdater {
 	private static Logger LOGGER = LoggerFactory.getLogger(UDPSoulissDecoder.class);
 	
 	/**
-	 * Cerca nella hashtable il tipico virtuale rappresentato da  idNodo e Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT e ne aggiorna il valore
+	 * Parse the hash table looking for the "virtual souliss' typical" idNodo and Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT and update its value
 	 * @param soulissTypicalsRecipients
 	 * @param idNodo
 	 * @param valueOf
 	 */
 	public static void updateHEALTY(SoulissTypicals soulissTypicalsRecipients, int idNodo, Short valueOf) {
-		//CREAZIONE / AGGIORNAMENTO NODI FITTIZI
+		// Create and update "virtual souliss' typical"
 		LOGGER.debug("request to updateHEALTY. Node:  " + idNodo + "; Value: " + valueOf);
 		SoulissTServiceNODE_HEALTY VirtualTypical = (SoulissTServiceNODE_HEALTY) soulissTypicalsRecipients.getTypicalFromAddress(idNodo, Constants.Souliss_TService_NODE_HEALTY_VIRTUAL_SLOT, null);
 		if(VirtualTypical!=null){
@@ -44,12 +44,12 @@ public class SoulissTServiceUpdater {
 		
 	};
 	/**
-	 * Cerca nella hashtable il tipico virtuale rappresentato da  idNodo e Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT e ne aggiorna il valore 
+	 * Parse the hash table looking for the "virtual souliss' typical" idNodo and  Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT and update its value 
 	 * @param soulissTypicalsRecipients
 	 * @param idNodo
 	 */
 	public static void updateTIMESTAMP(	SoulissTypicals soulissTypicalsRecipients, int idNodo) {
-		//CREAZIONE / AGGIORNAMENTO NODI FITTIZI
+		// Create and update "virtual souliss' typical"
 		LOGGER.debug("request to updateTIMESTAMP. Node:  " + idNodo);
 		SoulissTServiceNODE_TIMESTAMP VirtualTypical = (SoulissTServiceNODE_TIMESTAMP) soulissTypicalsRecipients.getTypicalFromAddress(idNodo, Constants.Souliss_TService_NODE_TIMESTAMP_VIRTUAL_SLOT, null);
 		
@@ -63,15 +63,13 @@ public class SoulissTServiceUpdater {
 	
 }
 /**
- * Crea il timestamp con il pattern "yyyy-MM-dd'T'HH:mm:ssz"
+ * Create a time stamp as "yyyy-MM-dd'T'HH:mm:ssz"
  * @return String timestamp
  */
 	private static String getTimestamp() {
-		//pattern da ottenere: yyyy-MM-dd'T'HH:mm:ssz
+		// Pattern : yyyy-MM-dd'T'HH:mm:ssz
 		SimpleDateFormat sdf =	new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz");
 		Date n=new Date();
 		return sdf.format( n.getTime() ) ;
 	}
 }
-
-

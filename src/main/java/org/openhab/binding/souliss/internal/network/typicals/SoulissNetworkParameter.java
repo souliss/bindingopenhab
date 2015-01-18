@@ -17,8 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class contain parameter of Souliss Nertwork.
- * It are loaded at startup
+ * This class contain parameter of Souliss Network.
+ * Those are loaded at startuo
  * 
  * @author Antonino-Fazio
  */
@@ -69,7 +69,7 @@ public class SoulissNetworkParameter {
 	}
 
 	/**
-	 * Carica in memoria il contenuto dell'inputstrean is
+	 * Load in the memory the contents of InputStream is
 	 * @param is
 	 */
 	public static void load(InputStream is) {
@@ -82,6 +82,4 @@ public class SoulissNetworkParameter {
 			LOGGER.error(e.getMessage());
 		}
 	}
-
-	
 }

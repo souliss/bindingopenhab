@@ -60,7 +60,7 @@ public class SoulissT16 extends SoulissGenericTypical {
 		this.setNote(sOHType);
  	}
 /**
- * Invia un comando senza valori RGB
+ * Send a command to the souliss' typical
  * @param command
  */
 	public void CommandSEND(short command) {
@@ -68,7 +68,7 @@ public class SoulissT16 extends SoulissGenericTypical {
 	}
 	
 	/**
-	 * Invia un comando includendo i valori RGB
+	 * Send a command with RGB color values to the souliss' typical
 	 * @param command
 	 */	
 	public void CommandSEND(short command, short R, short G, short B) {
@@ -77,7 +77,7 @@ public class SoulissT16 extends SoulissGenericTypical {
 	
 	@Override
 	/**
-	 * Restituisce lo stato del tipico, in termini di percentuale
+	 * Return the actual value in percent
 	 */
 	public State getOHState() {
 		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),(short)this.getState());
@@ -89,7 +89,7 @@ public class SoulissT16 extends SoulissGenericTypical {
 	}
 
 	/**
-	 * Restituisce il colore nel formato HSB accetto da OT
+	 * Returns the values in HSB, use RGB as input
 	 * @return org.openhab.core.types.State
 	 */
 	public org.openhab.core.types.State getOHStateRGB() {

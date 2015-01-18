@@ -29,7 +29,7 @@ public class SoulissTServiceNODE_HEALTY extends SoulissGenericTypical {
 	}
 	@Override
 	/**
-	 * Restituisce lo stato del tipico come valore numerico 
+	 * Returns the souliss' typical state as numerical value
 	 */
 	public State getOHState() {
 		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(), (short)this.getState());

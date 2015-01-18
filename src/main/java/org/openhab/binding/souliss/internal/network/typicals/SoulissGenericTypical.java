@@ -123,7 +123,7 @@ public class SoulissGenericTypical {
 	}
 	
 	/**
-	 * Invio un comando in Multicast 
+	 * Send command in multicast 
 	 * @param datagramSocket
 	 * @param command
 	 */
@@ -133,7 +133,7 @@ public class SoulissGenericTypical {
 	}
 	
 	/**
-	 * Invia il comando DBStruct
+	 * Request the database structure, aka DBStruct
 	 * @param datagramSocket
 	 */
 	public void sendDBStructFrame(DatagramSocket datagramSocket){
@@ -142,7 +142,7 @@ public class SoulissGenericTypical {
 	}
 	
 	/**
-	 * Invia un ping
+	 * Ping the gateway
 	 * @param datagramSocket
 	 * @param putIn_1
 	 * @param punIn_2
@@ -156,6 +156,4 @@ public class SoulissGenericTypical {
 	public org.openhab.core.types.State getOHState() {
 		return null;
 	}
-
-	
 }

@@ -41,7 +41,7 @@ public class MonitorThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				// SCORRE LA LISTA DEI TIPICI RILEVANDO SOLO QUELLI AGGIORNATI
+				// Check all souliss'typicals (items) and get only the ones that has been updated
 				check(soulissTypicalsRecipients);
 
 				Thread.sleep(REFRESH_TIME);
@@ -54,8 +54,8 @@ public class MonitorThread extends Thread {
 	}
 
 	/**
-	 * Scansiona la HashTableinviando sul BUS Openhab soltanto i tipici
-	 * contrassegnati come "updated"
+	 * Goes though the hast table and send on the openHAB bus only the
+	 * souliss' typicals that has been updated
 	 * 
 	 * @param typicals
 	 */
@@ -67,22 +67,17 @@ public class MonitorThread extends Thread {
 			while (iteratorTypicals.hasNext()) {
 				SoulissGenericTypical typ = iteratorTypicals.next().getValue();
 				if (typ.isUpdated()) {
-					// QUI SI LANCIANO I METODI OPENHAB PER L'AGGIORNAMENTO
-					// DEGLI ITEM
+					// Here we start the openHAB's methods used to update the item values
 
 					if (typ.getType() == Constants.Souliss_TService_NODE_TIMESTAMP) {
-						// solo il valore TIMESTAMP si differenzia da tutti gli
-						// altri perchè nella classe
-						// SoulissTServiceNODE_TIMESTAMP il valore è
-						// rappresentato come stringa mentre i valori classici
-						// son rappr.come float
+						// All values are float out of TIMESTAMP that is a string
 						LOGGER.debug("Put on Bus Events - "
 								+ typ.getName()
 								+ " = "
 								+ ((SoulissTServiceNODE_TIMESTAMP) typ)
 										.getTIMESTAMP());
 					} else if (typ.getType() == Constants.Souliss_T16) {
-						// solo se è RGB
+						// RGB Only
 						LOGGER.debug("Put on Bus Events - " + typ.getName()
 								+ " = " + ((SoulissT16) typ).getState()
 								+ ", R=" + ((SoulissT16) typ).stateRED + ", G="

@@ -35,7 +35,7 @@ public class RefreshSUBSCRIPTIONThread extends Thread {
 		this.SoulissNodeIPAddress=soulissNodeIPAddress;
 		this.soulissNodeIPAddressOnLAN=soulissNodeIPAddressOnLAN;
 		iNodes=nodes;
-		LOGGER.info("Avvio RefreshSUBSCRIPTIONThread");
+		LOGGER.info("Startup RefreshSUBSCRIPTIONThread");
 	}
 
 
@@ -55,9 +55,6 @@ public class RefreshSUBSCRIPTIONThread extends Thread {
 				LOGGER.error(e.getMessage());
 			}
 			super.run();
-
-
-
 		}
 	}
 

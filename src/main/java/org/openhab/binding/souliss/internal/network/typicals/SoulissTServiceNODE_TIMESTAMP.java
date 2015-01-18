@@ -19,7 +19,7 @@ import org.openhab.core.types.State;
  * @author Antonino-Fazio
  */
 public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
-//i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
+	// Parameters sSoulissNode, iSlot, Type, State are stored in the class
 	
 	//private static final short SERVICE_SLOT=998;
 	private static String timestamp;
@@ -33,7 +33,7 @@ public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 	}
 
 	/**
-	 * Metodo usato solo per loggare il valore timestamp
+	 * Log the timestamp
 	 * @return String timestamp
 	 */
 	public String getTIMESTAMP() {
@@ -41,7 +41,7 @@ public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 	}
 
 	/**
-	 * Imposta il valore del timestamp
+	 * Set timestamp
 	 * @param string
 	 */
 	public void setTIMESTAMP(String string) {
@@ -51,13 +51,11 @@ public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 		
 	@Override
 	/**
-	 * REstituisce il valore del tipico nel formato di OH DateTimeType 
+	 * Return as openHAB type DateTimeType 
 	 */
 	public State getOHState() {
 			//return	StringType.valueOf(timestamp);
 			return	DateTimeType.valueOf(timestamp);
 
 	}
-		
-		
 }

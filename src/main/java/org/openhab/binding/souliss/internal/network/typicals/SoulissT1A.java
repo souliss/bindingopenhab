@@ -16,16 +16,15 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Typical T1A
- * Digital bit input value
- * Digital pass through
+ * Digital input bit-wise
  * 
  * @author Antonino-Fazio
  */
 public class SoulissT1A extends SoulissGenericTypical {
-//i parametri sSoulissNode, iSlot, Type, State vengono memorizzati nell'istanza della classe che estendo
+    // Parameters sSoulissNode, iSlot, Type and State are stored in the class
 	private static Logger LOGGER = LoggerFactory.getLogger(SoulissT1A.class);
 	
-	//bit del tipico 1A che rappresenta lo stato
+	// These are the values bit-wise
 	int iBit;
 	short sRawState;
 	
@@ -47,9 +46,7 @@ public class SoulissT1A extends SoulissGenericTypical {
 		this.setBit(iBit);
 		
 	}
-		
-
-
+	
 	@Override
 	public State getOHState() {
 		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),(short) this.getState(iBit));

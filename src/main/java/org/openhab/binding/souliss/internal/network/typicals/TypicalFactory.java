@@ -107,7 +107,7 @@ public class TypicalFactory {
 			T=new SoulissTServiceNODE_TIMESTAMP(sSoulissNodeIPAddress, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 			break;
 		default:
-			LOGGER.debug("Typical Unknow");	
+			LOGGER.debug("Typical Unknown");	
 		}
 		
 			

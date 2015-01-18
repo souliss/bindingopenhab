@@ -9,7 +9,7 @@
 		<version>1.5.0-SNAPSHOT</version>
 	</parent>
 
-	<name>openHAB souliss Binding</name>
+	<name>openHAB - Souliss, Arduino based Smarthome - Binding</name>
 
 	<properties>
 		<bundle.symbolicName>org.openhab.binding.souliss</bundle.symbolicName>
