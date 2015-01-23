@@ -18,7 +18,8 @@ import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
  * This class implements the Souliss commmand HEALTY.
  * The thread send HEALTY every "iRefreshTime" milliseconds
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class RefreshHEALTYThread extends Thread {
 

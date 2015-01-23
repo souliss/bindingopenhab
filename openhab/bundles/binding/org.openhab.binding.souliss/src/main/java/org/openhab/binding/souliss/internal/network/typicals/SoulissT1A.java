@@ -18,7 +18,8 @@ import org.slf4j.LoggerFactory;
  * Typical T1A
  * Digital input bit-wise
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissT1A extends SoulissGenericTypical {
     // Parameters sSoulissNode, iSlot, Type and State are stored in the class

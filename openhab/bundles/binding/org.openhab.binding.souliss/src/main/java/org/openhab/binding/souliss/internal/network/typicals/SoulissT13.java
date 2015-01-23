@@ -16,7 +16,8 @@ import org.openhab.core.types.State;
  * Typical T13
  * Digital Input Value
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissT13 extends SoulissGenericTypical {
 

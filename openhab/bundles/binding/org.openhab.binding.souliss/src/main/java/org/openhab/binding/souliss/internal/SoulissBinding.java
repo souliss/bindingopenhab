@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
  * This class load parameters from cfg files (method updated)
  * 
  * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvider> implements ManagedService {
 

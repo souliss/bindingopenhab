@@ -15,8 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The method of this class takes key and translate it  
- * @author Antonino-Fazio
+ * The method of this class takes key and translate it
+ *  
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class StateTraslator {
 	static Properties propCommands=new Properties();

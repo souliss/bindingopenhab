@@ -18,10 +18,10 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
  
 /**
  * This class provide receive packet from network
- * @author Alessandro-Del-Pex
- * revision
- * @author Antonino-Fazio
  * 
+ * @author Alessandro Del Pex
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class UDPServerThread extends Thread {
  

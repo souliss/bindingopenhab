@@ -18,7 +18,8 @@ import org.slf4j.LoggerFactory;
 /**
  * This class provide to read typical state and put it on Openhab bus events
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class MonitorThread extends Thread {
 

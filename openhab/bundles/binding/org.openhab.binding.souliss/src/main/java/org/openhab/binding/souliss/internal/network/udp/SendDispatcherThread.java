@@ -19,7 +19,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class provide to take packet, and send it to regular interval to Souliss Network
- * @author Antonino-Fazio
+ * 
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SendDispatcherThread  extends Thread {
 

@@ -20,7 +20,8 @@ import org.openhab.core.types.State;
  * Typical T16
  * RGB LED Strip
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissT16 extends SoulissGenericTypical {
 

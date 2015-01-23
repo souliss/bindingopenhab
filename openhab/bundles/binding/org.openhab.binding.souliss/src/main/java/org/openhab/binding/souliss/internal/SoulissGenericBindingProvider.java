@@ -34,9 +34,8 @@ import org.slf4j.LoggerFactory;
  * 	<li><code>{ souliss="" }</code>
  * </ul>
  * 
- * @author Thomas.Eichstaedt-Engelen
- * 
- * @since 0.8.0
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissGenericBindingProvider extends AbstractGenericBindingProvider implements SoulissBindingProvider {
 	private static Logger LOGGER = LoggerFactory.getLogger(TypicalFactory.class);

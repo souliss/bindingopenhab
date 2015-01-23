@@ -25,10 +25,10 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 
 /**
  * This class decodes incoming Souliss packets, starting from decodevNet
- * @author Alessandro-Del-Pex
- * revision
- * @author Antonino-Fazio
  * 
+ * @author Alessandro Del Pex
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class UDPSoulissDecoder {
 

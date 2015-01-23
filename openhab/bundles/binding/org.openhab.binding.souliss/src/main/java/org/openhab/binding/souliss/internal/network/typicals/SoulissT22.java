@@ -18,7 +18,8 @@ import org.openhab.core.types.State;
  * Typical T22
  * Motorized devices with limit switches and middle position
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissT22 extends SoulissGenericTypical {
 

@@ -15,7 +15,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class return istance of Typical
- * @author Antonino-Fazio
+ * 
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class TypicalFactory {
 	private static Logger LOGGER = LoggerFactory.getLogger(TypicalFactory.class);

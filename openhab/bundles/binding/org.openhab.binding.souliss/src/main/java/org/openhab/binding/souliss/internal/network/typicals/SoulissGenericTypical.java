@@ -19,7 +19,8 @@ import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
  * This class implements the base Souliss Typical
  * All other Typicals derive from this class
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissGenericTypical {
 	

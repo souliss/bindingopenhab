@@ -12,6 +12,8 @@ package org.openhab.binding.souliss.internal.network.udp;
  * int are used on analogue typicals (2 bytes)
  *  and should be reversed because of endianess
  * @author http://stackoverflow.com/users/237321/x4u
+ * 
+ * @since 1.7.0
  */
 public class HalfFloatUtils {
 	

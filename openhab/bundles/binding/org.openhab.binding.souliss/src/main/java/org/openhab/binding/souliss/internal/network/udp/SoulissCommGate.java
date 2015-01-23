@@ -20,7 +20,10 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParam
 
 /**
  * This class provide to construct MaCaco and UDP frame
- * @author Antonino-Fazio
+ * 
+ * @author Alessandro Del Pex
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissCommGate {
 	

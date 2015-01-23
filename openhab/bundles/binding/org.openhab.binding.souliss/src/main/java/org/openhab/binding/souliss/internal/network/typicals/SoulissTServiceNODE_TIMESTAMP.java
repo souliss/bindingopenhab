@@ -16,7 +16,8 @@ import org.openhab.core.types.State;
  * Service Typical
  * TIMESTAMP - LAST NODE UPGRADE
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 	// Parameters sSoulissNode, iSlot, Type, State are stored in the class

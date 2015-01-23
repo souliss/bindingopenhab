@@ -12,8 +12,9 @@ package org.openhab.binding.souliss.internal.network.typicals;
  * This class contains Souliss constants.
  * Original version is taken from SoulissApp. For scope of this binding not all constants are used.
  * 
- * @author Alessandro-Del-Pex
- * @author Antonino-Fazio
+ * @author Alessandro Del Pex
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class Constants {
 	public static final String TAG = "SoulissApp:Typicals";

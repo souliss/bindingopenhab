@@ -14,7 +14,8 @@ package org.openhab.binding.souliss.internal.network.typicals;
  * Derived from T51
  * Analog input, half-precision floating point
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissT57 extends SoulissT51 {
 	

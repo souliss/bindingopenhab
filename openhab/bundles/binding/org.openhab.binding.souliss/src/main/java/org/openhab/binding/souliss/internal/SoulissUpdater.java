@@ -17,6 +17,11 @@ import org.openhab.core.library.types.StringType;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
+/**
+ *
+ * @author Tonino Fazio
+ * @since 1.7.0
+ */
 public class SoulissUpdater extends AbstractBinding<SoulissBindingProvider>  implements ManagedService {
 
 	 protected EventPublisher eventPublisher = null;

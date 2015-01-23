@@ -18,7 +18,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class take service typicals from hash table and update it with new values coming from the souliss network
- * @author Antonino-Fazio
+ * 
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissTServiceUpdater {
 	

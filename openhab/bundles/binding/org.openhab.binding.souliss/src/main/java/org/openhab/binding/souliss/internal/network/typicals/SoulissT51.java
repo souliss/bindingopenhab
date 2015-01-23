@@ -15,7 +15,8 @@ import org.openhab.core.types.State;
  * Typical T51
  * Analog input, half-precision floating point
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissT51 extends SoulissGenericTypical {
 

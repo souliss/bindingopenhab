@@ -18,7 +18,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class push and pop typicals from two hash tables with different keys: IP Address + VNET Address + slot AND item
- * @author Antonino-Fazio
+ * 
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissTypicals {
 

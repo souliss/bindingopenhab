@@ -14,7 +14,8 @@ import java.net.DatagramSocket;
  * Typical T12
  * SWITCH WITH AUTO mode (NOT SUPPORTED BY OPENHAB)
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissT12 extends SoulissT11 {
 	

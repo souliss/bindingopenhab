@@ -20,7 +20,8 @@ import org.slf4j.LoggerFactory;
  * This class contain parameter of Souliss Network.
  * Those are loaded at startuo
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissNetworkParameter {
 	public static String IPAddress="";

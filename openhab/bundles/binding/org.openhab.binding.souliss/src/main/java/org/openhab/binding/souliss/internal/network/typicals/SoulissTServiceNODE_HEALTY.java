@@ -16,7 +16,8 @@ import org.openhab.core.types.State;
  * Service Typical
  * HEALTY
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissTServiceNODE_HEALTY extends SoulissGenericTypical {
 

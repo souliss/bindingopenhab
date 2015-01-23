@@ -20,7 +20,8 @@ import org.openhab.core.types.State;
  * Typical T11
  * SWITCH
  * 
- * @author Antonino-Fazio
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SoulissT11 extends SoulissGenericTypical {
 	/**

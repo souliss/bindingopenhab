@@ -13,7 +13,9 @@ import java.net.DatagramSocket;
 
 /**
  * Data Structure for class SendDispatcherThread
- * @author Antonino-Fazio
+ * 
+ * @author Tonino Fazio
+ * @since 1.7.0
  */
 public class SocketAndPacket {
 	public SocketAndPacket(DatagramSocket socketPar, DatagramPacket packetPar) {
