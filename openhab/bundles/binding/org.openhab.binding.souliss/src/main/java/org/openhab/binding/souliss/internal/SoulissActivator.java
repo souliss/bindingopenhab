@@ -71,5 +71,5 @@ public final class SoulissActivator implements BundleActivator {
 	public void stop(BundleContext bc) throws Exception {
 		LOGGER.info("souliss binding has been stopped.");
 	}
-	
+
 }

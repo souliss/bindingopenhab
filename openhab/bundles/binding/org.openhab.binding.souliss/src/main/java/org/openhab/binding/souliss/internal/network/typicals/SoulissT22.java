@@ -15,15 +15,16 @@ import org.openhab.core.library.types.PercentType;
 import org.openhab.core.types.State;
 
 /**
- * Typical T22
- * Motorized devices with limit switches and middle position
+ * Typical T22 Motorized devices with limit switches and middle position
  * 
  * @author Tonino Fazio
  * @since 1.7.0
  */
 public class SoulissT22 extends SoulissGenericTypical {
 
-	public SoulissT22(DatagramSocket _datagramsocket, String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot, String sOHType) {
+	public SoulissT22(DatagramSocket _datagramsocket,
+			String sSoulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN,
+			int iIDNodo, int iSlot, String sOHType) {
 		super();
 		this.setSlot(iSlot);
 		this.setSoulissNodeID(iIDNodo);
@@ -32,21 +33,26 @@ public class SoulissT22 extends SoulissGenericTypical {
 	}
 
 	/**
-	 * Send a command as hexadecimal, e.g.: Souliss_T1n_OnCmd = 0x02; short Souliss_T1n_OffCmd = 0x04;
+	 * Send a command as hexadecimal, e.g.: Souliss_T1n_OnCmd = 0x02; short
+	 * Souliss_T1n_OffCmd = 0x04;
+	 * 
 	 * @param command
 	 */
 	public void CommandSEND(short command) {
-		SoulissCommGate.sendFORCEFrame(SoulissNetworkParameter.datagramsocket,SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN, this.getSoulissNodeID(), this.getSlot(), command );
+		SoulissCommGate.sendFORCEFrame(SoulissNetworkParameter.datagramsocket,
+				SoulissNetworkParameter.IPAddress,
+				SoulissNetworkParameter.IPAddressOnLAN,
+				this.getSoulissNodeID(), this.getSlot(), command);
 	}
 
 	@Override
 	public State getOHState() {
-		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(),(short)this.getState());
-		if (sOHState!=null)
-		return new PercentType(Integer.parseInt(sOHState));
-		else 
+		String sOHState = StateTraslator.statesSoulissToOH(this.getNote(),
+				this.getType(), (short) this.getState());
+		if (sOHState != null)
+			return new PercentType(Integer.parseInt(sOHState));
+		else
 			return null;
-		
 
 	}
 }

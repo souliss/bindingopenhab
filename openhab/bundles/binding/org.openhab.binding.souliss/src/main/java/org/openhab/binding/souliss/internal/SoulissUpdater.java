@@ -18,23 +18,22 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
 /**
- *
+ * 
  * @author Tonino Fazio
  * @since 1.7.0
  */
-public class SoulissUpdater extends AbstractBinding<SoulissBindingProvider>  implements ManagedService {
+public class SoulissUpdater extends AbstractBinding<SoulissBindingProvider>
+		implements ManagedService {
 
-	 protected EventPublisher eventPublisher = null;
-	
+	protected EventPublisher eventPublisher = null;
+
 	@Override
 	public void setEventPublisher(EventPublisher eventPublisher) {
-		// TODO Auto-generated method stub
 		super.setEventPublisher(eventPublisher);
 	}
 
 	@Override
 	public void unsetEventPublisher(EventPublisher eventPublisher) {
-		// TODO Auto-generated method stub
 		super.unsetEventPublisher(eventPublisher);
 	}
 
@@ -45,10 +44,6 @@ public class SoulissUpdater extends AbstractBinding<SoulissBindingProvider>  imp
 	@Override
 	public void updated(Dictionary<String, ?> properties)
 			throws ConfigurationException {
-		// TODO Auto-generated method stub
-		
 	}
-
-	
 
 }
