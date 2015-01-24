@@ -35,7 +35,10 @@ public final class SoulissActivator implements BundleActivator {
 	
 	/**
 	 * Called whenever the OSGi framework starts our bundle
+	 * 	 
 	 * Load informations from properties files
+	 * @author Antonino Fazio
+	 * @since 1.7.0
 	 */
 	public void start(BundleContext bc) throws Exception {
 		LOGGER.info("souliss binding has been started.");
@@ -60,6 +63,10 @@ public final class SoulissActivator implements BundleActivator {
 
 	/**
 	 * Called whenever the OSGi framework stops our bundle
+	 * 
+	 * Only log info
+	 * @author Antonino Fazio
+	 * @since 1.7.0
 	 */
 	public void stop(BundleContext bc) throws Exception {
 		LOGGER.info("souliss binding has been stopped.");

@@ -28,7 +28,11 @@ public class StateTraslator {
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(StateTraslator.class);
 	
-	
+	/**
+	 * Take string key and translate it to SOULISS Typical Code
+	 * @param String sTypeString
+	 * @return short
+	 */ 
 	public static short stringToSOULISSTypicalCode(String sTypeString) {
 		String sRes=null;
 		sRes=propTypes.getProperty(sTypeString);
@@ -36,6 +40,12 @@ public class StateTraslator {
   		return  Short.decode(sRes);
 	}
 	
+	/**
+	 * Take integer typical value and openhab string command and translate it to Souliss command code
+	 * @param int typ
+	 * @param String sCommand
+	 * @return short
+	 */
 	public static Short commandsOHtoSOULISS(int typ, String sCommand) {
 		String sRes=null;
 		sRes=propCommands.getProperty("0x"+Short.decode(Integer.toHexString(typ))+Constants.CONF_FIELD_DELIMITER+sCommand);
@@ -45,6 +55,13 @@ public class StateTraslator {
 		else return null;
 	}
 
+	/**
+	 * Translate Souliss states in Openhab states
+	 * @param String sOHType
+	 * @param short type
+	 * @param short state
+	 * @return String
+	 */
 	public static String statesSoulissToOH(String sOHType, short s, short f) {
 		String s1=Integer.toHexString(s); 
 		s1= s1.length() < 2 ? "0x0" + s1.toUpperCase() : "0x"+s1.toUpperCase();
@@ -60,6 +77,10 @@ public class StateTraslator {
 		return sRes;
 	}
 	
+	/**
+	 * Load commands file
+	 * @param InputStream is
+	 */
 	public static void loadCommands(InputStream is) {
 		try {
 			propCommands.load(is);
@@ -72,6 +93,10 @@ public class StateTraslator {
 		}
 	}
 	
+	/**
+	 * Load states file
+	 * @param InputStream is
+	 */
 	public static void loadStates(InputStream is) {
 		try {
 			propStates.load(is);
@@ -84,6 +109,10 @@ public class StateTraslator {
 		}
 	}
 
+	/**
+	 * Load commands items type
+	 * @param InputStream is
+	 */
 	public static void loadItemsType(InputStream is) {
 		try {
 			propTypes.load(is);

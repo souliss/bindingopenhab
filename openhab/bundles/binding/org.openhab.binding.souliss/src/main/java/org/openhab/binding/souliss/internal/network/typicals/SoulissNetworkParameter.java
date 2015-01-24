@@ -58,13 +58,15 @@ public class SoulissNetworkParameter {
 
 
 	/**
-	 * @param bConfigured the bConfigured to set
+	 * @param bConfigured 
 	 */
 	public static void setConfigured(boolean bConfigured) {
 		SoulissNetworkParameter.bConfigured = bConfigured;
 	}
 
-
+	/**
+	 * @return sPar value format to string 0x+sPar
+	 */
 	public static String getPropTypicalBytes(String sPar) {
 		return (String) prop.get("0x"+sPar);
 	}

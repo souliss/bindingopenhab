@@ -42,9 +42,11 @@ public class SendDispatcherThread  extends Thread {
 	
 	public SendDispatcherThread(String name) {
 		  super(name);
-
 	}
 
+	/**
+	 * Put packet to send in ArrayList PacketList
+	 */ 
 	public synchronized static void put(DatagramSocket socket, DatagramPacket packetToPUT) {
 			
 		bPopSuspend=true;
@@ -107,7 +109,9 @@ public class SendDispatcherThread  extends Thread {
 		}
 
 	
-
+	/**
+	 * Get node number from packet
+	 */ 
 	private static int getNode(DatagramPacket packet) {
 		//7  è il byte del frame VNet al quale trovo il codice comando
 		//10 è il byte del frame VNet al quale trovo l'ID del nodo
@@ -118,6 +122,9 @@ public class SendDispatcherThread  extends Thread {
 	}
 
 	long t,t_prec=0;
+	/**
+	 * Pop SocketAndPacket from ArrayList PacketList
+	 */
 	private synchronized SocketAndPacket pop(){
 		synchronized (this) {
 			//non esegue il pop se bPopSuspend=true
@@ -145,7 +152,10 @@ public class SendDispatcherThread  extends Thread {
 		return null;
 	}
 	
-	
+	/**
+	 * Sleep for iDelay
+	 * Get and send packet
+	 */
 	public void run() {
 
 		while (!bExit) {

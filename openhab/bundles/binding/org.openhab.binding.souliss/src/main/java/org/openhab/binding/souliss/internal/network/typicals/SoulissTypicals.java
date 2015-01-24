@@ -76,14 +76,15 @@ private static Logger LOGGER = LoggerFactory.getLogger(SoulissTypicals.class);
 	
 	/**
 	 * Add a souliss' typical in the hash table using ITEM as index
-	 * @param sItem
-	 * @return
+	 * @param String sItem
+	 * @return SoulissGenericTypical
 	 */
 	public SoulissGenericTypical getTypicalFromItem(String sItem){
 		String sKey=hashTableItemToAddress.get(sItem);
 		if(sKey==null) return null;
 		return hashTableAddressToTypicals.get(sKey);
 	}
+	
 /**
  * Returns Iterator
  */

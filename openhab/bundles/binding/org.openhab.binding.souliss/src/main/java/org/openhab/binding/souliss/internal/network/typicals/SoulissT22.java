@@ -31,7 +31,10 @@ public class SoulissT22 extends SoulissGenericTypical {
 		this.setNote(sOHType);
 	}
 
-	
+	/**
+	 * Send a command as hexadecimal, e.g.: Souliss_T1n_OnCmd = 0x02; short Souliss_T1n_OffCmd = 0x04;
+	 * @param command
+	 */
 	public void CommandSEND(short command) {
 		SoulissCommGate.sendFORCEFrame(SoulissNetworkParameter.datagramsocket,SoulissNetworkParameter.IPAddress,  SoulissNetworkParameter.IPAddressOnLAN, this.getSoulissNodeID(), this.getSlot(), command );
 	}

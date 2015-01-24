@@ -33,12 +33,16 @@ public class SoulissCommGate {
 		sendFORCEFrame(datagramSocket, soulissNodeIPAddress, soulissNodeIPAddressOnLAN, IDNode, slot, shortCommand, null, null, null);
 	}
 
-	//used for set dimmer value. It set command at first byte and dimmerVal to second byte
+	/*
+	 * used for set dimmer value. It set command at first byte and dimmerVal to second byte
+	 */
 	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand, short lDimmer) {
 		sendFORCEFrame(datagramSocket, soulissNodeIPAddress, soulissNodeIPAddressOnLAN, IDNode, slot, shortCommand, lDimmer, null, null);
 	}
 
-	//send force frame with command and RGB value
+	/*
+	 * send force frame with command and RGB value
+	 */
 	public static void sendFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int IDNode, int slot, short shortCommand, Short byte1, Short byte2, Short byte3) {
 		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
 		MACACOframe.add((byte) ConstantsUDP.Souliss_UDP_function_force);
@@ -95,6 +99,9 @@ public class SoulissCommGate {
 
 	}
 	
+	/*
+	 * send UDP frame
+	 */
 	private static void send(DatagramSocket socket, ArrayList<Byte> MACACOframe, String soulissNodeIPAddress, String sSoulissNodeIPAddressOnLAN) {
 
 		int iUserIndex=SoulissNetworkParameter.UserIndex;
@@ -115,7 +122,9 @@ public class SoulissCommGate {
 	
 	}
 
-
+	/*
+	 * Build VNet Frame
+	 */
 	private static ArrayList<Byte> buildVNetFrame(ArrayList<Byte> MACACOframe2, String soulissNodeIPAddress, int iUserIndex, int iNodeIndex) {
 		ArrayList<Byte> frame = new ArrayList<Byte>();
 		InetAddress ip;
@@ -166,6 +175,9 @@ public class SoulissCommGate {
 		return merd;
 	}
 	
+	/**
+	 * Build MULTICAST FORCE Frame
+	 */ 
 	public static void sendMULTICASTFORCEFrame(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, short typical, short shortCommand) {
 		
 		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
@@ -183,6 +195,9 @@ public class SoulissCommGate {
 		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 	}
 
+	/**
+	 * Build PING Frame
+	 */
 	public static void sendPing(DatagramSocket datagramSocket, String soulissNodeIPAddress,  String soulissNodeIPAddressOnLAN, short putIn_1,	short punIn_2) {
 
 		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
@@ -198,6 +213,9 @@ public class SoulissCommGate {
 		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 	}
 
+	/**
+	 * Build SUBSCRIPTION Frame
+	 */
 	public static void sendSUBSCRIPTIONframe(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int iNodes) {
 
 		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
@@ -213,7 +231,9 @@ public class SoulissCommGate {
 		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 	}
 
-
+	/**
+	 * Build HEALTY REQUEST Frame
+	 */
 	public static void sendHEALTY_REQUESTframe(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int iNodes) {
 
 		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();
@@ -228,6 +248,9 @@ public class SoulissCommGate {
 		send(datagramSocket, MACACOframe, soulissNodeIPAddress, soulissNodeIPAddressOnLAN);
 	}
 
+	/**
+	 * Build TYPICAL REQUEST Frame
+	 */
 	public static void sendTYPICAL_REQUESTframe(DatagramSocket datagramSocket, String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN, int iNodes) {
 
 		ArrayList<Byte> MACACOframe = new ArrayList<Byte>();

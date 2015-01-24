@@ -42,7 +42,7 @@ public class SoulissGenericTypical {
 		return iSlot;
 	}
 	/**
-	 * @param iSlot the iSlot to set
+	 * @param iSlot the Slot number to set
 	 */
 	public void setSlot(int iSlot) {
 		this.iSlot = iSlot;
@@ -69,10 +69,10 @@ public class SoulissGenericTypical {
 		return sType;
 	}
 	/**
-	 * @param soulissT11 the sType to set
+	 * @param soulissT the typical to set
 	 */
-	protected void setType(short soulissT11) {
-		this.sType = soulissT11;
+	protected void setType(short soulissT) {
+		this.sType = soulissT;
 	}
 	/**
 	 * @return the iState
@@ -81,7 +81,7 @@ public class SoulissGenericTypical {
 		return fState;
 	}
 	/**
-	 * @param iState the iState to set
+	 * @param iState the state of typical
 	 */
 	public void setState(float iState) {
 		LOGGER.debug("Update State. Name: "+ getName() +", Typ: " + "0x"+Integer.toHexString(getType()) + ", Node: "+ getSoulissNodeID() + ", Slot: " + getSlot() + ". New State: "+ iState);
@@ -102,23 +102,35 @@ public class SoulissGenericTypical {
 		this.sName = nodeName;
 	}
 	/**
-	 * @return the isUpdated
+	 *@return isUpdated
 	 */
 	public boolean isUpdated() {
 		return isUpdated;
 	}
+	
 	/**
+	 * Set to FALSE if new values have been read
 	 */
 	public void resetUpdate() {
 		isUpdated=false;
 	}
+	
+	/**
+	 * Set to TRUE if there are a new values inside. 
+	 * @return the isUpdated
+	 */
 	public void setUpdatedTrue() {
 		this.isUpdated = true;
 	}
 	
+	
 	public String getNote() {
 		return sNote;
 	}
+	
+	/**
+	 * Used to store the Openhab type inside typical 
+	 */
 	public void setNote(String sNote) {
 		this.sNote = sNote;
 	}

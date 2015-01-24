@@ -48,7 +48,8 @@ public class SoulissGenericBindingProvider extends AbstractGenericBindingProvide
 
 	/**
 	 * This method create typicals and add it to hastable
-	 * @Antonino-Fazio
+	 * @author Tonino Fazio
+	 * @since 1.7.0
 	 */
 	@Override
 	public void processBindingConfiguration(String context, Item item, String bindingConfig) throws BindingConfigParseException {

@@ -50,10 +50,11 @@ public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 		setUpdatedTrue();
 	}
 		
-	@Override
+	
 	/**
 	 * Return as openHAB type DateTimeType 
 	 */
+	@Override
 	public State getOHState() {
 			//return	StringType.valueOf(timestamp);
 			return	DateTimeType.valueOf(timestamp);

@@ -40,8 +40,7 @@ public class UDPSoulissDecoder {
 	}
 
 	/**
-	 * processa il pacchetto UDP ricevuto e agisce di conseguenza
-	 * 
+	 * Get packet from VNET Frame
 	 * @param packet
 	 *            incoming datagram
 	 */
@@ -161,11 +160,6 @@ public class UDPSoulissDecoder {
 		}
 	}
 
-	/**
-	 * Definizione dei tipici
-	 * 
-	 * @param mac
-	 */
 		private void decodeTypRequest(ArrayList<Short> mac) {
 			try {
 				short typ=(short) mac.get(0);
@@ -199,13 +193,6 @@ public class UDPSoulissDecoder {
 			}
 		}
 
-	/**
-	 * puo giungere in seguito a state request oppure come subscription data
-	 * della publish. Semantica = a typical request. Aggiorna il DB solo se il
-	 * tipico esiste
-	 * 
-	 * @param mac
-	 */
 	private void decodeStateRequest(ArrayList<Short> mac) {
 		boolean bDecoded_forLOG=false;
 		int tgtnode = mac.get(3);

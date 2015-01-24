@@ -93,6 +93,9 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 
 	/**
 	 * Read parameters from cfg file 
+	 *  
+	 * @author Tonino Fazio
+	 * @since 1.7.0
 	 */
 	@Override
 	public void updated(Dictionary<String, ?> config)
@@ -162,7 +165,9 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 
 	@Override
 	/**
-	 * Get the souliss' typical from the hash table and send a command
+	 * Get the souliss's typical from the hash table and send a command
+	 * @author Tonino Fazio
+	 * @since 1.7.0
 	 */
 	public void receiveCommand(String itemName, Command command) {
 
@@ -330,8 +335,12 @@ public class SoulissBinding<E> extends AbstractActiveBinding<SoulissBindingProvi
 			
 	}
 
+	/**
+	 * Put update to Openhab events bus
+	 * @author Tonino Fazio
+	 * @since 1.7.0
+	 */
 	public void putOnOHEventBus(String itemName, String value) {
-		
 		eventPublisher.postUpdate(itemName, new StringType(value));
 			}
 }

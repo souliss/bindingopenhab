@@ -29,6 +29,12 @@ public class MonitorThread extends Thread {
 	// SoulissUpdater sUpdater=new SoulissUpdater ();
 	EventPublisher eventPublisher;
 
+	
+	/**
+	 * Constructor
+	 * @author Tonino Fazio
+	 * @since 1.7.0
+	 */
 	public MonitorThread(SoulissTypicals typicals, int iRefreshTime,
 			EventPublisher _eventPublisher) {
 		// TODO Auto-generated constructor stub
@@ -38,6 +44,12 @@ public class MonitorThread extends Thread {
 		eventPublisher = _eventPublisher;
 	}
 
+	
+	/**
+	 * Check and sleep for REFRESH_TIME mills
+	 * @author Tonino Fazio
+	 * @since 1.7.0
+	 */
 	@Override
 	public void run() {
 		while (true) {
@@ -58,7 +70,9 @@ public class MonitorThread extends Thread {
 	 * Goes though the hast table and send on the openHAB bus only the
 	 * souliss' typicals that has been updated
 	 * 
-	 * @param typicals
+	 * @author Tonino Fazio
+	 * @since 1.7.0
+	 * @param SoulissTypicals typicals
 	 */
 	private void check(SoulissTypicals typicals) {
 		// TODO Auto-generated method stub

@@ -28,10 +28,11 @@ public class SoulissTServiceNODE_HEALTY extends SoulissGenericTypical {
 		this.setType(Constants.Souliss_TService_NODE_HEALTY);
 		this.setNote(sOHType);
 	}
-	@Override
+	
 	/**
 	 * Returns the souliss' typical state as numerical value
 	 */
+	@Override
 	public State getOHState() {
 		String sOHState=StateTraslator.statesSoulissToOH(this.getNote(), this.getType(), (short)this.getState());
 		if (sOHState == null) return DecimalType.valueOf(Float.toString(this.getState()));
