@@ -32,12 +32,11 @@ public class RefreshHEALTYThread extends Thread {
 			.getLogger(RefreshHEALTYThread.class);
 
 	public RefreshHEALTYThread(DatagramSocket datagramsocket,
-			String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN,
+			String soulissNodeIPAddressOnLAN,
 			int nodes, int iRefreshTime) {
 		// TODO Auto-generated constructor stub
 		REFRESH_TIME = iRefreshTime;
 		this.socket = datagramsocket;
-		this.SoulissNodeIPAddress = soulissNodeIPAddress;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
 		iNodes = nodes;
 		LOGGER.info("Avvio RefreshDBSTRUCTThread");

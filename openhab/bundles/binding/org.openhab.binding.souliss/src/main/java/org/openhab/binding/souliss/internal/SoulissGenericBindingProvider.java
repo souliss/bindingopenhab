@@ -74,7 +74,6 @@ public class SoulissGenericBindingProvider extends
 		SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(
 				StateTraslator.stringToSOULISSTypicalCode(sTypical),
 				SoulissNetworkParameter.datagramsocket,
-				SoulissNetworkParameter.IPAddress,
 				SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot, sNote,
 				iBit);
 		if (soulitTypicalNew != null) {

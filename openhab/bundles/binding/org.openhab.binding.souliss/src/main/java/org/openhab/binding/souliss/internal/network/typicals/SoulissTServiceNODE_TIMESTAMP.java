@@ -23,8 +23,7 @@ public class SoulissTServiceNODE_TIMESTAMP extends SoulissGenericTypical {
 	// private static final short SERVICE_SLOT=998;
 	private static String timestamp;
 
-	public SoulissTServiceNODE_TIMESTAMP(String sSoulissNodeIPAddress,
-			String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot,
+	public SoulissTServiceNODE_TIMESTAMP(String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot,
 			String sOHType) {
 		super();
 		this.setSlot(iSlot);
