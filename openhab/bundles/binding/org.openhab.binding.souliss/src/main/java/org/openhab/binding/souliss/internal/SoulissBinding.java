@@ -139,10 +139,11 @@ public class SoulissBinding<E> extends
 					SoulissNetworkParameter.NodeIndex = Integer
 							.parseInt((String) config.get(sName));
 					break;
-				case "NODE_NUMBERS":
-					SoulissNetworkParameter.nodes = Integer
-							.parseInt((String) config.get(sName));
-					break;
+					//Parameter setted by SoulissTypicalsRecipients.getNodeNumbers();
+//				case "NODE_NUMBERS":
+//					SoulissNetworkParameter.nodes = Integer
+//							.parseInt((String) config.get(sName));
+//					break;
 				case "SERVERPORT":
 					if (config.get(sName).equals(""))
 						SoulissNetworkParameter.serverPort = null;
@@ -305,12 +306,10 @@ public class SoulissBinding<E> extends
 				// Start the thread that subscribe data from the Souliss network
 				new RefreshSUBSCRIPTIONThread(Q.getSocket(),
 						SoulissNetworkParameter.IPAddressOnLAN,
-						SoulissNetworkParameter.nodes,
 						SoulissNetworkParameter.REFRESH_SUBSCRIPTION_TIME)
 						.start();
 				new RefreshHEALTYThread(Q.getSocket(),
 						SoulissNetworkParameter.IPAddressOnLAN,
-						SoulissNetworkParameter.nodes,
 						SoulissNetworkParameter.REFRESH_HEALTY_TIME).start();
 
 			} catch (IOException e) {

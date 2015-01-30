@@ -79,6 +79,7 @@ public class SoulissGenericBindingProvider extends
 		if (soulitTypicalNew != null) {
 			SoulissTypicalsRecipients.addTypical(item.getName(),
 					soulitTypicalNew);
+			SoulissNetworkParameter.nodes= SoulissTypicalsRecipients.getNodeNumbers();
 		} else {
 			LOGGER.debug("Typical Unknow");
 		}
@@ -88,5 +89,5 @@ public class SoulissGenericBindingProvider extends
 	public void validateItemType(Item item, String bindingConfig)
 			throws BindingConfigParseException {
 	}
-
+	
 }

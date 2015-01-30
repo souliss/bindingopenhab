@@ -32,13 +32,11 @@ public class RefreshHEALTYThread extends Thread {
 			.getLogger(RefreshHEALTYThread.class);
 
 	public RefreshHEALTYThread(DatagramSocket datagramsocket,
-			String soulissNodeIPAddressOnLAN,
-			int nodes, int iRefreshTime) {
+			String soulissNodeIPAddressOnLAN, int iRefreshTime) {
 		// TODO Auto-generated constructor stub
 		REFRESH_TIME = iRefreshTime;
 		this.socket = datagramsocket;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
-		iNodes = nodes;
 		LOGGER.info("Avvio RefreshDBSTRUCTThread");
 	}
 
@@ -52,9 +50,10 @@ public class RefreshHEALTYThread extends Thread {
 		while (true) {
 			try {
 				LOGGER.info("sendHEALTY_REQUESTframe");
-				SoulissCommGate
-						.sendHEALTY_REQUESTframe(socket, SoulissNodeIPAddress,
-								soulissNodeIPAddressOnLAN, iNodes);
+
+				SoulissCommGate.sendHEALTY_REQUESTframe(socket,
+						soulissNodeIPAddressOnLAN,
+						SoulissNetworkParameter.nodes);
 				Thread.sleep(REFRESH_TIME);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
