@@ -33,7 +33,6 @@ public class RefreshHEALTYThread extends Thread {
 
 	public RefreshHEALTYThread(DatagramSocket datagramsocket,
 			String soulissNodeIPAddressOnLAN, int iRefreshTime) {
-		// TODO Auto-generated constructor stub
 		REFRESH_TIME = iRefreshTime;
 		this.socket = datagramsocket;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
@@ -56,7 +55,6 @@ public class RefreshHEALTYThread extends Thread {
 						SoulissNetworkParameter.nodes);
 				Thread.sleep(REFRESH_TIME);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				LOGGER.error(e.getMessage());
 			}

@@ -31,7 +31,6 @@ public class RefreshSUBSCRIPTIONThread extends Thread {
 
 	public RefreshSUBSCRIPTIONThread(DatagramSocket datagramsocket,
 			String soulissNodeIPAddressOnLAN, int iRefreshTime) {
-		// TODO Auto-generated constructor stub
 		REFRESH_TIME = iRefreshTime;
 		this.socket = datagramsocket;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
