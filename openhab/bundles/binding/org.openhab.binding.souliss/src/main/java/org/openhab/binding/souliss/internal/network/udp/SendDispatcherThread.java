@@ -352,7 +352,7 @@ public class SendDispatcherThread extends Thread {
 					// se il frame non è uguale a zero controllo il TIMEOUT e se
 					// è scaduto allora pongo il flag SENT a false
 					long t=System.currentTimeMillis();
-					if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT < t - packetsList.get(i).getTime()) {
+					if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REQUEUE < t - packetsList.get(i).getTime()) {
 						if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET < t - packetsList.get(i).getTime()) {
 							LOGGER.debug("Packet Execution timeout - Removed");
 							packetsList.remove(i);

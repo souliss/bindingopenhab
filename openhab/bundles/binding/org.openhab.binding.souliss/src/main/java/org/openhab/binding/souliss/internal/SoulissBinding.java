@@ -131,8 +131,8 @@ public class SoulissBinding<E> extends
 					SoulissNetworkParameter.SEND_MIN_DELAY = Integer
 							.parseInt((String) config.get(sName));
 					break;
-				case "SECURE_SEND_TIMEOUT":
-					SoulissNetworkParameter.SECURE_SEND_TIMEOUT = Long
+				case "SECURE_SEND_TIMEOUT_TO_REQUEUE":
+					SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REQUEUE = Long
 							.parseLong((String) config.get(sName));
 					break;
 				case "SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET":

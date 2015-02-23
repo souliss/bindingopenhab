@@ -33,7 +33,7 @@ public class SocketAndPacket {
 	}
 	public void setTime(long time) {
 		//imposta il tempo solo se non è già stato impostato una volta
-		if(time==0)
+		if(this.time==0)
 		this.time = time;
 	}
 	public boolean isSent() {
