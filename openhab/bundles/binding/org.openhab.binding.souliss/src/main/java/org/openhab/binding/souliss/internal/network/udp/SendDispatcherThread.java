@@ -319,8 +319,8 @@ public class SendDispatcherThread extends Thread {
 						String sCmd=Integer.toHexString(packetsList.get(i).packet.getData()[j]);
 						sCmd = sCmd.length() < 2 ? "0x0"
 								+ sCmd.toUpperCase() : "0x" + sCmd.toUpperCase();
-						LOGGER.debug("Compare. Typical: "
-								+ typ.getType()
+						LOGGER.debug("Compare. Node: " + node + " Slot: "+ iSlot +  " Typical: "
+								+ Integer.toHexString(typ.getType())
 								+ " Command: "
 								+ sCmd
 								+ " EXPECTED: "
@@ -339,7 +339,7 @@ public class SendDispatcherThread extends Thread {
 							// si
 							// cancella il frame
 							packetsList.get(i).packet.getData()[j] = 0;
-							LOGGER.debug("T" + typ.getType() + " Slot " + iSlot
+							LOGGER.debug("T" + Integer.toHexString(typ.getType()) + " Node: " + node + " Slot: " + iSlot
 									+ " - OK Expected State");
 						}
 					}
