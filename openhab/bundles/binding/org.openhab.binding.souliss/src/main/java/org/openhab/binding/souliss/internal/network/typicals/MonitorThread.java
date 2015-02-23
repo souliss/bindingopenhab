@@ -66,7 +66,7 @@ public class MonitorThread extends Thread {
 	}
 
 	/**
-	 * Goes though the hast table and send on the openHAB bus only the souliss'
+	 * Goes though the hashtable and send on the openHAB bus only the souliss'
 	 * typicals that has been updated
 	 * 
 	 * @author Tonino Fazio

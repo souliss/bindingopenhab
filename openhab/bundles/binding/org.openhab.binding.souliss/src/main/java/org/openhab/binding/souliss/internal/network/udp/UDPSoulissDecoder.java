@@ -187,8 +187,7 @@ public class UDPSoulissDecoder {
 		// FITTIZI
 		SoulissTServiceUpdater.updateTIMESTAMP(soulissTypicalsRecipients,
 				tgtnode);
-		
-		// sfoglio hashtable e scelgo tipici nodo indicato nel frame
+		// sfoglio hashtable e scelgo tipici del nodo indicato nel frame
 		// leggo valore tipico in base allo slot
 		synchronized (this) {
 			Iterator<Entry<String, SoulissGenericTypical>> iteratorTypicals = soulissTypicalsRecipients

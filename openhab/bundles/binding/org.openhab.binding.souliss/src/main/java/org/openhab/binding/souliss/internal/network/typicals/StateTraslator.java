@@ -24,6 +24,7 @@ public class StateTraslator {
 	static Properties propCommands = new Properties();
 	static Properties propStates = new Properties();
 	static Properties propTypes = new Properties();
+	static Properties propCommands_to_states = new Properties();
 
 	private static Logger LOGGER = LoggerFactory
 			.getLogger(StateTraslator.class);
@@ -88,6 +89,31 @@ public class StateTraslator {
 		LOGGER.debug("translate states: " + sVal + " -> " + sRes);
 		return sRes;
 	}
+	
+	
+	/**
+	 * Translate Souliss command to expected states
+	 * 
+	 * @param String
+	 *            sOHType
+	 * @param short type
+	 * @param short state
+	 * @return String
+	 */
+	public static String translateCommandsToExpectedStates(short soulissType, short s) {
+		String s2 = Integer.toHexString(s);
+		s2 = s2.length() < 2 ? "0x0" + s2.toUpperCase() : "0x"
+				+ s2.toUpperCase();
+		
+		String s1 = Integer.toHexString(soulissType);
+		s1 = s1.length() < 2 ? "0x0" + s1.toUpperCase() : "0x"
+				+ s1.toUpperCase();
+		
+		String sRes = null;
+		String sVal = s1.trim() + Constants.CONF_FIELD_DELIMITER + s2.trim();
+		sRes = propCommands_to_states.getProperty(sVal.trim());
+		return sRes;
+	}
 
 	/**
 	 * Load commands file
@@ -139,4 +165,16 @@ public class StateTraslator {
 			LOGGER.error(e.getMessage());
 		}
 	}
+
+	public static void loadCommands_to_states(InputStream is) {
+		try {
+			propCommands_to_states.load(is);
+			LOGGER.info("ok");
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.error(e.getMessage());
+		}
+	}
+
 }
