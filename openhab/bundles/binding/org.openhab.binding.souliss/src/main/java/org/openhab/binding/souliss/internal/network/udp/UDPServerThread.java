@@ -42,7 +42,7 @@ public class UDPServerThread extends Thread {
 		}
 
 		decoder = new UDPSoulissDecoder(typicals);
-		LOGGER.info("Avvio UDPServerThread - Server in ascolto sulla porta "
+		LOGGER.info("Start UDPServerThread - Server in ascolto sulla porta "
 				+ SoulissNetworkParameter.datagramsocket.getLocalPort());
 	}
 

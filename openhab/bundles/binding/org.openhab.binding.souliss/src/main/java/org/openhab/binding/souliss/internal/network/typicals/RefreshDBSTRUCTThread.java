@@ -38,7 +38,7 @@ public class RefreshDBSTRUCTThread extends Thread {
 		this.socket = datagramsocket;
 		this.SoulissNodeIPAddress = soulissNodeIPAddress;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
-		LOGGER.info("Avvio RefreshDBSTRUCTThread");
+		LOGGER.info("Start RefreshDBSTRUCTThread");
 	}
 
 	/*

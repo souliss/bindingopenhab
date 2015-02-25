@@ -61,7 +61,7 @@ public class UDPSoulissDecoder {
 	 */
 	private void decodeMacaco(ArrayList<Short> macacoPck) {
 		int functionalCode = macacoPck.get(0);
-		LOGGER.info("decodeMacaco: Received functional code: 0x"
+		LOGGER.debug("decodeMacaco: Received functional code: 0x"
 				+ Integer.toHexString(functionalCode));
 		switch (functionalCode) {
 
@@ -71,7 +71,7 @@ public class UDPSoulissDecoder {
 			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_subscribe_resp:
 		case (byte) ConstantsUDP.Souliss_UDP_function_poll_resp:
-			LOGGER.info("Souliss_UDP_function_subscribe_resp / Souliss_UDP_function_poll_resp");
+			LOGGER.debug("Souliss_UDP_function_subscribe_resp / Souliss_UDP_function_poll_resp");
 			decodeStateRequest(macacoPck);
 			break;
 

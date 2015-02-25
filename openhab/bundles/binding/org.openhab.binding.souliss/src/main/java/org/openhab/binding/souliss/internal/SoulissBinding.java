@@ -180,7 +180,7 @@ public class SoulissBinding<E> extends
 		SoulissGenericTypical T = SoulissGenericBindingProvider.SoulissTypicalsRecipients
 				.getTypicalFromItem(itemName);
 		LOGGER.info("receiveCommand - " + itemName + " = " + command
-				+ " - Typical: " + T.getType());
+				+ " - Typical: 0x" + Integer.toHexString(T.getType()));
 
 		switch (T.getType()) {
 		case Constants.Souliss_T11:

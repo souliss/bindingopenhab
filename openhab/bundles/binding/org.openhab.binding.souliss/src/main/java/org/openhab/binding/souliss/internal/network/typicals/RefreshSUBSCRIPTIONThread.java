@@ -34,7 +34,7 @@ public class RefreshSUBSCRIPTIONThread extends Thread {
 		REFRESH_TIME = iRefreshTime;
 		this.socket = datagramsocket;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
-		LOGGER.info("Startup RefreshSUBSCRIPTIONThread");
+		LOGGER.info("Start RefreshSUBSCRIPTIONThread");
 	}
 
 	/*

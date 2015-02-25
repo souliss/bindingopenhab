@@ -45,7 +45,7 @@ public class SendDispatcherThread extends Thread {
 		this("SendDispatcher");
 		this.SEND_DELAY = SEND_DELAY;
 		this.SEND_MIN_DELAY = SEND_MIN_DELAY;
-		LOGGER.info("Avvio SendDispatcherThread");
+		LOGGER.info("Start SendDispatcherThread");
 		soulissTypicalsRecipients = soulissTypicalsRecip;
 	}
 
@@ -269,7 +269,6 @@ public class SendDispatcherThread extends Thread {
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
 				LOGGER.error(e.getMessage());
-				bExit = true;
 			} catch (Exception e) {
 				e.printStackTrace();
 				LOGGER.error(e.getMessage());
@@ -319,7 +318,7 @@ public class SendDispatcherThread extends Thread {
 						String sCmd=Integer.toHexString(packetsList.get(i).packet.getData()[j]);
 						sCmd = sCmd.length() < 2 ? "0x0"
 								+ sCmd.toUpperCase() : "0x" + sCmd.toUpperCase();
-						LOGGER.debug("Compare. Node: " + node + " Slot: "+ iSlot +  " Typical: "
+						LOGGER.info("Compare. Node: " + node + " Slot: "+ iSlot +  " Typical: "
 								+ Integer.toHexString(typ.getType())
 								+ " Command: "
 								+ sCmd
@@ -354,10 +353,10 @@ public class SendDispatcherThread extends Thread {
 					long t=System.currentTimeMillis();
 					if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REQUEUE < t - packetsList.get(i).getTime()) {
 						if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET < t - packetsList.get(i).getTime()) {
-							LOGGER.debug("Packet Execution timeout - Removed");
+							LOGGER.info("Packet Execution timeout - Removed");
 							packetsList.remove(i);
 						} else {
-							LOGGER.debug("Packet Execution timeout - Requeued");
+							LOGGER.info("Packet Execution timeout - Requeued");
 							packetsList.get(i).setSent(false);
 						}
 					}

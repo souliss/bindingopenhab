@@ -38,7 +38,7 @@ public class MonitorThread extends Thread {
 			EventPublisher _eventPublisher) {
 		REFRESH_TIME = iRefreshTime;
 		soulissTypicalsRecipients = typicals;
-		LOGGER.info("Avvio MonitorThread");
+		LOGGER.info("Start MonitorThread");
 		eventPublisher = _eventPublisher;
 	}
 

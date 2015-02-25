@@ -36,7 +36,7 @@ public class RefreshHEALTYThread extends Thread {
 		REFRESH_TIME = iRefreshTime;
 		this.socket = datagramsocket;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
-		LOGGER.info("Avvio RefreshDBSTRUCTThread");
+		LOGGER.info("Start RefreshDBSTRUCTThread");
 	}
 
 	/*
