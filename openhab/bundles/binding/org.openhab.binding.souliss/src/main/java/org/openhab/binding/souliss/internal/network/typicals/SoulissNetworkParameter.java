@@ -39,6 +39,8 @@ public class SoulissNetworkParameter {
 	public static int REFRESH_MONITOR_TIME = presetTime;
 	public static int SEND_DELAY = presetTime;
 	public static int SEND_MIN_DELAY = presetTime;
+	public static long SECURE_SEND_TIMEOUT_TO_REQUEUE = presetTime;
+	public static long SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET = presetTime;
 	private static Logger LOGGER = LoggerFactory
 			.getLogger(SoulissNetworkParameter.class);
 	public static int NodeIndex = 70;

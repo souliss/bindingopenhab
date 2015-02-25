@@ -131,6 +131,14 @@ public class SoulissBinding<E> extends
 					SoulissNetworkParameter.SEND_MIN_DELAY = Integer
 							.parseInt((String) config.get(sName));
 					break;
+				case "SECURE_SEND_TIMEOUT_TO_REQUEUE":
+					SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REQUEUE = Long
+							.parseLong((String) config.get(sName));
+					break;
+				case "SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET":
+					SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET = Long
+							.parseLong((String) config.get(sName));
+					break;
 				case "USER_INDEX":
 					SoulissNetworkParameter.UserIndex = Integer
 							.parseInt((String) config.get(sName));
@@ -286,7 +294,9 @@ public class SoulissBinding<E> extends
 
 				// Start the thread that send network packets to the Souliss
 				// network
-				new SendDispatcherThread(SoulissNetworkParameter.SEND_DELAY,
+				new SendDispatcherThread(
+						SoulissGenericBindingProvider.SoulissTypicalsRecipients,
+						SoulissNetworkParameter.SEND_DELAY,
 						SoulissNetworkParameter.SEND_MIN_DELAY).start();
 				// Start the thread that send back to openHAB the souliss'
 				// typical values
@@ -319,66 +329,63 @@ public class SoulissBinding<E> extends
 	public void putOnOHEventBus(String itemName, String value) {
 		eventPublisher.postUpdate(itemName, new StringType(value));
 	}
-	
-	
-	
+
 	public short[] hsvToRgb(float H, float S, float V) {
-		   float R, G, B;
+		float R, G, B;
 
-	        H /= 360f;
-	        S /= 100f;
-	        V /= 100f;
+		H /= 360f;
+		S /= 100f;
+		V /= 100f;
 
-	        if (S == 0)
-	        {
-	            R = V * 255;
-	            G = V * 255;
-	            B = V * 255;
-	        } else {
-	            float var_h = H * 6;
-	            if (var_h == 6)
-	                var_h = 0; // H must be < 1
-	            int var_i = (int) Math.floor((double) var_h); // Or ... var_i =
-	                                                            // floor( var_h )
-	            float var_1 = V * (1 - S);
-	            float var_2 = V * (1 - S * (var_h - var_i));
-	            float var_3 = V * (1 - S * (1 - (var_h - var_i)));
+		if (S == 0) {
+			R = V * 255;
+			G = V * 255;
+			B = V * 255;
+		} else {
+			float var_h = H * 6;
+			if (var_h == 6)
+				var_h = 0; // H must be < 1
+			int var_i = (int) Math.floor((double) var_h); // Or ... var_i =
+															// floor( var_h )
+			float var_1 = V * (1 - S);
+			float var_2 = V * (1 - S * (var_h - var_i));
+			float var_3 = V * (1 - S * (1 - (var_h - var_i)));
 
-	            float var_r;
-	            float var_g;
-	            float var_b;
-	            if (var_i == 0) {
-	                var_r = V;
-	                var_g = var_3;
-	                var_b = var_1;
-	            } else if (var_i == 1) {
-	                var_r = var_2;
-	                var_g = V;
-	                var_b = var_1;
-	            } else if (var_i == 2) {
-	                var_r = var_1;
-	                var_g = V;
-	                var_b = var_3;
-	            } else if (var_i == 3) {
-	                var_r = var_1;
-	                var_g = var_2;
-	                var_b = V;
-	            } else if (var_i == 4) {
-	                var_r = var_3;
-	                var_g = var_1;
-	                var_b = V;
-	            } else {
-	                var_r = V;
-	                var_g = var_1;
-	                var_b = var_2;
-	            }
+			float var_r;
+			float var_g;
+			float var_b;
+			if (var_i == 0) {
+				var_r = V;
+				var_g = var_3;
+				var_b = var_1;
+			} else if (var_i == 1) {
+				var_r = var_2;
+				var_g = V;
+				var_b = var_1;
+			} else if (var_i == 2) {
+				var_r = var_1;
+				var_g = V;
+				var_b = var_3;
+			} else if (var_i == 3) {
+				var_r = var_1;
+				var_g = var_2;
+				var_b = V;
+			} else if (var_i == 4) {
+				var_r = var_3;
+				var_g = var_1;
+				var_b = V;
+			} else {
+				var_r = V;
+				var_g = var_1;
+				var_b = var_2;
+			}
 
-	            R = var_r * 255; // RGB results from 0 to 255
-	            G = var_g * 255;
-	            B = var_b * 255;
-	        }
-	    
-	    short RGBList[] = {(short) R, (short) G, (short) B };
-	    return RGBList;
+			R = var_r * 255; // RGB results from 0 to 255
+			G = var_g * 255;
+			B = var_b * 255;
+		}
+
+		short RGBList[] = { (short) R, (short) G, (short) B };
+		return RGBList;
 	}
 }

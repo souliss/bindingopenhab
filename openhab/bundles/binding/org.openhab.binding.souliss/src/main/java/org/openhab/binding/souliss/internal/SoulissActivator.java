@@ -32,6 +32,8 @@ public final class SoulissActivator implements BundleActivator {
 	String sConfigurationFileName_commands_OHtoSOULISS=Constants.ConfigurationFileName_commands_OHtoSOULISS;
 	String sConfigurationFileName_states_SOULISStoOH=Constants.ConfigurationFileName_states_SOULISStoOH;
 	String sConfigurationFileName_ItemsType_OHtoSOULISS=Constants.ConfigurationFileName_ItemsType_SOULISS;
+	String sConfigurationFileName_commands_to_states=Constants.ConfigurationFileName_commands_to_states;
+	
 	
 	/**
 	 * Called whenever the OSGi framework starts our bundle
@@ -58,6 +60,10 @@ public final class SoulissActivator implements BundleActivator {
 		LOGGER.info("Load parameter from file: " + sConfigurationFileName_ItemsType_OHtoSOULISS);  
 		is = getClass().getResourceAsStream("/"+sConfigurationFileName_ItemsType_OHtoSOULISS);
 		StateTraslator.loadItemsType(is);
+		
+		LOGGER.info("Load parameter from file: " + sConfigurationFileName_commands_to_states);  
+		is = getClass().getResourceAsStream("/"+sConfigurationFileName_commands_to_states);
+		StateTraslator.loadCommands_to_states(is);
 	}
 
 

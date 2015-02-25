@@ -14,6 +14,10 @@ import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
+import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,13 +38,15 @@ public class SendDispatcherThread extends Thread {
 	static boolean bPopSuspend = false;
 	private static Logger LOGGER = LoggerFactory
 			.getLogger(SendDispatcherThread.class);
+	private static SoulissTypicals soulissTypicalsRecipients;
 
-	public SendDispatcherThread(int SEND_DELAY, int SEND_MIN_DELAY)
-			throws IOException {
+	public SendDispatcherThread(SoulissTypicals soulissTypicalsRecip,
+			int SEND_DELAY, int SEND_MIN_DELAY) throws IOException {
 		this("SendDispatcher");
 		this.SEND_DELAY = SEND_DELAY;
 		this.SEND_MIN_DELAY = SEND_MIN_DELAY;
 		LOGGER.info("Avvio SendDispatcherThread");
+		soulissTypicalsRecipients = soulissTypicalsRecip;
 	}
 
 	public SendDispatcherThread(String name) {
@@ -56,21 +62,18 @@ public class SendDispatcherThread extends Thread {
 		bPopSuspend = true;
 		boolean bPacchettoGestito = false;
 		// estraggo il nodo indirizzato dal pacchetto in ingresso
+		// restituisce -1 se il node non è del tipo Souliss_UDP_function_force
 		int node = getNode(packetToPUT);
 		LOGGER.debug("Push");
 		if (packetsList.size() == 0 || node < 0) {
 			bPacchettoGestito = false;
 		} else {
+			// OTTIMIZZATORE
+			// scansione lista paccetti da inviare
 			for (int i = 0; i < packetsList.size(); i++) {
-				// se il nodo da inserire � un comando FORCE restituisce valore
-				// > -1 uguale al numero di nodo indirizzato
-				// e se il nodo indirizzato � uguale a quello
-				// packetsList.get(i).packet presente in lista
-				// e se il socket � lo stesso uguale a quello
-				// packetsList.get(i).socket presente in lista
-				// if(node >=0 && getNode(packetsList.get(i).packet)==node &&
-				// packetsList.get(i).socket==socket)
-				if (node >= 0 && getNode(packetsList.get(i).packet) == node) {
+				if (node >= 0 && getNode(packetsList.get(i).packet) == node
+						&& !packetsList.get(i).isSent()) {
+					// frame per lo stesso nodo già presente in lista
 					LOGGER.debug("Frame UPD per nodo "
 							+ node
 							+ " già presente il lista. Esecuzione ottimizzazione.");
@@ -80,7 +83,7 @@ public class SendDispatcherThread extends Thread {
 					// presente in lista
 					if (packetToPUT.getData().length <= packetsList.get(i).packet
 							.getData().length) {
-						// scorre i byte di comando e se il byte � diverso da
+						// scorre i byte di comando e se il byte è diverso da
 						// zero sovrascrive il byte presente nel pacchetto in
 						// lista
 						LOGGER.debug("Optimizer.             Packet to push: "
@@ -88,6 +91,7 @@ public class SendDispatcherThread extends Thread {
 						LOGGER.debug("Optimizer.             Previous frame: "
 								+ MaCacoToString(packetsList.get(i).packet
 										.getData()));
+						// i valori dei tipici partono dal byte 12 in poi
 						for (int j = 12; j < packetToPUT.getData().length; j++) {
 							// se il j-esimo byte è diverso da zero allora lo
 							// sovrascrivo al byte del pacchetto già presente
@@ -177,10 +181,57 @@ public class SendDispatcherThread extends Thread {
 				else
 					iDelay = SEND_DELAY;
 
+				int iPacket = 0;
+				boolean bFlagWhile = true;
+				// scarta i pacchetti già inviati
+				while (!(iPacket >= packetsList.size()) && bFlagWhile) {
+					if (packetsList.get(iPacket).sent) {
+						iPacket++;
+					} else
+						bFlagWhile = false;
+				}
+
 				boolean tFlag = (t - t_prec) >= SEND_DELAY;
+				// se siamo arrivati alla fine della lista e quindi tutti i
+				// pacchetti sono già stati inviati allora pongo anche il tFlag
+				// a false (come se il timeout non fosse ancora trascorso)
+				if (iPacket >= packetsList.size())
+					tFlag = false;
+
 				if (packetsList.size() > 0 && tFlag) {
 					t_prec = System.currentTimeMillis();
-					SocketAndPacket sp = packetsList.remove(0);
+					// SocketAndPacket sp = packetsList.remove(0);
+
+					// estratto il primo elemento della lista
+					SocketAndPacket sp = packetsList.get(iPacket);
+
+					// GESTIONE PACCHETTO: eliminato dalla lista oppure
+					// contrassegnato come inviato se è un FORCE
+					if (packetsList.get(iPacket).packet.getData()[7] == (byte) ConstantsUDP.Souliss_UDP_function_force) {
+						// flag inviato a true
+						packetsList.get(iPacket).setSent(true);
+						// imposto time
+						packetsList.get(iPacket).setTime(
+								System.currentTimeMillis());
+					} else {
+						packetsList.remove(iPacket);
+					}
+
+					LOGGER.debug("POP: " + packetsList.size()
+							+ " packets in memory");
+					if (LOGGER.isDebugEnabled()) {
+						int iPacketSentCounter = 0;
+						int i = 0;
+						while (!(i >= packetsList.size())) {
+							if (packetsList.get(i).sent) {
+								iPacketSentCounter++;
+							}
+							i++;
+						}
+						LOGGER.debug("POP: " + (iPacketSentCounter)
+								+ " force frame sent");
+					}
+
 					LOGGER.debug("Pop frame "
 							+ MaCacoToString(sp.packet.getData())
 							+ " - Delay for 'SendDispatcherThread' setted to "
@@ -211,6 +262,10 @@ public class SendDispatcherThread extends Thread {
 							+ packetsList.size());
 					sp.socket.send(sp.packet);
 				}
+				// confronta gli stati in memoria con i frame inviati. Se
+				// corrispondono cancella il frame dalla lista inviati
+				SendDispatcherThread.safeSendCheck();
+
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
 				LOGGER.error(e.getMessage());
@@ -233,4 +288,103 @@ public class SendDispatcherThread extends Thread {
 		return sb.toString();
 	}
 
+	/**
+	 * check frame updates with packetList, where flag "sent" is true. If all
+	 * commands was executed there delete packet in list. confronta gli
+	 * aggiornamenti ricevuti con i frame inviati. Se corrispondono cancella il
+	 * frame nella lista inviati .
+	 */
+	public static void safeSendCheck() {
+		// short sVal = getByteAtSlot(macacoFrame, slot);
+
+		// scansione lista paccetti inviati
+		for (int i = 0; i < packetsList.size(); i++) {
+			if (packetsList.get(i).isSent()) {
+				int node = getNode(packetsList.get(i).packet);
+				int iSlot = 0;
+				for (int j = 12; j < packetsList.get(i).packet.getData().length; j++) {
+					// controllo lo slot solo se il comando è diveerso da ZERO
+					if (packetsList.get(i).packet.getData()[j] != 0) {
+						// recupero tipico dalla memoria
+						SoulissGenericTypical typ = soulissTypicalsRecipients
+								.getTypicalFromAddress(node, iSlot, 0);
+
+						// traduce il comando inviato con lo stato previsto e
+						// poi fa il confronto con lo stato attuale
+						if(LOGGER.isDebugEnabled()){
+						String s1 = String.valueOf((int) typ.getState());
+						String sStateMemoria = s1.length() < 2 ? "0x0"
+								+ s1.toUpperCase() : "0x" + s1.toUpperCase();
+								
+						String sCmd=Integer.toHexString(packetsList.get(i).packet.getData()[j]);
+						sCmd = sCmd.length() < 2 ? "0x0"
+								+ sCmd.toUpperCase() : "0x" + sCmd.toUpperCase();
+						LOGGER.debug("Compare. Node: " + node + " Slot: "+ iSlot +  " Typical: "
+								+ Integer.toHexString(typ.getType())
+								+ " Command: "
+								+ sCmd
+								+ " EXPECTED: "
+								+ expectedState(typ.getType(),
+										packetsList.get(i).packet.getData()[j])
+								+ " - IN MEMORY: " + sStateMemoria);
+						}
+						
+						if (checkExpectedState(
+								(int) typ.getState(),
+								expectedState(typ.getType(),
+										packetsList.get(i).packet.getData()[j]))) {
+							// se il valore del tipico coincide con il valore
+							// trasmesso allora pongo il byte a zero.
+							// quando tutti i byte saranno uguale a zero allora
+							// si
+							// cancella il frame
+							packetsList.get(i).packet.getData()[j] = 0;
+							LOGGER.debug("T" + Integer.toHexString(typ.getType()) + " Node: " + node + " Slot: " + iSlot
+									+ " - OK Expected State");
+						}
+					}
+					iSlot++;
+				}
+				if (checkAllsSlotZero(packetsList.get(i).packet)) {
+					LOGGER.debug("Command packet executed - Removed");
+					packetsList.remove(i);
+				} else {
+					// se il frame non è uguale a zero controllo il TIMEOUT e se
+					// è scaduto allora pongo il flag SENT a false
+					long t=System.currentTimeMillis();
+					if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REQUEUE < t - packetsList.get(i).getTime()) {
+						if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET < t - packetsList.get(i).getTime()) {
+							LOGGER.debug("Packet Execution timeout - Removed");
+							packetsList.remove(i);
+						} else {
+							LOGGER.debug("Packet Execution timeout - Requeued");
+							packetsList.get(i).setSent(false);
+						}
+					}
+
+				}
+			}
+		}
+	}
+
+	private static boolean checkExpectedState(int state, String expectedState) {
+		String s1 = String.valueOf(state);
+		String sState = s1.length() < 2 ? "0x0" + s1.toUpperCase() : "0x"
+				+ s1.toUpperCase();
+		return sState.equals(expectedState);
+	}
+
+	private static String expectedState(short soulissType, byte command) {
+		return StateTraslator.translateCommandsToExpectedStates(soulissType,
+				command);
+	}
+
+	private static boolean checkAllsSlotZero(DatagramPacket packet) {
+		boolean bflag = true;
+		for (int j = 12; j < packet.getData().length; j++) {
+			if (!(packet.getData()[j] == 0))
+				bflag = false;
+		}
+		return bflag;
+	}
 }

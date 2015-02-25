@@ -25,4 +25,23 @@ public class SocketAndPacket {
 
 	public DatagramSocket socket;
 	public DatagramPacket packet;
+	public boolean sent;
+	public long time=0;
+	
+	public long getTime() {
+		return time;
+	}
+	public void setTime(long time) {
+		//imposta il tempo solo se non è già stato impostato una volta
+		if(this.time==0)
+		this.time = time;
+	}
+	public boolean isSent() {
+		return sent;
+	}
+	public void setSent(boolean sent) {
+		this.sent = sent;
+	}
+	
+	
 }
