@@ -295,7 +295,6 @@ public class SendDispatcherThread extends Thread {
 	 */
 	public static void safeSendCheck() {
 		// short sVal = getByteAtSlot(macacoFrame, slot);
-
 		// scansione lista paccetti inviati
 		for (int i = 0; i < packetsList.size(); i++) {
 			if (packetsList.get(i).isSent()) {
@@ -318,7 +317,7 @@ public class SendDispatcherThread extends Thread {
 						String sCmd=Integer.toHexString(packetsList.get(i).packet.getData()[j]);
 						sCmd = sCmd.length() < 2 ? "0x0"
 								+ sCmd.toUpperCase() : "0x" + sCmd.toUpperCase();
-						LOGGER.info("Compare. Node: " + node + " Slot: "+ iSlot +  " Typical: "
+						LOGGER.debug("Compare. Node: " + node + " Slot: "+ iSlot +  " Typical: "
 								+ Integer.toHexString(typ.getType())
 								+ " Command: "
 								+ sCmd
@@ -360,7 +359,6 @@ public class SendDispatcherThread extends Thread {
 							packetsList.get(i).setSent(false);
 						}
 					}
-
 				}
 			}
 		}
