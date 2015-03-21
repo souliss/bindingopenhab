@@ -56,7 +56,7 @@ public class SoulissTypicals {
 						+ typical.getSlot());
 			}
 			typical.setName(sItem);
-			// Index is : IP Address + VNET Address + slot
+			// Index is : node + slot + iBit
 			LOGGER.info("hashTableItemToAddress <-- [key: " + sItem
 					+ " - value: " + String.valueOf(typical.getSoulissNodeID())
 					+ String.valueOf(typical.getSlot()) + iBit + "]");
@@ -86,7 +86,7 @@ public class SoulissTypicals {
 	}
 
 	/**
-	 * Add a souliss' typical in the hash table using IP+Nodo+Slot as index
+	 * Add a souliss' typical in the hash table using NODE + SLOT + IBIT as index
 	 * 
 	 * @param sSoulissNodeIPAddress
 	 * @param getSoulissNodeID
