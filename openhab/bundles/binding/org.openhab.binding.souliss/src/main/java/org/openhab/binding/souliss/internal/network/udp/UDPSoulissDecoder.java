@@ -19,6 +19,7 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypic
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT1A;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT31;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTServiceUpdater;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 
@@ -245,7 +246,30 @@ public class UDPSoulissDecoder {
 						((SoulissT16) typ).setStateBLU(getByteAtSlot(mac,
 								slot + 3));
 						bDecoded_forLOG = true;
-					}
+					} else if (iNumBytes == 5) {
+						//*******************
+						// T31 Thermostat
+						//*******************
+						//SLOT 0: Control State 
+						short sVal = getByteAtSlot(mac, slot);
+						((SoulissT31) typ).setRawCommandState(sVal);
+						/*The control state bit meaning follow as:
+							BIT 0	Not used 
+							BIT 1	(0 Heating OFF , 1 Heating ON)
+							BIT 2	(0 Cooling OFF , 1 Cooling ON)
+							BIT 3	(0 Fan 1 OFF   , 1 Fan 1 ON)
+							BIT 4	(0 Fan 2 OFF   , 1 Fan 2 ON)
+							BIT 5	(0 Fan 3 OFF   , 1 Fan 3 ON)
+							BIT 6	(0 Manual Mode , 1 Automatic Mode for Fan) 
+							BIT 7	(0 Heating Mode, 1 Cooling Mode)*/
+						//SLOT 1-2: Temperature Measured Value
+						val = getFloatAtSlot(mac, slot+1);
+						((SoulissT31) typ).setTemperatureMeasuredValue(val);
+						//SLOT 3-4: Temperature Setpoint Value 
+						val = getFloatAtSlot(mac, slot+3);
+						((SoulissT31) typ).setTemperatureSetpointValue(val);
+						bDecoded_forLOG = true;
+						}
 
 					if (typ.getType() != 152 && typ.getType() != 153) // non
 																		// esegue
@@ -272,7 +296,16 @@ public class UDPSoulissDecoder {
 									+ ((SoulissT16) typ).getStateRED() + ", "
 									+ ((SoulissT16) typ).getStateGREEN() + ", "
 									+ ((SoulissT16) typ).getStateBLU());
-						else if (bDecoded_forLOG) {
+						else if (iNumBytes == 5) {
+							//T31 Thermostat
+							LOGGER.debug("decodeStateRequest:  "
+									+ typ.getName() + " ( "
+									+ Short.valueOf(typ.getType()) + "). Thermostat= "
+									+ ((SoulissT31) typ).getsRawCommandState() + ", "
+									+ ((SoulissT31) typ).getTemperatureMeasuredValue() + ", "
+									+ ((SoulissT31) typ).getTemperatureSetpointValue());
+
+						} else if (bDecoded_forLOG) {
 							if (typ.getType() == 0x1A) {
 								LOGGER.debug("decodeStateRequest: "
 										+ typ.getName()

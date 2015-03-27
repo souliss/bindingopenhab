@@ -42,6 +42,7 @@ public class SoulissTypicals {
 	public void addTypical(String sItem, SoulissGenericTypical typical) {
 		synchronized (typical) {
 			int iBit = 0;
+			String sUseOfSlot = "";
 			if (typical.getType() == Constants.Souliss_T1A) {
 				LOGGER.info("Add Item: " + sItem + " - Typ: "
 						+ Integer.toHexString(typical.getType()) + ", Node: "
@@ -49,6 +50,13 @@ public class SoulissTypicals {
 						+ typical.getSlot() + ", Bit: "
 						+ ((SoulissT1A) typical).getBit());
 				iBit = ((SoulissT1A) typical).getBit();
+			} else if (typical.getType() == Constants.Souliss_T31) {
+				LOGGER.info("Add Item: " + sItem + " - Typ: "
+						+ Integer.toHexString(typical.getType()) + ", Node: "
+						+ typical.getSoulissNodeID() + ", Slot: "
+						+ typical.getSlot() + ", Use: "
+						+ ((SoulissT31) typical).getUseOfSlot());
+				sUseOfSlot = ((SoulissT31) typical).getUseOfSlot();
 			} else {
 				LOGGER.info("Add Item: " + sItem + " - Typ: "
 						+ Integer.toHexString(typical.getType()) + ", Node: "
@@ -56,22 +64,22 @@ public class SoulissTypicals {
 						+ typical.getSlot());
 			}
 			typical.setName(sItem);
-			// Index is : node + slot + iBit
+			// Index is : node + slot + iBit + sUseOfSlot
 			LOGGER.info("hashTableItemToAddress <-- [key: " + sItem
 					+ " - value: " + String.valueOf(typical.getSoulissNodeID())
-					+ String.valueOf(typical.getSlot()) + iBit + "]");
+					+ String.valueOf(typical.getSlot()) + iBit + sUseOfSlot+ "]");
 			hashTableItemToAddress.put(
 					sItem,
 					String.valueOf(typical.getSoulissNodeID())
-							+ String.valueOf(typical.getSlot()) + iBit);
+							+ String.valueOf(typical.getSlot()) + iBit + sUseOfSlot);
 			// Index is : item
 			LOGGER.info("hashTableAddressToTypicals <-- [key: "
 					+ typical.getSoulissNodeID()
-					+ String.valueOf(typical.getSlot()) + iBit + " - value: "
+					+ String.valueOf(typical.getSlot()) + iBit + sUseOfSlot + " - value: "
 					+ typical + "]");
 			hashTableAddressToTypicals
 					.put(String.valueOf(typical.getSoulissNodeID())
-							+ String.valueOf(typical.getSlot()) + iBit, typical);
+							+ String.valueOf(typical.getSlot()) + iBit + sUseOfSlot, typical);
 		}
 
 	}

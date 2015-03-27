@@ -249,7 +249,9 @@ public class Constants {
 	public static final String ConfigurationFileName_commands_to_states = "/properties/commands_to_states.properties";
 	
 	public static final String Openhab_RGB_TYPE = "HSBType";
-
+	public static final String Souliss_T31_Use_Of_Slot_SETPOINT = "setpoint";
+	public static final String Souliss_T31_Use_Of_Slot_VALUE = "value";
+	public static final String Souliss_T31_Use_Of_Slot_SWITCH = "switch";
 
 
 }
