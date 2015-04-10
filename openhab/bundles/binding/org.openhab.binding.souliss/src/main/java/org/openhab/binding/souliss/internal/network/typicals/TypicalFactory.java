@@ -71,7 +71,7 @@ public class TypicalFactory {
 			break;
 		case Constants.Souliss_T31:
 			T = new SoulissT31(_datagramsocket, sSoulissNodeIPAddressOnLAN,
-					iIDNodo, iSlot, sOHType, sUseSlot);
+					iIDNodo, iSlot, sOHType);
 			break;
 		case Constants.Souliss_T_HumiditySensor:
 			break;

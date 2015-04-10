@@ -301,8 +301,8 @@ public class UDPSoulissDecoder {
 							LOGGER.debug("decodeStateRequest:  "
 									+ typ.getName() + " ( "
 									+ Short.valueOf(typ.getType()) + "). Thermostat= "
-									+ ((SoulissT31) typ).getsRawCommandState() + ", "
-									+ ((SoulissT31) typ).getTemperatureMeasuredValue() + ", "
+									+ ((SoulissT31) typ).getRawCommandState() + ", Temp.Measured= "
+									+ ((SoulissT31) typ).getTemperatureMeasuredValue() + ", Temp.SetPoint= "
 									+ ((SoulissT31) typ).getTemperatureSetpointValue());
 
 						} else if (bDecoded_forLOG) {

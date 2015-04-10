@@ -10,8 +10,10 @@ package org.openhab.binding.souliss.internal;
 
 import org.openhab.binding.souliss.SoulissBindingProvider;
 
+import org.openhab.binding.souliss.internal.network.typicals.Constants;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT31;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
@@ -65,31 +67,61 @@ public class SoulissGenericBindingProvider extends
 		int iNodeID = Integer.parseInt(sNameArray[1]);
 		int iSlot = Integer.parseInt(sNameArray[2]);
 		byte iBit = 0;
-		String sUseSlot="";
-		if (sNameArray.length == 3) {
-			iBit = Byte.parseByte(sNameArray[3]);
-		} else if (sNameArray.length > 3) {
-			sUseSlot=sNameArray[4];
+		String sUseSlot = "";
+		// gestisce i casi particolari per T31 e T1A, per la presenza del terzo
+		// parametro
+		if (sNameArray.length > 3) {
+			if (StateTraslator.stringToSOULISSTypicalCode(sTypical) == Constants.Souliss_T31)
+				sUseSlot = sNameArray[3];
+			else
+				iBit = Byte.parseByte(sNameArray[3]);
 		}
 
 		String sNote = item.getClass().getSimpleName();
 
-		SoulissGenericTypical soulissTypicalNew = TypicalFactory.getClass(
-				StateTraslator.stringToSOULISSTypicalCode(sTypical),
-				SoulissNetworkParameter.datagramsocket,
-				SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot, sNote,
-				iBit, sUseSlot );
-		if (soulissTypicalNew != null) {
-			SoulissTypicalsRecipients.addTypical(item.getName(), soulissTypicalNew);
-			SoulissNetworkParameter.nodes= SoulissTypicalsRecipients.getNodeNumbers();
-		} else {
-			LOGGER.debug("Typical Unknow");
-		}
+		SoulissGenericTypical soulissTypicalNew = null;
+		// gestisce il caso particolare del T31.
+		// nel caso del T31 tre definizioni OH devono confluire in un unico
+		// Tipico Souliss
+		if (StateTraslator.stringToSOULISSTypicalCode(sTypical) == Constants.Souliss_T31) {
+			soulissTypicalNew = SoulissTypicalsRecipients
+					.getTypicalFromAddress(iNodeID, iSlot, 0);
+			if (soulissTypicalNew != null) {
+//in base al campo use slot inserisco nel tipico il nome item di riferimento				
+				switch (sUXXXXseSlot) { qualche errore
+				case Constants.Souliss_T31_Use_Of_Slot_SETPOINT:
+					((SoulissT31) soulissTypicalNew).setsItemNameTemperatureSetpointValue(item.getName());
+				case Constants.Souliss_T31_Use_Of_Slot_SWITCH:
+					((SoulissT31) soulissTypicalNew).setsItemNameCommandState(item.getName());
+				case Constants.Souliss_T31_Use_Of_Slot_VALUE:
+					((SoulissT31) soulissTypicalNew).setsItemNameTemperatureMeasuredValue(item.getName());
+					
+				break;
+				}
+				LOGGER.info("Add parameter to T31 : " + sUseSlot);
+			}
+			}
+		
+			//creazione tipico, solo se non si tratta di un T31 al quale è stato aggiunto un parametro
+			if(soulissTypicalNew==null){
+				soulissTypicalNew = TypicalFactory.getClass(
+						StateTraslator.stringToSOULISSTypicalCode(sTypical),
+						SoulissNetworkParameter.datagramsocket,
+						SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot,
+						sNote, iBit, sUseSlot);
+			}
+		
 
+		if (soulissTypicalNew != null) {
+			SoulissTypicalsRecipients.addTypical(item.getName(),
+					soulissTypicalNew);
+			SoulissNetworkParameter.nodes = SoulissTypicalsRecipients
+					.getNodeNumbers();
+		} 
 	}
 
 	public void validateItemType(Item item, String bindingConfig)
 			throws BindingConfigParseException {
 	}
-	
+
 }

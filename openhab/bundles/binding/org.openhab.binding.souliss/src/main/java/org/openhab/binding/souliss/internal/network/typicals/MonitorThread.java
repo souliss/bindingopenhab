@@ -110,7 +110,7 @@ public class MonitorThread extends Thread {
 								+ ((SoulissT1A) typ).getBitState());
 					} else if (typ.getType() == Constants.Souliss_T31) {
 						//T31
-						LOGGER.debug("Put on Bus Events - Command State: " + ((SoulissT31) typ).getsRawCommandState() + " - Temperature Measured Value"+ ((SoulissT31) typ).getTemperatureMeasuredValue() + " - Set Point"+ ((SoulissT31) typ).getTemperatureSetpointValue());
+						LOGGER.debug("Put on Bus Events - Command State: " + ((SoulissT31) typ).getRawCommandState() + " - Temperature Measured Value"+ ((SoulissT31) typ).getTemperatureMeasuredValue() + " - Set Point"+ ((SoulissT31) typ).getTemperatureSetpointValue());
 					}
 					else {
 					}

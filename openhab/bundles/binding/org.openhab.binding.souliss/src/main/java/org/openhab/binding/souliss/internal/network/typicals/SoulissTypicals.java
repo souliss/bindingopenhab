@@ -50,13 +50,6 @@ public class SoulissTypicals {
 						+ typical.getSlot() + ", Bit: "
 						+ ((SoulissT1A) typical).getBit());
 				iBit = ((SoulissT1A) typical).getBit();
-			} else if (typical.getType() == Constants.Souliss_T31) {
-				LOGGER.info("Add Item: " + sItem + " - Typ: "
-						+ Integer.toHexString(typical.getType()) + ", Node: "
-						+ typical.getSoulissNodeID() + ", Slot: "
-						+ typical.getSlot() + ", Use: "
-						+ ((SoulissT31) typical).getUseOfSlot());
-				sUseOfSlot = ((SoulissT31) typical).getUseOfSlot();
 			} else {
 				LOGGER.info("Add Item: " + sItem + " - Typ: "
 						+ Integer.toHexString(typical.getType()) + ", Node: "
@@ -108,7 +101,7 @@ public class SoulissTypicals {
 		return hashTableAddressToTypicals.get(String.valueOf(getSoulissNodeID)
 				+ String.valueOf(iSlot) + iBit);
 	}
-
+	
 	/**
 	 * Add a souliss' typical in the hash table using ITEM as index
 	 * 
