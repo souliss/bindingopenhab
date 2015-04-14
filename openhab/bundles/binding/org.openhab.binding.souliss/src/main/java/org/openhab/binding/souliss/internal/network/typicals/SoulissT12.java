@@ -10,6 +10,8 @@ package org.openhab.binding.souliss.internal.network.typicals;
 
 import java.net.DatagramSocket;
 
+import org.openhab.core.types.State;
+
 /**
  * Typical T12 SWITCH WITH AUTO mode (NOT SUPPORTED BY OPENHAB)
  * 
@@ -17,6 +19,18 @@ import java.net.DatagramSocket;
  * @since 1.7.0
  */
 public class SoulissT12 extends SoulissT11 {
+
+	@Override
+	public void CommandSEND(short command) {
+		// TODO Auto-generated method stub
+		super.CommandSEND(command);
+	}
+
+	@Override
+	public State getOHState() {
+		// TODO Auto-generated method stub
+		return super.getOHState();
+	}
 
 	public SoulissT12(DatagramSocket _datagramsocket,
 			String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot,

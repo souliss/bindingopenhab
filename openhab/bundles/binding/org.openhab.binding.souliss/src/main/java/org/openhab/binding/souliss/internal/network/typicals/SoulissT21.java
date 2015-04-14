@@ -47,6 +47,8 @@ package org.openhab.binding.souliss.internal.network.typicals;
 
 import java.net.DatagramSocket;
 
+import org.openhab.core.types.State;
+
 /**
  * Typical T52 Temperature Sensor Derived from T51 Analog input, half-precision
  * floating point
@@ -55,6 +57,18 @@ import java.net.DatagramSocket;
  * @since 1.7.0
  */
 public class SoulissT21 extends SoulissT22 {
+
+	@Override
+	public void CommandSEND(short command) {
+		// TODO Auto-generated method stub
+		super.CommandSEND(command);
+	}
+
+	@Override
+	public State getOHState() {
+		// TODO Auto-generated method stub
+		return super.getOHState();
+	}
 
 	public SoulissT21(DatagramSocket _datagramsocket,
 			String sSoulissNodeIPAddressOnLAN, int iIDNodo, int iSlot,
