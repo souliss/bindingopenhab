@@ -198,8 +198,6 @@ public class Constants {
 	public static final short Souliss_T2n_Coil_Off = 0x00;
 
 	// General defines for T3n
-	public static final short Souliss_T3n_InSetPoint = 0x01;
-	public static final short Souliss_T3n_OutSetPoint = 0x02;
 	public static final short Souliss_T3n_LowRange = 0x10;
 	public static final short Souliss_T3n_MaxRange = 0x7F;
 
@@ -209,6 +207,32 @@ public class Constants {
 	public static final short Souliss_T3n_DeadBand = 0x05;
 	public static final short Souliss_T3n_RstCmd = 0x00;
 
+	
+	public static final String Souliss_T31_Use_Of_Slot_SETPOINT = "setpoint";
+	public static final String Souliss_T31_Use_Of_Slot_MEASURED = "measured";
+	public static final String Souliss_T31_Use_Of_Slot_STATECONTROL = "statecontrol";
+
+	public static final String Souliss_T3n_InSetPoint = "0x01";
+	public static final String Souliss_T3n_OutSetPoint = "0x02";
+	public static final String Souliss_T3n_AsMeasured = "0x03";
+	public static final String Souliss_T3n_Cooling = "0x04";
+	public static final String Souliss_T3n_Heating = "0x05";
+	public static final String Souliss_T3n_FanOff = "0x06";
+	public static final String Souliss_T3n_FanLow = "0x07";
+	public static final String Souliss_T3n_FanMed = "0x08";
+	public static final String Souliss_T3n_FanHigh = "0x09";
+	public static final String Souliss_T3n_FanAuto = "0x0A";
+	public static final String Souliss_T3n_FanManual = "0x0B";
+	public static final String Souliss_T3n_SetTemp = "0x0C";
+	public static final String Souliss_T3n_ShutDown = "0x0D";
+
+	public static final String Souliss_T3n_HeatingOn = "0x02";
+	public static final String Souliss_T3n_CoolingOn = "0x03";
+	public static final String Souliss_T3n_FanOn1 = "0x08";
+	public static final String Souliss_T3n_FanOn2 = "0x10";
+	public static final String Souliss_T3n_FanOn3 = "0x20";
+	
+	
 	// General defines for T4n
 	public static final short Souliss_T4n_Alarm = 0x01; // Alarm Condition
 														// Detected (Input)
@@ -249,9 +273,6 @@ public class Constants {
 	public static final String ConfigurationFileName_commands_to_states = "/properties/commands_to_states.properties";
 	
 	public static final String Openhab_RGB_TYPE = "HSBType";
-	public static final String Souliss_T31_Use_Of_Slot_SETPOINT = "setpoint";
-	public static final String Souliss_T31_Use_Of_Slot_VALUE = "value";
-	public static final String Souliss_T31_Use_Of_Slot_SWITCH = "state";
-
-
+	
 }
+	

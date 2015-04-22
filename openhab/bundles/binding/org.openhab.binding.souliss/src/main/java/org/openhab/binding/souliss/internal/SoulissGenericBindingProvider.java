@@ -86,22 +86,7 @@ public class SoulissGenericBindingProvider extends
 		if (StateTraslator.stringToSOULISSTypicalCode(sTypical) == Constants.Souliss_T31) {
 			soulissTypicalNew = SoulissTypicalsRecipients
 					.getTypicalFromAddress(iNodeID, iSlot, 0);
-			if (soulissTypicalNew != null) {
-//in base al campo use slot inserisco nel tipico il nome item di riferimento				
-				switch (sUXXXXseSlot) { qualche errore
-				case Constants.Souliss_T31_Use_Of_Slot_SETPOINT:
-					((SoulissT31) soulissTypicalNew).setsItemNameTemperatureSetpointValue(item.getName());
-				case Constants.Souliss_T31_Use_Of_Slot_SWITCH:
-					((SoulissT31) soulissTypicalNew).setsItemNameCommandState(item.getName());
-				case Constants.Souliss_T31_Use_Of_Slot_VALUE:
-					((SoulissT31) soulissTypicalNew).setsItemNameTemperatureMeasuredValue(item.getName());
-					
-				break;
-				}
-				LOGGER.info("Add parameter to T31 : " + sUseSlot);
-			}
-			}
-		
+			
 			//creazione tipico, solo se non si tratta di un T31 al quale è stato aggiunto un parametro
 			if(soulissTypicalNew==null){
 				soulissTypicalNew = TypicalFactory.getClass(
@@ -110,8 +95,37 @@ public class SoulissGenericBindingProvider extends
 						SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot,
 						sNote, iBit, sUseSlot);
 			}
+			
+			if (soulissTypicalNew != null) {
+//in base al campo use slot inserisco nel tipico il nome item di riferimento				
+				switch (sUseSlot) { 
+				case Constants.Souliss_T31_Use_Of_Slot_SETPOINT:
+					((SoulissT31) soulissTypicalNew).setsItemNameSetpointValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeSetpointValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_STATECONTROL:
+					((SoulissT31) soulissTypicalNew).setsItemNameStateControlValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeStateControlValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_MEASURED:
+					((SoulissT31) soulissTypicalNew).setsItemNameMeasuredValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeMeasuredValue(sNote);
+				break;
+				}
+				LOGGER.info("Add parameter to T31 : " + sUseSlot);
+			}
+			}
 		
-
+			
+		//creazione tipico, solo se non si tratta di un T31 al quale è stato aggiunto un parametro
+		if(soulissTypicalNew==null){
+			soulissTypicalNew = TypicalFactory.getClass(
+					StateTraslator.stringToSOULISSTypicalCode(sTypical),
+					SoulissNetworkParameter.datagramsocket,
+					SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot,
+					sNote, iBit, sUseSlot);
+		}
+		
 		if (soulissTypicalNew != null) {
 			SoulissTypicalsRecipients.addTypical(item.getName(),
 					soulissTypicalNew);

@@ -264,10 +264,10 @@ public class UDPSoulissDecoder {
 							BIT 7	(0 Heating Mode, 1 Cooling Mode)*/
 						//SLOT 1-2: Temperature Measured Value
 						val = getFloatAtSlot(mac, slot+1);
-						((SoulissT31) typ).setTemperatureMeasuredValue(val);
+						((SoulissT31) typ).setMeasuredValue(val);
 						//SLOT 3-4: Temperature Setpoint Value 
 						val = getFloatAtSlot(mac, slot+3);
-						((SoulissT31) typ).setTemperatureSetpointValue(val);
+						((SoulissT31) typ).setSetpointValue(val);
 						bDecoded_forLOG = true;
 						}
 
@@ -303,7 +303,7 @@ public class UDPSoulissDecoder {
 									+ Short.valueOf(typ.getType()) + "). Thermostat= "
 									+ ((SoulissT31) typ).getRawCommandState() + ", Temp.Measured= "
 									+ ((SoulissT31) typ).getTemperatureMeasuredValue() + ", Temp.SetPoint= "
-									+ ((SoulissT31) typ).getTemperatureSetpointValue());
+									+ ((SoulissT31) typ).getSetpointValue());
 
 						} else if (bDecoded_forLOG) {
 							if (typ.getType() == 0x1A) {

@@ -86,7 +86,7 @@ public class StateTraslator {
 		String sVal = sOHType + Constants.CONF_FIELD_DELIMITER + s1
 				+ Constants.CONF_FIELD_DELIMITER + s2;
 		sRes = propStates.getProperty(sVal);
-		LOGGER.debug("translate states: " + sVal + " -> " + sRes);
+		if(sRes != null) LOGGER.debug("translate states: " + sVal + " -> " + sRes);
 		return sRes;
 	}
 	

@@ -28,11 +28,14 @@ public class SoulissT31 extends SoulissGenericTypical {
 	private short sRawCommandState;
 
 	private Float TemperatureSetpointValue;
-	private Float TemperatureMeasuredValue;
+	private Float MeasuredValue;
 
-	private String sItemNameTemperatureMeasuredValue;
+	private String sItemNameMeasuredValue;
+	private String sItemTypeMeasuredValue;
 	private String sItemNameCommandState;
-	private String sItemNameTemperatureSetpointValue;
+	private String sItemTypeCommandState;
+	private String sItemNameSetpointValue;
+	private String sItemTypeSetpointValue;
 
 	/**
 	 * Typical T31
@@ -54,7 +57,7 @@ public class SoulissT31 extends SoulissGenericTypical {
 		this.setSlot(iSlot);
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_T31);
-		this.setNote(sOHType);
+		//this.setNote(sOHType);  //eliminato, perchè il tipo di item viene impostato in fase di inserimento dei dati nel tipico, dentro SoulissGenericBindingProvider, metodo processBindingConfiguration
 	}
 
 	/**
@@ -80,7 +83,7 @@ public class SoulissT31 extends SoulissGenericTypical {
 	 * @return org.openhab.core.types.State
 	 */
 	public State getOHState() {
-		String sOHState = StateTraslator.statesSoulissToOH(this.getNote(),
+		String sOHState = StateTraslator.statesSoulissToOH(this.getsItemNameCommandState(),
 				this.getType(), (short) this.getState());
 		if (sOHState != null) {
 			// if(getUseOfSlot().equals(Constants.Souliss_T31_Use_Of_Slot_SETPOINT)){
@@ -109,8 +112,8 @@ public class SoulissT31 extends SoulissGenericTypical {
 			return DecimalType.valueOf(sOHState);
 	}
 
-	public State getOHStateTemperatureMeasuredValue() {
-		String sOHState = StateTraslator.statesSoulissToOH(this.getNote(),
+	public State getOHStateMeasuredValue() {
+		String sOHState = StateTraslator.statesSoulissToOH(this.getsItemTypeMeasuredValue(),
 				this.getType(), (short) this.getState());
 		if (sOHState == null) {
 			if (!Float.isNaN(this.getState())) {
@@ -125,14 +128,14 @@ public class SoulissT31 extends SoulissGenericTypical {
 			return DecimalType.valueOf(sOHState);
 	}
 
-	public State getOHStateTemperatureSetpointValue() {
-		String sOHState = StateTraslator.statesSoulissToOH(this.getNote(),
+	public State getOHStateSetpointValue() {
+		String sOHState = StateTraslator.statesSoulissToOH(this.getsItemTypeSetpointValue(),
 				this.getType(), (short) this.getState());
 		if (sOHState == null) {
 			if (!Float.isNaN(this.getState())) {
-				if (this.getTemperatureSetpointValue() != null)
+				if (this.getSetpointValue() != null)
 					return DecimalType.valueOf(Float.toString(this
-							.getTemperatureSetpointValue()));
+							.getSetpointValue()));
 				else
 					return null;
 			} else
@@ -142,14 +145,14 @@ public class SoulissT31 extends SoulissGenericTypical {
 	}
 
 	public State getOHCommandState() {
-		String sOHState = StateTraslator.statesSoulissToOH(this.getNote(),
-				this.getType(), (short) sRawCommandState);
-		if (sOHState != null) {
-			if (this.getNote().equals("ContactItem"))
-				return OpenClosedType.valueOf(sOHState);
-			else
-				return OnOffType.valueOf(sOHState);
-		}
+		//String sOHState = StateTraslator.statesSoulissToOH(this.getsItemNameCommandState(),
+			//	this.getType(), (short) sRawCommandState);
+		
+		//	if (this.getNote().equals("ContactItem"))
+		//		return OpenClosedType.valueOf(sOHState);
+		//	else
+		//		return OnOffType.valueOf(sOHState);
+		
 		return StringType.valueOf(String.valueOf(sRawCommandState));
 	}
 
@@ -157,33 +160,33 @@ public class SoulissT31 extends SoulissGenericTypical {
 		return sItemNameCommandState;
 	}
 
-	public void setsItemNameCommandState(String sItemNameCommandState) {
+	public void setsItemNameStateControlValue(String sItemNameCommandState) {
 		this.sItemNameCommandState = sItemNameCommandState;
 	}
 
-	public String getsItemNameTemperatureMeasuredValue() {
-		return sItemNameTemperatureMeasuredValue;
+	public String getsItemNameMeasuredValue() {
+		return sItemNameMeasuredValue;
 	}
 
-	public void setsItemNameTemperatureMeasuredValue(
-			String sItemNameTemperatureMeasuredValue) {
-		this.sItemNameTemperatureMeasuredValue = sItemNameTemperatureMeasuredValue;
+	public void setsItemNameMeasuredValue(
+			String sItemNameMeasuredValue) {
+		this.sItemNameMeasuredValue = sItemNameMeasuredValue;
 	}
 
-	public String getsItemNameTemperatureSetpointValue() {
-		return sItemNameTemperatureSetpointValue;
+	public String getsItemNameSetpointValue() {
+		return sItemNameSetpointValue;
 	}
 
-	public void setsItemNameTemperatureSetpointValue(
-			String sItemNameTemperatureSetpointValue) {
-		this.sItemNameTemperatureSetpointValue = sItemNameTemperatureSetpointValue;
+	public void setsItemNameSetpointValue(
+			String sItemNameSetpointValue) {
+		this.sItemNameSetpointValue = sItemNameSetpointValue;
 	}
 
 	public Float getTemperatureMeasuredValue() {
-		return TemperatureMeasuredValue;
+		return MeasuredValue;
 	}
 
-	public Float getTemperatureSetpointValue() {
+	public Float getSetpointValue() {
 		return TemperatureSetpointValue;
 	}
 
@@ -196,13 +199,42 @@ public class SoulissT31 extends SoulissGenericTypical {
 		setUpdatedTrue();
 	}
 
-	public void setTemperatureMeasuredValue(Float temperatureMeasuredValue) {
-		TemperatureMeasuredValue = temperatureMeasuredValue;
+	public void setMeasuredValue(Float MeasuredValue) {
+		this.MeasuredValue = MeasuredValue;
 		setUpdatedTrue();
 	}
 
-	public void setTemperatureSetpointValue(Float temperatureSetpointValue) {
+	public void setSetpointValue(Float temperatureSetpointValue) {
 		TemperatureSetpointValue = temperatureSetpointValue;
 		setUpdatedTrue();
+	}
+
+	public void setsItemTypeSetpointValue(String sNote) {
+		this.sItemTypeSetpointValue=sNote;
+		
+	}
+
+	public void setsItemTypeStateControlValue(String sNote) {
+		this.sItemTypeCommandState=sNote;
+		
+	}
+
+	public void setsItemTypeMeasuredValue(String sNote) {
+		this.sItemTypeMeasuredValue=sNote;
+		
+	}
+	public String getsItemTypeSetpointValue() {
+		return sItemTypeSetpointValue;
+		
+	}
+
+	public String getsItemTypeStateControlValue() {
+	     return sItemTypeCommandState;
+		
+	}
+
+	public String getsItemTypeMeasuredValue() {
+		return sItemTypeMeasuredValue;
+		
 	}
 }

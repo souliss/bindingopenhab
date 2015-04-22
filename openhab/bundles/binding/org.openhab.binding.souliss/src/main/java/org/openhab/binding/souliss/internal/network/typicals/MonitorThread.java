@@ -110,10 +110,9 @@ public class MonitorThread extends Thread {
 								+ ((SoulissT1A) typ).getBitState());
 					} else if (typ.getType() == Constants.Souliss_T31) {
 						//T31
-						LOGGER.debug("Put on Bus Events - Command State: " + ((SoulissT31) typ).getRawCommandState() + " - Temperature Measured Value"+ ((SoulissT31) typ).getTemperatureMeasuredValue() + " - Set Point"+ ((SoulissT31) typ).getTemperatureSetpointValue());
+						LOGGER.debug("Put on Bus Events - Command State: " + ((SoulissT31) typ).getRawCommandState() + " - Temperature Measured Value "+ ((SoulissT31) typ).getTemperatureMeasuredValue() + " - Set Point "+ ((SoulissT31) typ).getSetpointValue());
 					}
 					else {
-					}
 						LOGGER.debug("Put on Bus Events - " + typ.getName()
 								+ " = " + Float.toString(typ.getState()));
 					}
@@ -125,10 +124,9 @@ public class MonitorThread extends Thread {
 						if (typ.getType() == Constants.Souliss_T31){
 							//qui inserimento dati per tipico 31
 							SoulissT31 typ31 = (SoulissT31) typ;
-							
-							eventPublisher.postUpdate(typ31.getsItemNameCommandState(),typ31.getOHCommandState());
-							eventPublisher.postUpdate(typ31.getsItemNameTemperatureMeasuredValue(),typ31.getOHStateTemperatureMeasuredValue());
-							eventPublisher.postUpdate(typ31.getsItemNameTemperatureSetpointValue(),typ31.getOHStateTemperatureSetpointValue());
+							if(typ31.getsItemNameCommandState()!=null) eventPublisher.postUpdate(typ31.getsItemNameCommandState(),typ31.getOHCommandState());
+							if(typ31.getsItemNameMeasuredValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameMeasuredValue(),typ31.getOHStateMeasuredValue());
+							if(typ31.getsItemNameSetpointValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameSetpointValue(),typ31.getOHStateSetpointValue());
 						}
 						
 						else {
@@ -140,4 +138,5 @@ public class MonitorThread extends Thread {
 			}
 		}
 	}
+}
 }
