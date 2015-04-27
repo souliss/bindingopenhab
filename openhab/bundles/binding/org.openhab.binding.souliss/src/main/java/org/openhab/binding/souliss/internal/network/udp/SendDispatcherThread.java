@@ -309,7 +309,7 @@ public class SendDispatcherThread extends Thread {
 
 						// traduce il comando inviato con lo stato previsto e
 						// poi fa il confronto con lo stato attuale
-						if(LOGGER.isDebugEnabled()){
+						if(LOGGER.isDebugEnabled() && typ!=null){
 						String s1 = String.valueOf((int) typ.getState());
 						String sStateMemoria = s1.length() < 2 ? "0x0"
 								+ s1.toUpperCase() : "0x" + s1.toUpperCase();
@@ -327,7 +327,7 @@ public class SendDispatcherThread extends Thread {
 								+ " - IN MEMORY: " + sStateMemoria);
 						}
 						
-						if (checkExpectedState(
+						if (typ!=null && checkExpectedState(
 								(int) typ.getState(),
 								expectedState(typ.getType(),
 										packetsList.get(i).packet.getData()[j]))) {
@@ -336,9 +336,15 @@ public class SendDispatcherThread extends Thread {
 							// quando tutti i byte saranno uguale a zero allora
 							// si
 							// cancella il frame
-							packetsList.get(i).packet.getData()[j] = 0;
-							LOGGER.debug("T" + Integer.toHexString(typ.getType()) + " Node: " + node + " Slot: " + iSlot
-									+ " - OK Expected State");
+								packetsList.get(i).packet.getData()[j] = 0;
+								LOGGER.debug("T" + Integer.toHexString(typ.getType()) + " Node: " + node + " Slot: " + iSlot
+										+ " - OK Expected State");	
+						} else if (typ==null) {
+							//se allo slot j non esiste un tipico allora vuol dire che si tratta di uno slot collegato al precedente (es: RGB, T31,...)
+							//allora se lo slot j-1=0 allora anche j può essere messo a 0
+							if(packetsList.get(i).packet.getData()[j-1] == 0){
+								packetsList.get(i).packet.getData()[j] = 0;
+							}
 						}
 					}
 					iSlot++;
@@ -365,6 +371,8 @@ public class SendDispatcherThread extends Thread {
 	}
 
 	private static boolean checkExpectedState(int state, String expectedState) {
+		//if expected state is null than return true. The frame will not requeued
+		if (expectedState==null) return true;
 		String s1 = String.valueOf(state);
 		String sState = s1.length() < 2 ? "0x0" + s1.toUpperCase() : "0x"
 				+ s1.toUpperCase();

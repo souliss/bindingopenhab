@@ -211,6 +211,10 @@ public class Constants {
 	public static final String Souliss_T31_Use_Of_Slot_SETPOINT = "setpoint";
 	public static final String Souliss_T31_Use_Of_Slot_MEASURED = "measured";
 	public static final String Souliss_T31_Use_Of_Slot_STATECONTROL = "statecontrol";
+	public static final String Souliss_T31_Use_Of_Slot_SETASMEASURED = "setAsMeasured";
+	
+	public static final String Souliss_T31_Use_Of_Slot_SETPOINT_COMMAND = "SetTemp";
+	
 
 	public static final String Souliss_T3n_InSetPoint = "0x01";
 	public static final String Souliss_T3n_OutSetPoint = "0x02";
@@ -273,6 +277,8 @@ public class Constants {
 	public static final String ConfigurationFileName_commands_to_states = "/properties/commands_to_states.properties";
 	
 	public static final String Openhab_RGB_TYPE = "HSBType";
+
+	
 	
 }
 	

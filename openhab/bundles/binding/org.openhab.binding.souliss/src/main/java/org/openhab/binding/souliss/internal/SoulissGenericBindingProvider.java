@@ -110,6 +110,10 @@ public class SoulissGenericBindingProvider extends
 				case Constants.Souliss_T31_Use_Of_Slot_MEASURED:
 					((SoulissT31) soulissTypicalNew).setsItemNameMeasuredValue(item.getName());
 					((SoulissT31) soulissTypicalNew).setsItemTypeMeasuredValue(sNote);
+				
+				case Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED:
+					((SoulissT31) soulissTypicalNew).setsItemNameSetAsMeasured(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeSetAsMeasured(sNote);
 				break;
 				}
 				LOGGER.info("Add parameter to T31 : " + sUseSlot);

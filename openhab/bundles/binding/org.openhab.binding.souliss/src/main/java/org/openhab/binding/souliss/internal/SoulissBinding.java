@@ -10,6 +10,7 @@ package org.openhab.binding.souliss.internal;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Dictionary;
 import java.util.Enumeration;
 
@@ -24,15 +25,18 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissT12;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT19;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT31;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
+import org.openhab.binding.souliss.internal.network.udp.HalfFloatUtils;
 import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
 import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
 
 import org.openhab.core.binding.AbstractActiveBinding;
 import org.openhab.core.binding.BindingProvider;
 import org.openhab.core.events.EventPublisher;
+import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.library.types.PercentType;
 import org.openhab.core.library.types.StringType;
 import org.openhab.core.types.Command;
@@ -231,16 +235,28 @@ public class SoulissBinding<E> extends
 			T22.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 					command.toString()));
 			break;
-		case Constants.Souliss_T_TemperatureSensor:
+			
+		case Constants.Souliss_T31:
+			SoulissT31 T31 = (SoulissT31) T;
+			//Setpoint
+			if(itemName.equals(T31.getsItemNameSetpointValue())){
+				if(command instanceof DecimalType){
+					int uu=HalfFloatUtils.fromFloat(((DecimalType) command).floatValue());
+					byte B2 = (byte) (uu>>8);
+					byte B1 = (byte) uu;
+					//setpoint command
+					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(), Constants.Souliss_T31_Use_Of_Slot_SETPOINT_COMMAND), B1,B2); 
+				}
+			}
+			// Set As Measured 
+			else if(itemName.equals(T31.getsItemNameSetAsMeasured())){
+					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED + "_" + command.toString()));
+				}
+				
+			
+				
 			break;
-		case Constants.Souliss_T_HumiditySensor:
-			break;
-		case Constants.Souliss_T32_IrCom_AirCon:
-			break;
-		case Constants.Souliss_T41_Antitheft_Main:
-			break;
-		case Constants.Souliss_T42_Antitheft_Peer:
-			break;
+			
 		default:
 			LOGGER.debug("Typical Unknown");
 		}

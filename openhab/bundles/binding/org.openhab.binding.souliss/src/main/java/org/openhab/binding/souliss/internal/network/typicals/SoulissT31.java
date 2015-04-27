@@ -36,6 +36,9 @@ public class SoulissT31 extends SoulissGenericTypical {
 	private String sItemTypeCommandState;
 	private String sItemNameSetpointValue;
 	private String sItemTypeSetpointValue;
+	private String sItemNameSetAsMeasured;
+
+	private Object sItemTypeSetAsMeasured;
 
 	/**
 	 * Typical T31
@@ -77,6 +80,18 @@ public class SoulissT31 extends SoulissGenericTypical {
 				this.getSoulissNodeID(), this.getSlot(), command);
 	}
 
+	/**
+	 * Send a command with parameter 
+	 * 
+	 * @param command
+	 */
+	public void CommandSEND(short command, short B1, short B2) {
+		SoulissCommGate.sendFORCEFrameT31SetPoint(SoulissNetworkParameter.datagramsocket,
+				SoulissNetworkParameter.IPAddressOnLAN,
+				this.getSoulissNodeID(), this.getSlot(), command, B1, B2);
+}
+	
+	
 	@Override
 	/**
 	 * Returns a type used by openHAB to show the actual state of the souliss' typical
@@ -85,20 +100,6 @@ public class SoulissT31 extends SoulissGenericTypical {
 	public State getOHState() {
 		String sOHState = StateTraslator.statesSoulissToOH(this.getsItemNameCommandState(),
 				this.getType(), (short) this.getState());
-		if (sOHState != null) {
-			// if(getUseOfSlot().equals(Constants.Souliss_T31_Use_Of_Slot_SETPOINT)){
-			// //return a number
-			// return return_a_DecimalType(sOHState);
-			// } else
-			// if(getUseOfSlot().equals(Constants.Souliss_T31_Use_Of_Slot_SWITCH)){
-			// //return a switch
-			// return OnOffType.valueOf(sOHState);
-			// } else
-			// if(getUseOfSlot().equals(Constants.Souliss_T31_Use_Of_Slot_VALUE)){
-			// //return a number
-			// return return_a_DecimalType(sOHState);
-			// }
-		}
 		return null;
 	}
 
@@ -223,6 +224,11 @@ public class SoulissT31 extends SoulissGenericTypical {
 		this.sItemTypeMeasuredValue=sNote;
 		
 	}
+	public String getsItemTypeMeasuredValue() {
+		return sItemTypeMeasuredValue;
+		
+	}
+
 	public String getsItemTypeSetpointValue() {
 		return sItemTypeSetpointValue;
 		
@@ -233,8 +239,20 @@ public class SoulissT31 extends SoulissGenericTypical {
 		
 	}
 
-	public String getsItemTypeMeasuredValue() {
-		return sItemTypeMeasuredValue;
-		
+	public Object getsItemNameSetAsMeasured() {
+		return sItemNameSetAsMeasured;
 	}
+
+	public void setsItemNameSetAsMeasured(String sItemNameSetAsMeasured) {
+		this.sItemNameSetAsMeasured = sItemNameSetAsMeasured;
+	}
+
+	public Object getsItemTypeSetAsMeasured() {
+		return sItemTypeSetAsMeasured;
+	}
+
+	public void setsItemTypeSetAsMeasured(String sItemNameSetAsMeasured) {
+		this.sItemTypeSetAsMeasured = sItemNameSetAsMeasured;
+	}
+	
 }

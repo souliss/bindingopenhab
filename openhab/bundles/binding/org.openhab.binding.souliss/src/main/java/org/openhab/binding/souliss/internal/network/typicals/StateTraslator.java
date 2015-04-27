@@ -40,7 +40,7 @@ public class StateTraslator {
 		String sRes = null;
 		sRes = propTypes.getProperty(sTypeString);
 		LOGGER.debug("translate types: " + sTypeString + " -> " + sRes);
-		return Short.decode(sRes);
+		return Short.decode(sRes.trim());
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class StateTraslator {
 				+ Constants.CONF_FIELD_DELIMITER + sCommand);
 		LOGGER.debug("translate commands: " + sCommand + " -> " + sRes);
 		if (sRes != null)
-			return Short.decode(sRes);
+			return Short.decode(sRes.trim());
 		else
 			return null;
 	}
