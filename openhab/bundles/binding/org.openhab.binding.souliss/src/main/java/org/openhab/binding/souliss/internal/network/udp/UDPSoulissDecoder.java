@@ -216,10 +216,12 @@ public class UDPSoulissDecoder {
 						iNumBytes = 0;
 					}
 					float val = 0;
+					//***** T1A *****  
 					if (typ.getType() == 0x1A) {
 						short sVal = getByteAtSlot(mac, slot);
 						((SoulissT1A) typ).setState(sVal);
 						bDecoded_forLOG = true;
+					//***** T19 ***** 
 					} else if (typ.getType() == 0x19) {
 						// set value of T19 at number of second slot
 						short sVal = getByteAtSlot(mac, slot + 1);
@@ -236,7 +238,7 @@ public class UDPSoulissDecoder {
 						typ.setState(val);
 						bDecoded_forLOG = true;
 					} else if (iNumBytes == 4) {
-						// T16 RGB
+						//***** T16 RGB *****
 						val = getByteAtSlot(mac, slot);
 						typ.setState(val);
 						((SoulissT16) typ).setStateRED(getByteAtSlot(mac,
@@ -247,8 +249,7 @@ public class UDPSoulissDecoder {
 								slot + 3));
 						bDecoded_forLOG = true;
 					} else if (iNumBytes == 5) {
-						//*******************
-						// T31 Thermostat
+						//***** T31 *****
 						//*******************
 						//SLOT 0: Control State 
 						short sVal = getByteAtSlot(mac, slot);
@@ -262,6 +263,16 @@ public class UDPSoulissDecoder {
 							BIT 5	(0 Fan 3 OFF   , 1 Fan 3 ON)
 							BIT 6	(0 Manual Mode , 1 Automatic Mode for Fan) 
 							BIT 7	(0 Heating Mode, 1 Cooling Mode)*/
+						
+						((SoulissT31) typ).setHeatingValue(getBitState(sVal, 1));
+						((SoulissT31) typ).setCoolingValue(getBitState(sVal, 2));
+						((SoulissT31) typ).setFan1Value(getBitState(sVal, 3));
+						((SoulissT31) typ).setFan2Value(getBitState(sVal, 4));
+						((SoulissT31) typ).setFan3Value(getBitState(sVal, 5));
+						((SoulissT31) typ).setManualModeValue(getBitState(sVal, 6));
+						((SoulissT31) typ).setHeatingModeValue(getBitState(sVal, 7));
+												
+						
 						//SLOT 1-2: Temperature Measured Value
 						val = getFloatAtSlot(mac, slot+1);
 						((SoulissT31) typ).setMeasuredValue(val);
@@ -355,4 +366,14 @@ public class UDPSoulissDecoder {
 					i - 5, Short.valueOf(mac.get(i)));
 		}
 	}
+
+		public boolean getBitState(short vRaw, int iBit) {
+			final int MASK_BIT_1 = 0x1;
+
+			if (((vRaw >>> iBit) & MASK_BIT_1) == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
 }

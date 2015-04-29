@@ -114,6 +114,27 @@ public class SoulissGenericBindingProvider extends
 				case Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED:
 					((SoulissT31) soulissTypicalNew).setsItemNameSetAsMeasured(item.getName());
 					((SoulissT31) soulissTypicalNew).setsItemTypeSetAsMeasured(sNote);
+				case Constants.Souliss_T31_Use_Of_Slot_HEATING:
+					((SoulissT31) soulissTypicalNew).setsItemNameHeatingValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeHeatingValue(sNote);
+				case Constants.Souliss_T31_Use_Of_Slot_COOLING:
+					((SoulissT31) soulissTypicalNew).setsItemNameCoolingValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeCoolingValue(sNote);
+				case Constants.Souliss_T31_Use_Of_Slot_FAN1:
+					((SoulissT31) soulissTypicalNew).setsItemNameFan1Value(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeFan1Value(sNote);
+				case Constants.Souliss_T31_Use_Of_Slot_FAN2:
+					((SoulissT31) soulissTypicalNew).setsItemNameFan2Value(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeFan2Value(sNote);
+				case Constants.Souliss_T31_Use_Of_Slot_FAN3:
+					((SoulissT31) soulissTypicalNew).setsItemNameFan3Value(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeFan3Value(sNote);
+				case Constants.Souliss_T31_Use_Of_Slot_HEATINGMODE:
+					((SoulissT31) soulissTypicalNew).setsItemNameHeatingModeValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeHeatingModeValue(sNote);
+				case Constants.Souliss_T31_Use_Of_Slot_MANUALMODE:
+					((SoulissT31) soulissTypicalNew).setsItemNameManualModeValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeManualModeValue(sNote);
 				break;
 				}
 				LOGGER.info("Add parameter to T31 : " + sUseSlot);

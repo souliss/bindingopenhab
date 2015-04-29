@@ -214,6 +214,13 @@ public class Constants {
 	public static final String Souliss_T31_Use_Of_Slot_SETASMEASURED = "setAsMeasured";
 	
 	public static final String Souliss_T31_Use_Of_Slot_SETPOINT_COMMAND = "SetTemp";
+	public static final String Souliss_T31_Use_Of_Slot_HEATING = "heating";
+	public static final String Souliss_T31_Use_Of_Slot_COOLING = "cooling";
+	public static final String Souliss_T31_Use_Of_Slot_FAN1 = "fan1";
+	public static final String Souliss_T31_Use_Of_Slot_FAN2 = "fan2";
+	public static final String Souliss_T31_Use_Of_Slot_FAN3 = "fan3";
+	public static final String Souliss_T31_Use_Of_Slot_MANUALMODE = "manualmode";
+	public static final String Souliss_T31_Use_Of_Slot_HEATINGMODE = "heatingmode";
 	
 
 	public static final String Souliss_T3n_InSetPoint = "0x01";

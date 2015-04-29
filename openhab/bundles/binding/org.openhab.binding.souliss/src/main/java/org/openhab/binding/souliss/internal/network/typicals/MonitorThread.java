@@ -127,6 +127,14 @@ public class MonitorThread extends Thread {
 							if(typ31.getsItemNameCommandState()!=null) eventPublisher.postUpdate(typ31.getsItemNameCommandState(),typ31.getOHCommandState());
 							if(typ31.getsItemNameMeasuredValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameMeasuredValue(),typ31.getOHStateMeasuredValue());
 							if(typ31.getsItemNameSetpointValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameSetpointValue(),typ31.getOHStateSetpointValue());
+							if(typ31.getsItemNameHeatingValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameHeatingValue(),typ31.getOHState_Heating());
+							if(typ31.getsItemNameCoolingValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameCoolingValue(),typ31.getOHState_Cooling());
+							if(typ31.getsItemNameFan1Value()!=null) eventPublisher.postUpdate(typ31.getsItemNameFan1Value(),typ31.getOHState_Fan1());
+							if(typ31.getsItemNameFan2Value()!=null) eventPublisher.postUpdate(typ31.getsItemNameFan2Value(),typ31.getOHState_Fan2());
+							if(typ31.getsItemNameFan3Value()!=null) eventPublisher.postUpdate(typ31.getsItemNameFan3Value(),typ31.getOHState_Fan3());
+							if(typ31.getsItemNameManualModeValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameManualModeValue(),typ31.getOHState_ManualMode());
+							if(typ31.getsItemNameHeatingModeValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameHeatingModeValue(),typ31.getOHState_HeatingMode());
+							
 						}
 						
 						else {
