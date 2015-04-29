@@ -55,6 +55,8 @@ public class SoulissGenericBindingProvider extends
 	public void processBindingConfiguration(String context, Item item,
 			String bindingConfig) throws BindingConfigParseException {
 		// Create Souliss Typicals
+		//
+		//...from wiki of Dario De Maio
 		// In Souliss the logics that drive your lights, curtains, LED, and
 		// others are pre-configured into so called Typicals. A Typical is a
 		// logic with a predefined set of inputs and outputs and a know

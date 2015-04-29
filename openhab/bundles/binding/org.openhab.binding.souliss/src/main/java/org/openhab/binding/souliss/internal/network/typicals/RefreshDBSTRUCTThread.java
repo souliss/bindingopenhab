@@ -33,7 +33,6 @@ public class RefreshDBSTRUCTThread extends Thread {
 	public RefreshDBSTRUCTThread(DatagramSocket datagramsocket,
 			String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN,
 			int iRefreshTime) {
-		// TODO Auto-generated constructor stub
 		REFRESH_TIME = iRefreshTime;
 		this.socket = datagramsocket;
 		this.SoulissNodeIPAddress = soulissNodeIPAddress;
@@ -50,7 +49,7 @@ public class RefreshDBSTRUCTThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				logger.info("sendDBStructFrame");
+				logger.debug("sendDBStructFrame");
 				SoulissCommGate.sendDBStructFrame(socket,
 						soulissNodeIPAddressOnLAN);
 				Thread.sleep(REFRESH_TIME);

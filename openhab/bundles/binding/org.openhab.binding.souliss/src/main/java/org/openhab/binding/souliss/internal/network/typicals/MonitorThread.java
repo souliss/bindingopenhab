@@ -23,10 +23,10 @@ import org.slf4j.LoggerFactory;
  */
 public class MonitorThread extends Thread {
 
-	int REFRESH_TIME;
+	private int refresh_time;
 	private SoulissTypicals soulissTypicalsRecipients;
 	private static Logger logger = LoggerFactory.getLogger(MonitorThread.class);
-	EventPublisher eventPublisher;
+	private EventPublisher eventPublisher;
 
 	/**
 	 * Constructor
@@ -36,7 +36,7 @@ public class MonitorThread extends Thread {
 	 */
 	public MonitorThread(SoulissTypicals typicals, int iRefreshTime,
 			EventPublisher _eventPublisher) {
-		REFRESH_TIME = iRefreshTime;
+		refresh_time = iRefreshTime;
 		soulissTypicalsRecipients = typicals;
 		logger.info("Start MonitorThread");
 		eventPublisher = _eventPublisher;
@@ -56,7 +56,7 @@ public class MonitorThread extends Thread {
 				// has been updated
 				check(soulissTypicalsRecipients);
 
-				Thread.sleep(REFRESH_TIME);
+				Thread.sleep(refresh_time);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				logger.error(e.getMessage());
