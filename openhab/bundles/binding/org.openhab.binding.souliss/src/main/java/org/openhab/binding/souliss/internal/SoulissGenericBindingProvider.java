@@ -15,6 +15,7 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParam
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
+import org.openhab.core.binding.BindingChangeListener;
 import org.openhab.core.items.Item;
 import org.openhab.model.item.binding.AbstractGenericBindingProvider;
 import org.openhab.model.item.binding.BindingConfigParseException;
@@ -36,7 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SoulissGenericBindingProvider extends
 		AbstractGenericBindingProvider implements SoulissBindingProvider {
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(TypicalFactory.class);
 	public static SoulissTypicals SoulissTypicalsRecipients = new SoulissTypicals();
 
@@ -82,13 +83,14 @@ public class SoulissGenericBindingProvider extends
 			SoulissNetworkParameter.nodes = SoulissTypicalsRecipients
 					.getNodeNumbers();
 		} else {
-			LOGGER.debug("Typical Unknow");
+			logger.debug("Typical Unknow");
 		}
 
 	}
 
 	public void validateItemType(Item item, String bindingConfig)
 			throws BindingConfigParseException {
+		logger.trace("validateItemType for item {} called with bindingConfig={}", item.getName(), bindingConfig);
 	}
 
 }

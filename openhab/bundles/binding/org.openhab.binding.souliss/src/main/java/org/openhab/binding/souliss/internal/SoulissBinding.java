@@ -8,7 +8,7 @@
  */
 package org.openhab.binding.souliss.internal;
 
-import java.awt.Color;
+
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Enumeration;
@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 public class SoulissBinding<E> extends
 		AbstractActiveBinding<SoulissBindingProvider> implements ManagedService {
 
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(SoulissBinding.class);
 
 	/**
@@ -66,7 +66,7 @@ public class SoulissBinding<E> extends
 
 			while (enumConfig.hasMoreElements()) {
 				String sName = enumConfig.nextElement();
-				LOGGER.info("PARAMETER: " + sName + " = "
+				logger.info("PARAMETER: " + sName + " = "
 						+ (String) config.get(sName));
 				if(sName.equals("IP_LAN"))
 					SoulissNetworkParameter.IPAddressOnLAN = (String) config
@@ -126,7 +126,7 @@ public class SoulissBinding<E> extends
 		// Get the typical defined in the hash table
 		SoulissGenericTypical T = SoulissGenericBindingProvider.SoulissTypicalsRecipients
 				.getTypicalFromItem(itemName);
-		LOGGER.info("receiveCommand - " + itemName + " = " + command
+		logger.info("receiveCommand - " + itemName + " = " + command
 				+ " - Typical: 0x" + Integer.toHexString(T.getType()));
 
 		switch (T.getType()) {
@@ -177,7 +177,7 @@ public class SoulissBinding<E> extends
 					command.toString()));
 			break;
 		default:
-			LOGGER.debug("Typical Unknown");
+			logger.debug("Typical Unknown");
 		}
 	}
 
@@ -198,7 +198,7 @@ public class SoulissBinding<E> extends
 	 * Start threads
 	 */
 	private void initialize() {
-			LOGGER.info("START");
+			logger.info("START");
 			try {
 				// Start listening on the UDP socket
 				UDPServerThread Q = null;
@@ -229,7 +229,7 @@ public class SoulissBinding<E> extends
 
 			} catch (IOException e) {
 				e.printStackTrace();
-				LOGGER.error(e.getMessage());
+				logger.error(e.getMessage());
 			}
 		}
 
@@ -309,4 +309,5 @@ public class SoulissBinding<E> extends
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

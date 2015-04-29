@@ -32,7 +32,7 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 public class UDPSoulissDecoder {
 
 	private SoulissTypicals soulissTypicalsRecipients;
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(UDPSoulissDecoder.class);
 
 	public UDPSoulissDecoder(SoulissTypicals typicals) {
@@ -61,48 +61,48 @@ public class UDPSoulissDecoder {
 	 */
 	private void decodeMacaco(ArrayList<Short> macacoPck) {
 		int functionalCode = macacoPck.get(0);
-		LOGGER.debug("decodeMacaco: Received functional code: 0x"
+		logger.debug("decodeMacaco: Received functional code: 0x"
 				+ Integer.toHexString(functionalCode));
 		switch (functionalCode) {
 
 		case (byte) ConstantsUDP.Souliss_UDP_function_ping_resp:
-			LOGGER.info("function_ping_resp");
+			logger.info("function_ping_resp");
 			decodePing(macacoPck);
 			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_subscribe_resp:
 		case (byte) ConstantsUDP.Souliss_UDP_function_poll_resp:
-			LOGGER.debug("Souliss_UDP_function_subscribe_resp / Souliss_UDP_function_poll_resp");
+			logger.debug("Souliss_UDP_function_subscribe_resp / Souliss_UDP_function_poll_resp");
 			decodeStateRequest(macacoPck);
 			break;
 
 		case ConstantsUDP.Souliss_UDP_function_typreq_resp:// Answer for
 															// assigned
 			// typical logic
-			LOGGER.info("** TypReq answer");
+			logger.info("** TypReq answer");
 			decodeTypRequest(macacoPck);
 			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_health_resp:// Answer
 																	// nodes
 																	// healty
-			LOGGER.info("function_health_resp");
+			logger.info("function_health_resp");
 			decodeHealthRequest(macacoPck);
 			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_db_struct_resp:// Answer
 																		// nodes
-			LOGGER.info("function_db_struct_resp");
+			logger.info("function_db_struct_resp");
 			decodeDBStructRequest(macacoPck);
 			break;
 		case 0x83:
-			LOGGER.info("Functional code not supported");
+			logger.info("Functional code not supported");
 			break;
 		case 0x84:
-			LOGGER.info("Data out of range");
+			logger.info("Data out of range");
 			break;
 		case 0x85:
-			LOGGER.info("Subscription refused");
+			logger.info("Subscription refused");
 			break;
 		default:
-			LOGGER.info("Unknown functional code");
+			logger.info("Unknown functional code");
 			break;
 		}
 	}
@@ -113,7 +113,7 @@ public class UDPSoulissDecoder {
 	private void decodePing(ArrayList<Short> mac) {
 		int putIn_1 = mac.get(1);
 		int putIn_2 = mac.get(2);
-		LOGGER.info("decodePing: putIn code: " + putIn_1 + ", " + putIn_2);
+		logger.info("decodePing: putIn code: " + putIn_1 + ", " + putIn_2);
 	}
 
 	/**
@@ -140,17 +140,17 @@ public class UDPSoulissDecoder {
 			SoulissNetworkParameter.MaCacoTYP_s = MaCaco_TYP_S;
 			SoulissNetworkParameter.MaCacoOUT_s = MaCaco_OUT_S;
 
-			LOGGER.debug("decodeDBStructRequest");
-			LOGGER.debug("Nodes: " + nodes);
-			LOGGER.debug("maxnodes: " + maxnodes);
-			LOGGER.debug("maxTypicalXnode: " + maxTypicalXnode);
-			LOGGER.debug("maxrequests: " + maxrequests);
-			LOGGER.debug("MaCaco_IN_S: " + MaCaco_IN_S);
-			LOGGER.debug("MaCaco_TYP_S: " + MaCaco_TYP_S);
-			LOGGER.debug("MaCaco_OUT_S: " + MaCaco_OUT_S);
+			logger.debug("decodeDBStructRequest");
+			logger.debug("Nodes: " + nodes);
+			logger.debug("maxnodes: " + maxnodes);
+			logger.debug("maxTypicalXnode: " + maxTypicalXnode);
+			logger.debug("maxrequests: " + maxrequests);
+			logger.debug("MaCaco_IN_S: " + MaCaco_IN_S);
+			logger.debug("MaCaco_TYP_S: " + MaCaco_TYP_S);
+			logger.debug("MaCaco_OUT_S: " + MaCaco_OUT_S);
 
 		} catch (Exception e) {
-			LOGGER.error("decodeDBStructRequest: SoulissNetworkParameter update ERROR");
+			logger.error("decodeDBStructRequest: SoulissNetworkParameter update ERROR");
 		}
 	}
 
@@ -160,7 +160,7 @@ public class UDPSoulissDecoder {
 			int numberOf = mac.get(4);
 			
 			int typXnodo = SoulissNetworkParameter.maxnodes;
-			LOGGER.info("--DECODE MACACO OFFSET:" + tgtnode + " NUMOF:"
+			logger.info("--DECODE MACACO OFFSET:" + tgtnode + " NUMOF:"
 					+ numberOf + " TYPICALSXNODE: " + typXnodo);
 			// creates Souliss nodes
 			for (int j = 0; j < numberOf; j++) {
@@ -176,7 +176,7 @@ public class UDPSoulissDecoder {
 				}
 			}
 		} catch (Exception uy) {
-			LOGGER.error("decodeTypRequest ERROR");
+			logger.error("decodeTypRequest ERROR");
 		}
 	}
 
@@ -265,7 +265,7 @@ public class UDPSoulissDecoder {
 																		// codice
 						if (iNumBytes == 4)
 							// RGB Log
-							LOGGER.debug("decodeStateRequest:  "
+							logger.debug("decodeStateRequest:  "
 									+ typ.getName() + " ( "
 									+ Short.valueOf(typ.getType()) + ") = "
 									+ ((SoulissT16) typ).getState() + ". RGB= "
@@ -274,7 +274,7 @@ public class UDPSoulissDecoder {
 									+ ((SoulissT16) typ).getStateBLU());
 						else if (bDecoded_forLOG) {
 							if (typ.getType() == 0x1A) {
-								LOGGER.debug("decodeStateRequest: "
+								logger.debug("decodeStateRequest: "
 										+ typ.getName()
 										+ " (0x"
 										+ Integer.toHexString(typ.getType())
@@ -283,7 +283,7 @@ public class UDPSoulissDecoder {
 												.toBinaryString(((SoulissT1A) typ)
 														.getRawState()));
 							} else
-								LOGGER.debug("decodeStateRequest: "
+								logger.debug("decodeStateRequest: "
 										+ typ.getName() + " (0x"
 										+ Integer.toHexString(typ.getType())
 										+ ") = " + Float.valueOf(val));

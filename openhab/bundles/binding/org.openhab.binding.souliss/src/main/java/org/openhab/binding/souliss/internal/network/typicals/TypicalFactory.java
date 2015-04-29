@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * @since 1.7.0
  */
 public class TypicalFactory {
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(TypicalFactory.class);
 
 	public static SoulissGenericTypical getClass(short soulissType,
@@ -111,7 +111,7 @@ public class TypicalFactory {
 					iIDNodo, iSlot, sOHType);
 			break;
 		default:
-			LOGGER.debug("Typical Unknown");
+			logger.debug("Typical Unknown");
 		}
 
 		return T;

@@ -27,7 +27,7 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParam
  */
 public class SoulissCommGate {
 
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(SoulissCommGate.class);
 
 	public static void sendFORCEFrame(DatagramSocket datagramSocket,
@@ -87,7 +87,7 @@ public class SoulissCommGate {
 			MACACOframe.add(byte1.byteValue());// PAYLOAD DIMMER
 		}
 
-		LOGGER.debug("sendFORCEFrame - " + MaCacoToString(MACACOframe)
+		logger.debug("sendFORCEFrame - " + MaCacoToString(MACACOframe)
 				+ ", soulissNodeIPAddressOnLAN: " + soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddressOnLAN);
 
@@ -102,7 +102,7 @@ public class SoulissCommGate {
 		MACACOframe.add((byte) 0x0);// Start Offset
 		MACACOframe.add((byte) 0x07); // Number Of
 
-		LOGGER.debug("sendDBStructFrame - " + MaCacoToString(MACACOframe)
+		logger.debug("sendDBStructFrame - " + MaCacoToString(MACACOframe)
 				+ ", soulissNodeIPAddressOnLAN: " + soulissNodeIPAddressOnLAN);
 		send(socket, MACACOframe, soulissNodeIPAddressOnLAN);
 
@@ -139,7 +139,7 @@ public class SoulissCommGate {
 			SendDispatcherThread.put(socket, packet);
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 	}
@@ -208,7 +208,7 @@ public class SoulissCommGate {
 		MACACOframe.add((byte) 1); // Number Of
 
 		MACACOframe.add((byte) shortCommand);// PAYLOAD
-		LOGGER.debug("sendMULTICASTFORCEFrame - " + MaCacoToString(MACACOframe)
+		logger.debug("sendMULTICASTFORCEFrame - " + MaCacoToString(MACACOframe)
 				+ ", soulissNodeIPAddressOnLAN: " + soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddressOnLAN);
 	}
@@ -228,7 +228,7 @@ public class SoulissCommGate {
 
 		MACACOframe.add((byte) 0x00);// Start Offset
 		MACACOframe.add((byte) 0x00); // Number Of
-		LOGGER.debug("sendPing - " + MaCacoToString(MACACOframe)
+		logger.debug("sendPing - " + MaCacoToString(MACACOframe)
 				+ ", soulissNodeIPAddressOnLAN: " + soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddressOnLAN);
 	}
@@ -249,7 +249,7 @@ public class SoulissCommGate {
 
 		MACACOframe.add((byte) iNodes); // Start Offset (is the first node to
 										// consider
-		LOGGER.debug("sendSUBSCRIPTIONframe - " + MaCacoToString(MACACOframe)
+		logger.debug("sendSUBSCRIPTIONframe - " + MaCacoToString(MACACOframe)
 				+ ", soulissNodeIPAddressOnLAN: " + soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddressOnLAN);
 	}
@@ -268,7 +268,7 @@ public class SoulissCommGate {
 		MACACOframe.add((byte) 0x00);// PUTIN
 		MACACOframe.add((byte) 0x00);
 		MACACOframe.add((byte) iNodes);
-		LOGGER.debug("sendHEALTY_REQUESTframe - " + MaCacoToString(MACACOframe)
+		logger.debug("sendHEALTY_REQUESTframe - " + MaCacoToString(MACACOframe)
 				+ ", soulissNodeIPAddressOnLAN: " + soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddressOnLAN);
 	}
@@ -286,7 +286,7 @@ public class SoulissCommGate {
 		MACACOframe.add((byte) 0x00);// PUTIN
 		MACACOframe.add((byte) 0x00); // startOffset
 		MACACOframe.add((byte) iNodes);
-		LOGGER.debug("sendHEALTY_REQUESTframe - " + MaCacoToString(MACACOframe)
+		logger.debug("sendHEALTY_REQUESTframe - " + MaCacoToString(MACACOframe)
 				+ ", soulissNodeIPAddressOnLAN: " + soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddressOnLAN);
 	}

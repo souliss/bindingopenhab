@@ -16,7 +16,9 @@ package org.openhab.binding.souliss.internal.network.typicals;
  * @author Tonino Fazio
  * @since 1.7.0
  */
+
 public class Constants {
+	
 	public static final String TAG = "SoulissApp:Typicals";
 
 	/**
@@ -249,7 +251,4 @@ public class Constants {
 	public static final String ConfigurationFileName_commands_to_states = "/properties/commands_to_states.properties";
 	
 	public static final String Openhab_RGB_TYPE = "HSBType";
-
-
-
 }

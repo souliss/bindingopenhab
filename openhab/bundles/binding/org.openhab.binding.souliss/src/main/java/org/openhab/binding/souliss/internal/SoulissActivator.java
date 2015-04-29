@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class SoulissActivator implements BundleActivator {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(SoulissActivator.class); 
+	private static Logger logger = LoggerFactory.getLogger(SoulissActivator.class); 
 	
 	String sConfigurationFileName=Constants.ConfigurationFileName_typicals_value_bytes;
 	String sConfigurationFileName_commands_OHtoSOULISS=Constants.ConfigurationFileName_commands_OHtoSOULISS;
@@ -43,25 +43,25 @@ public final class SoulissActivator implements BundleActivator {
 	 * @since 1.7.0
 	 */
 	public void start(BundleContext bc) throws Exception {
-		LOGGER.info("souliss binding has been started.");
+		logger.info("souliss binding has been started.");
 		
         InputStream is = getClass().getResourceAsStream("/"+sConfigurationFileName);
-		LOGGER.info("Load parameter from file: " + sConfigurationFileName);  
+		logger.info("Load parameter from file: " + sConfigurationFileName);  
 		SoulissNetworkParameter.load(is);
 		
-		LOGGER.info("Load parameter from file: " + sConfigurationFileName_commands_OHtoSOULISS);  
+		logger.info("Load parameter from file: " + sConfigurationFileName_commands_OHtoSOULISS);  
 		is = getClass().getResourceAsStream("/"+sConfigurationFileName_commands_OHtoSOULISS);
 		StateTraslator.loadCommands(is);
 		
-		LOGGER.info("Load parameter from file: " + sConfigurationFileName_states_SOULISStoOH);  
+		logger.info("Load parameter from file: " + sConfigurationFileName_states_SOULISStoOH);  
 		is = getClass().getResourceAsStream("/"+sConfigurationFileName_states_SOULISStoOH);
 		StateTraslator.loadStates(is);
 		
-		LOGGER.info("Load parameter from file: " + sConfigurationFileName_ItemsType_OHtoSOULISS);  
+		logger.info("Load parameter from file: " + sConfigurationFileName_ItemsType_OHtoSOULISS);  
 		is = getClass().getResourceAsStream("/"+sConfigurationFileName_ItemsType_OHtoSOULISS);
 		StateTraslator.loadItemsType(is);
 		
-		LOGGER.info("Load parameter from file: " + sConfigurationFileName_commands_to_states);  
+		logger.info("Load parameter from file: " + sConfigurationFileName_commands_to_states);  
 		is = getClass().getResourceAsStream("/"+sConfigurationFileName_commands_to_states);
 		StateTraslator.loadCommands_to_states(is);
 	}
@@ -75,7 +75,7 @@ public final class SoulissActivator implements BundleActivator {
 	 * @since 1.7.0
 	 */
 	public void stop(BundleContext bc) throws Exception {
-		LOGGER.info("souliss binding has been stopped.");
+		logger.info("souliss binding has been stopped.");
 	}
 
 }

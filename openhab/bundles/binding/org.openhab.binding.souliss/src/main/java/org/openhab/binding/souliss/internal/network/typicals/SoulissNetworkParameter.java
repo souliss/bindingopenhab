@@ -41,7 +41,7 @@ public class SoulissNetworkParameter {
 	public static int SEND_MIN_DELAY = presetTime;
 	public static long SECURE_SEND_TIMEOUT_TO_REQUEUE = presetTime;
 	public static long SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET = presetTime;
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(SoulissNetworkParameter.class);
 	public static int NodeIndex = 70;
 	public static int UserIndex = 133;
@@ -78,11 +78,11 @@ public class SoulissNetworkParameter {
 	public static void load(InputStream is) {
 		try {
 			prop.load(is);
-			LOGGER.info("ok");
+			logger.info("ok");
 			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 }

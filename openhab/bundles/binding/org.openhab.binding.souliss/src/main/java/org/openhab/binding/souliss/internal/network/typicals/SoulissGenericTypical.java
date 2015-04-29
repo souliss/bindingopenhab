@@ -29,7 +29,7 @@ public class SoulissGenericTypical {
 	private String sName;
 	private boolean isUpdated = false;
 	private String sNote;
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(SoulissGenericTypical.class);
 
 	/**
@@ -90,7 +90,7 @@ public class SoulissGenericTypical {
 	 *            the state of typical
 	 */
 	public void setState(float iState) {
-		LOGGER.debug("Update State. Name: " + getName() + ", Typ: " + "0x"
+		logger.debug("Update State. Name: " + getName() + ", Typ: " + "0x"
 				+ Integer.toHexString(getType()) + ", Node: "
 				+ getSoulissNodeID() + ", Slot: " + getSlot() + ". New State: "
 				+ iState);
@@ -154,7 +154,7 @@ public class SoulissGenericTypical {
 	 * @param command
 	 */
 	void CommandMulticast(DatagramSocket datagramSocket, short command) {
-		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()
+		logger.debug("Typ: " + getType() + ", Name: " + getName()
 				+ " - CommandMulticast: " + command);
 		SoulissCommGate.sendMULTICASTFORCEFrame(datagramSocket,
 				SoulissNetworkParameter.IPAddressOnLAN, getType(), command);
@@ -166,7 +166,7 @@ public class SoulissGenericTypical {
 	 * @param datagramSocket
 	 */
 	public void sendDBStructFrame(DatagramSocket datagramSocket) {
-		LOGGER.debug("Typ: " + getType() + ", Name: " + getName()
+		logger.debug("Typ: " + getType() + ", Name: " + getName()
 				+ " - sendDBStructFrame ");
 		SoulissCommGate.sendDBStructFrame(datagramSocket,
 				SoulissNetworkParameter.IPAddressOnLAN);
@@ -180,7 +180,7 @@ public class SoulissGenericTypical {
 	 * @param punIn_2
 	 */
 	public void ping(DatagramSocket datagramSocket, short putIn_1, short punIn_2) {
-		LOGGER.debug("Typ: " + getType() + ", Name: " + getName() + " - ping");
+		logger.debug("Typ: " + getType() + ", Name: " + getName() + " - ping");
 		SoulissCommGate.sendPing(datagramSocket,
 				SoulissNetworkParameter.IPAddressOnLAN, putIn_1, punIn_2);
 	}

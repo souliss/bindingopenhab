@@ -25,7 +25,7 @@ public class MonitorThread extends Thread {
 
 	int REFRESH_TIME;
 	private SoulissTypicals soulissTypicalsRecipients;
-	private static Logger LOGGER = LoggerFactory.getLogger(MonitorThread.class);
+	private static Logger logger = LoggerFactory.getLogger(MonitorThread.class);
 	EventPublisher eventPublisher;
 
 	/**
@@ -38,7 +38,7 @@ public class MonitorThread extends Thread {
 			EventPublisher _eventPublisher) {
 		REFRESH_TIME = iRefreshTime;
 		soulissTypicalsRecipients = typicals;
-		LOGGER.info("Start MonitorThread");
+		logger.info("Start MonitorThread");
 		eventPublisher = _eventPublisher;
 	}
 
@@ -59,7 +59,7 @@ public class MonitorThread extends Thread {
 				Thread.sleep(REFRESH_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				LOGGER.error(e.getMessage());
+				logger.error(e.getMessage());
 			}
 			super.run();
 		}
@@ -86,20 +86,20 @@ public class MonitorThread extends Thread {
 					if (typ.getType() == Constants.Souliss_TService_NODE_TIMESTAMP) {
 						// All values are float out of TIMESTAMP that is a
 						// string
-						LOGGER.debug("Put on Bus Events - "
+						logger.debug("Put on Bus Events - "
 								+ typ.getName()
 								+ " = "
 								+ ((SoulissTServiceNODE_TIMESTAMP) typ)
 										.getTIMESTAMP());
 					} else if (typ.getType() == Constants.Souliss_T16) {
 						// RGB Only
-						LOGGER.debug("Put on Bus Events - " + typ.getName()
+						logger.debug("Put on Bus Events - " + typ.getName()
 								+ " = " + ((SoulissT16) typ).getState()
 								+ ", R=" + ((SoulissT16) typ).stateRED + ", G="
 								+ ((SoulissT16) typ).stateGREEN + ", B="
 								+ ((SoulissT16) typ).stateBLU);
 					} else if (typ.getType() == Constants.Souliss_T1A) {
-						LOGGER.debug("Put on Bus Events - "
+						logger.debug("Put on Bus Events - "
 								+ typ.getName()
 								+ " - Bit "
 								+ ((SoulissT1A) typ).getBit()
@@ -108,7 +108,7 @@ public class MonitorThread extends Thread {
 										.getRawState()) + " - Bit State: "
 								+ ((SoulissT1A) typ).getBitState());
 					} else {
-						LOGGER.debug("Put on Bus Events - " + typ.getName()
+						logger.debug("Put on Bus Events - " + typ.getName()
 								+ " = " + Float.toString(typ.getState()));
 					}
 

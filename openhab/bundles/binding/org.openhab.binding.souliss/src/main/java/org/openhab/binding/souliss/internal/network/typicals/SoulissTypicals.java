@@ -29,7 +29,7 @@ public class SoulissTypicals {
 			.synchronizedMap(new Hashtable<String, SoulissGenericTypical>());
 	private Map<String, String> hashTableItemToAddress = Collections
 			.synchronizedMap(new Hashtable<String, String>());
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(SoulissTypicals.class);
 
 	/**
@@ -43,21 +43,21 @@ public class SoulissTypicals {
 		synchronized (typical) {
 			int iBit = 0;
 			if (typical.getType() == Constants.Souliss_T1A) {
-				LOGGER.info("Add Item: " + sItem + " - Typ: "
+				logger.info("Add Item: " + sItem + " - Typ: "
 						+ Integer.toHexString(typical.getType()) + ", Node: "
 						+ typical.getSoulissNodeID() + ", Slot: "
 						+ typical.getSlot() + ", Bit: "
 						+ ((SoulissT1A) typical).getBit());
 				iBit = ((SoulissT1A) typical).getBit();
 			} else {
-				LOGGER.info("Add Item: " + sItem + " - Typ: "
+				logger.info("Add Item: " + sItem + " - Typ: "
 						+ Integer.toHexString(typical.getType()) + ", Node: "
 						+ typical.getSoulissNodeID() + ", Slot: "
 						+ typical.getSlot());
 			}
 			typical.setName(sItem);
 			// Index is : node + slot + iBit
-			LOGGER.info("hashTableItemToAddress <-- [key: " + sItem
+			logger.info("hashTableItemToAddress <-- [key: " + sItem
 					+ " - value: " + String.valueOf(typical.getSoulissNodeID())
 					+ String.valueOf(typical.getSlot()) + iBit + "]");
 			hashTableItemToAddress.put(
@@ -65,7 +65,7 @@ public class SoulissTypicals {
 					String.valueOf(typical.getSoulissNodeID())
 							+ String.valueOf(typical.getSlot()) + iBit);
 			// Index is : item
-			LOGGER.info("hashTableAddressToTypicals <-- [key: "
+			logger.info("hashTableAddressToTypicals <-- [key: "
 					+ typical.getSoulissNodeID()
 					+ String.valueOf(typical.getSlot()) + iBit + " - value: "
 					+ typical + "]");
@@ -80,7 +80,7 @@ public class SoulissTypicals {
 	 * Delete the hash tables
 	 */
 	public void clear() {
-		LOGGER.debug("Clear hashtable");
+		logger.debug("Clear hashtable");
 		hashTableAddressToTypicals.clear();
 		hashTableItemToAddress.clear();
 	}

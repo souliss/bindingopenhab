@@ -26,7 +26,7 @@ public class StateTraslator {
 	static Properties propTypes = new Properties();
 	static Properties propCommands_to_states = new Properties();
 
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(StateTraslator.class);
 
 	/**
@@ -39,7 +39,7 @@ public class StateTraslator {
 	public static short stringToSOULISSTypicalCode(String sTypeString) {
 		String sRes = null;
 		sRes = propTypes.getProperty(sTypeString);
-		LOGGER.debug("translate types: " + sTypeString + " -> " + sRes);
+		logger.debug("translate types: " + sTypeString + " -> " + sRes);
 		return Short.decode(sRes);
 	}
 
@@ -57,7 +57,7 @@ public class StateTraslator {
 		sRes = propCommands.getProperty("0x"
 				+ Short.decode(Integer.toHexString(typ))
 				+ Constants.CONF_FIELD_DELIMITER + sCommand);
-		LOGGER.debug("translate commands: " + sCommand + " -> " + sRes);
+		logger.debug("translate commands: " + sCommand + " -> " + sRes);
 		if (sRes != null)
 			return Short.decode(sRes);
 		else
@@ -86,7 +86,7 @@ public class StateTraslator {
 		String sVal = sOHType + Constants.CONF_FIELD_DELIMITER + s1
 				+ Constants.CONF_FIELD_DELIMITER + s2;
 		sRes = propStates.getProperty(sVal);
-		LOGGER.debug("translate states: " + sVal + " -> " + sRes);
+		logger.debug("translate states: " + sVal + " -> " + sRes);
 		return sRes;
 	}
 	
@@ -124,11 +124,11 @@ public class StateTraslator {
 	public static void loadCommands(InputStream is) {
 		try {
 			propCommands.load(is);
-			LOGGER.info("ok");
+			logger.info("ok");
 			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -141,11 +141,11 @@ public class StateTraslator {
 	public static void loadStates(InputStream is) {
 		try {
 			propStates.load(is);
-			LOGGER.info("ok");
+			logger.info("ok");
 			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -158,22 +158,22 @@ public class StateTraslator {
 	public static void loadItemsType(InputStream is) {
 		try {
 			propTypes.load(is);
-			LOGGER.info("ok");
+			logger.info("ok");
 			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 
 	public static void loadCommands_to_states(InputStream is) {
 		try {
 			propCommands_to_states.load(is);
-			LOGGER.info("ok");
+			logger.info("ok");
 			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 

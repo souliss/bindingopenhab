@@ -26,7 +26,7 @@ public class RefreshSUBSCRIPTIONThread extends Thread {
 	DatagramSocket socket = null;
 	String soulissNodeIPAddressOnLAN = "";
 	int iNodes = 0;
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(RefreshSUBSCRIPTIONThread.class);
 
 	public RefreshSUBSCRIPTIONThread(DatagramSocket datagramsocket,
@@ -34,7 +34,7 @@ public class RefreshSUBSCRIPTIONThread extends Thread {
 		REFRESH_TIME = iRefreshTime;
 		this.socket = datagramsocket;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
-		LOGGER.info("Start RefreshSUBSCRIPTIONThread");
+		logger.info("Start RefreshSUBSCRIPTIONThread");
 	}
 
 	/*
@@ -46,14 +46,14 @@ public class RefreshSUBSCRIPTIONThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				LOGGER.debug("sendSUBSCRIPTIONframe");
+				logger.debug("sendSUBSCRIPTIONframe");
 				SoulissCommGate.sendSUBSCRIPTIONframe(socket,
 						soulissNodeIPAddressOnLAN,
 						SoulissNetworkParameter.nodes);
 				Thread.sleep(REFRESH_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				LOGGER.error(e.getMessage());
+				logger.error(e.getMessage());
 			}
 			super.run();
 		}

@@ -36,7 +36,7 @@ public class SendDispatcherThread extends Thread {
 	int SEND_DELAY;
 	int SEND_MIN_DELAY;
 	static boolean bPopSuspend = false;
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(SendDispatcherThread.class);
 	private static SoulissTypicals soulissTypicalsRecipients;
 
@@ -45,7 +45,7 @@ public class SendDispatcherThread extends Thread {
 		this("SendDispatcher");
 		this.SEND_DELAY = SEND_DELAY;
 		this.SEND_MIN_DELAY = SEND_MIN_DELAY;
-		LOGGER.info("Start SendDispatcherThread");
+		logger.info("Start SendDispatcherThread");
 		soulissTypicalsRecipients = soulissTypicalsRecip;
 	}
 
@@ -64,7 +64,7 @@ public class SendDispatcherThread extends Thread {
 		// estraggo il nodo indirizzato dal pacchetto in ingresso
 		// restituisce -1 se il node non è del tipo Souliss_UDP_function_force
 		int node = getNode(packetToPUT);
-		LOGGER.debug("Push");
+		logger.debug("Push");
 		if (packetsList.size() == 0 || node < 0) {
 			bPacchettoGestito = false;
 		} else {
@@ -74,7 +74,7 @@ public class SendDispatcherThread extends Thread {
 				if (node >= 0 && getNode(packetsList.get(i).packet) == node
 						&& !packetsList.get(i).isSent()) {
 					// frame per lo stesso nodo già presente in lista
-					LOGGER.debug("Frame UPD per nodo "
+					logger.debug("Frame UPD per nodo "
 							+ node
 							+ " già presente il lista. Esecuzione ottimizzazione.");
 					bPacchettoGestito = true;
@@ -86,9 +86,9 @@ public class SendDispatcherThread extends Thread {
 						// scorre i byte di comando e se il byte è diverso da
 						// zero sovrascrive il byte presente nel pacchetto in
 						// lista
-						LOGGER.debug("Optimizer.             Packet to push: "
+						logger.debug("Optimizer.             Packet to push: "
 								+ MaCacoToString(packetToPUT.getData()));
-						LOGGER.debug("Optimizer.             Previous frame: "
+						logger.debug("Optimizer.             Previous frame: "
 								+ MaCacoToString(packetsList.get(i).packet
 										.getData()));
 						// i valori dei tipici partono dal byte 12 in poi
@@ -100,7 +100,7 @@ public class SendDispatcherThread extends Thread {
 										.getData()[j];
 							}
 						}
-						LOGGER.debug("Optimizer. Previous frame modified to: "
+						logger.debug("Optimizer. Previous frame modified to: "
 								+ MaCacoToString(packetsList.get(i).packet
 										.getData()));
 					} else {
@@ -127,12 +127,12 @@ public class SendDispatcherThread extends Thread {
 								}
 							}
 							// rimuove il pacchetto
-							LOGGER.debug("Optimizer. Remove frame: "
+							logger.debug("Optimizer. Remove frame: "
 									+ MaCacoToString(packetsList.get(i).packet
 											.getData()));
 							packetsList.remove(i);
 							// inserisce il nuovo
-							LOGGER.debug("Optimizer.    Add frame: "
+							logger.debug("Optimizer.    Add frame: "
 									+ MaCacoToString(packetToPUT.getData()));
 							packetsList.add(new SocketAndPacket(socket,
 									packetToPUT));
@@ -143,7 +143,7 @@ public class SendDispatcherThread extends Thread {
 		}
 
 		if (!bPacchettoGestito) {
-			LOGGER.debug("Add frame: " + MaCacoToString(packetToPUT.getData()));
+			logger.debug("Add frame: " + MaCacoToString(packetToPUT.getData()));
 			packetsList.add(new SocketAndPacket(socket, packetToPUT));
 		}
 		bPopSuspend = false;
@@ -217,9 +217,9 @@ public class SendDispatcherThread extends Thread {
 						packetsList.remove(iPacket);
 					}
 
-					LOGGER.debug("POP: " + packetsList.size()
+					logger.debug("POP: " + packetsList.size()
 							+ " packets in memory");
-					if (LOGGER.isDebugEnabled()) {
+					if (logger.isDebugEnabled()) {
 						int iPacketSentCounter = 0;
 						int i = 0;
 						while (!(i >= packetsList.size())) {
@@ -228,11 +228,11 @@ public class SendDispatcherThread extends Thread {
 							}
 							i++;
 						}
-						LOGGER.debug("POP: " + (iPacketSentCounter)
+						logger.debug("POP: " + (iPacketSentCounter)
 								+ " force frame sent");
 					}
 
-					LOGGER.debug("Pop frame "
+					logger.debug("Pop frame "
 							+ MaCacoToString(sp.packet.getData())
 							+ " - Delay for 'SendDispatcherThread' setted to "
 							+ iDelay + " mills.");
@@ -254,7 +254,7 @@ public class SendDispatcherThread extends Thread {
 				Thread.sleep(iDelay);
 				SocketAndPacket sp = pop();
 				if (sp != null) {
-					LOGGER.debug("SendDispatcherThread - Functional Code 0x"
+					logger.debug("SendDispatcherThread - Functional Code 0x"
 							+ Integer.toHexString(sp.packet.getData()[7])
 							+ " - Packet: "
 							+ MaCacoToString(sp.packet.getData())
@@ -268,10 +268,10 @@ public class SendDispatcherThread extends Thread {
 
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
-				LOGGER.error(e.getMessage());
+				logger.error(e.getMessage());
 			} catch (Exception e) {
 				e.printStackTrace();
-				LOGGER.error(e.getMessage());
+				logger.error(e.getMessage());
 			}
 		}
 	}
@@ -309,7 +309,7 @@ public class SendDispatcherThread extends Thread {
 
 						// traduce il comando inviato con lo stato previsto e
 						// poi fa il confronto con lo stato attuale
-						if(LOGGER.isDebugEnabled()){
+						if(logger.isDebugEnabled()){
 						String s1 = String.valueOf((int) typ.getState());
 						String sStateMemoria = s1.length() < 2 ? "0x0"
 								+ s1.toUpperCase() : "0x" + s1.toUpperCase();
@@ -317,7 +317,7 @@ public class SendDispatcherThread extends Thread {
 						String sCmd=Integer.toHexString(packetsList.get(i).packet.getData()[j]);
 						sCmd = sCmd.length() < 2 ? "0x0"
 								+ sCmd.toUpperCase() : "0x" + sCmd.toUpperCase();
-						LOGGER.debug("Compare. Node: " + node + " Slot: "+ iSlot +  " Typical: "
+						logger.debug("Compare. Node: " + node + " Slot: "+ iSlot +  " Typical: "
 								+ Integer.toHexString(typ.getType())
 								+ " Command: "
 								+ sCmd
@@ -337,14 +337,14 @@ public class SendDispatcherThread extends Thread {
 							// si
 							// cancella il frame
 							packetsList.get(i).packet.getData()[j] = 0;
-							LOGGER.debug("T" + Integer.toHexString(typ.getType()) + " Node: " + node + " Slot: " + iSlot
+							logger.debug("T" + Integer.toHexString(typ.getType()) + " Node: " + node + " Slot: " + iSlot
 									+ " - OK Expected State");
 						}
 					}
 					iSlot++;
 				}
 				if (checkAllsSlotZero(packetsList.get(i).packet)) {
-					LOGGER.debug("Command packet executed - Removed");
+					logger.debug("Command packet executed - Removed");
 					packetsList.remove(i);
 				} else {
 					// se il frame non è uguale a zero controllo il TIMEOUT e se
@@ -352,10 +352,10 @@ public class SendDispatcherThread extends Thread {
 					long t=System.currentTimeMillis();
 					if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REQUEUE < t - packetsList.get(i).getTime()) {
 						if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET < t - packetsList.get(i).getTime()) {
-							LOGGER.info("Packet Execution timeout - Removed");
+							logger.info("Packet Execution timeout - Removed");
 							packetsList.remove(i);
 						} else {
-							LOGGER.info("Packet Execution timeout - Requeued");
+							logger.info("Packet Execution timeout - Requeued");
 							packetsList.get(i).setSent(false);
 						}
 					}

@@ -29,7 +29,7 @@ public class UDPServerThread extends Thread {
 	protected BufferedReader in = null;
 	protected boolean bExit = false;
 	UDPSoulissDecoder decoder = null;
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(UDPServerThread.class);
 
 	public UDPServerThread(SoulissTypicals typicals) throws IOException {
@@ -42,7 +42,7 @@ public class UDPServerThread extends Thread {
 		}
 
 		decoder = new UDPSoulissDecoder(typicals);
-		LOGGER.info("Start UDPServerThread - Server in ascolto sulla porta "
+		logger.info("Start UDPServerThread - Server in ascolto sulla porta "
 				+ SoulissNetworkParameter.datagramsocket.getLocalPort());
 	}
 
@@ -58,13 +58,13 @@ public class UDPServerThread extends Thread {
 				buf = packet.getData();
 			
 				// **************** DECODER ********************
-				LOGGER.debug("Packet received");
-				LOGGER.debug(MaCacoToString(buf));
+				logger.debug("Packet received");
+				logger.debug(MaCacoToString(buf));
 				decoder.decodeVNetDatagram(packet);
 
 			} catch (IOException e) {
 				e.printStackTrace();
-				LOGGER.error(e.getMessage());
+				logger.error(e.getMessage());
 				bExit = true;
 			}
 		}

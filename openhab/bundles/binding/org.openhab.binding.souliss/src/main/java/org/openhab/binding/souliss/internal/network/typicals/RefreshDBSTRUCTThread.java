@@ -27,7 +27,7 @@ public class RefreshDBSTRUCTThread extends Thread {
 	DatagramSocket socket = null;
 	String SoulissNodeIPAddress = "";
 	String soulissNodeIPAddressOnLAN = "";
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(RefreshDBSTRUCTThread.class);
 
 	public RefreshDBSTRUCTThread(DatagramSocket datagramsocket,
@@ -38,7 +38,7 @@ public class RefreshDBSTRUCTThread extends Thread {
 		this.socket = datagramsocket;
 		this.SoulissNodeIPAddress = soulissNodeIPAddress;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
-		LOGGER.info("Start RefreshDBSTRUCTThread");
+		logger.info("Start RefreshDBSTRUCTThread");
 	}
 
 	/*
@@ -50,13 +50,13 @@ public class RefreshDBSTRUCTThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				LOGGER.info("sendDBStructFrame");
+				logger.info("sendDBStructFrame");
 				SoulissCommGate.sendDBStructFrame(socket,
 						soulissNodeIPAddressOnLAN);
 				Thread.sleep(REFRESH_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				LOGGER.error(e.getMessage());
+				logger.error(e.getMessage());
 			}
 			super.run();
 		}

@@ -28,7 +28,7 @@ public class RefreshHEALTYThread extends Thread {
 	String SoulissNodeIPAddress = "";
 	String soulissNodeIPAddressOnLAN = "";
 	int iNodes = 0;
-	private static Logger LOGGER = LoggerFactory
+	private static Logger logger = LoggerFactory
 			.getLogger(RefreshHEALTYThread.class);
 
 	public RefreshHEALTYThread(DatagramSocket datagramsocket,
@@ -36,7 +36,7 @@ public class RefreshHEALTYThread extends Thread {
 		REFRESH_TIME = iRefreshTime;
 		this.socket = datagramsocket;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
-		LOGGER.info("Start RefreshDBSTRUCTThread");
+		logger.info("Start RefreshDBSTRUCTThread");
 	}
 
 	/*
@@ -48,7 +48,7 @@ public class RefreshHEALTYThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				LOGGER.info("sendHEALTY_REQUESTframe");
+				logger.info("sendHEALTY_REQUESTframe");
 
 				SoulissCommGate.sendHEALTY_REQUESTframe(socket,
 						soulissNodeIPAddressOnLAN,
@@ -56,7 +56,7 @@ public class RefreshHEALTYThread extends Thread {
 				Thread.sleep(REFRESH_TIME);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				LOGGER.error(e.getMessage());
+				logger.error(e.getMessage());
 			}
 			super.run();
 		}
