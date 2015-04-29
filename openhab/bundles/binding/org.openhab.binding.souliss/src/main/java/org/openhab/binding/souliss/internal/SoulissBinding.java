@@ -32,8 +32,11 @@ import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
 import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
 
 import org.openhab.core.binding.AbstractActiveBinding;
+import org.openhab.core.binding.AbstractBinding;
 import org.openhab.core.binding.BindingProvider;
 import org.openhab.core.events.EventPublisher;
+import org.openhab.core.library.types.DecimalType;
+import org.openhab.core.library.types.HSBType;
 import org.openhab.core.library.types.PercentType;
 import org.openhab.core.library.types.StringType;
 import org.openhab.core.types.Command;
@@ -115,13 +118,13 @@ public class SoulissBinding<E> extends
 				}
 			}
 			SoulissNetworkParameter.setConfigured(true);
+			
+			
+			
+			
+			
 			setProperlyConfigured(true);
 		}
-
-	@Override
-	public void handleEvent(Event event) {
-		super.handleEvent(event);
-	}
 
 	@Override
 	/**
@@ -156,8 +159,10 @@ public class SoulissBinding<E> extends
 			String cmd = command.getClass().getSimpleName();
 			if (cmd.equals(Constants.Openhab_RGB_TYPE)) {
 				String HSB[] = command.toString().split(",");
+						 
 				short RGB[] = HSBtoRGB(Float.parseFloat(HSB[0]),
 						Float.parseFloat(HSB[1]), Float.parseFloat(HSB[2]));
+
 				T16.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 						command.getClass().getSimpleName()), RGB[0], RGB[1],
 						RGB[2]);
@@ -216,20 +221,6 @@ public class SoulissBinding<E> extends
 		return RGBList;
 	}
 
-	@Override
-	protected void execute() {
-	}
-
-	@Override
-	protected long getRefreshInterval() {
-		return 0;
-	}
-
-	@Override
-	protected String getName() {
-		return null;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -275,16 +266,6 @@ public class SoulissBinding<E> extends
 				LOGGER.error(e.getMessage());
 			}
 		}
-	}
-
-	/**
-	 * Put update to Openhab events bus
-	 * 
-	 * @author Tonino Fazio
-	 * @since 1.7.0
-	 */
-	public void putOnOHEventBus(String itemName, String value) {
-		eventPublisher.postUpdate(itemName, new StringType(value));
 	}
 
 	public short[] hsvToRgb(float H, float S, float V) {
@@ -344,5 +325,23 @@ public class SoulissBinding<E> extends
 
 		short RGBList[] = { (short) R, (short) G, (short) B };
 		return RGBList;
+	}
+
+	@Override
+	protected void execute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected long getRefreshInterval() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
