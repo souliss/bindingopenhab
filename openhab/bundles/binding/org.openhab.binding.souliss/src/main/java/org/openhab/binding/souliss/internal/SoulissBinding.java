@@ -51,7 +51,9 @@ public class SoulissBinding<E> extends
 
 	private static Logger logger = LoggerFactory
 			.getLogger(SoulissBinding.class);
-
+		private static final int OH_REFRESH_TIME=1000;
+		long start_time = System.currentTimeMillis();
+	
 	/**
 	 * Read parameters from cfg file
 	 * 
@@ -112,7 +114,6 @@ public class SoulissBinding<E> extends
 				}
 			}
 			SoulissNetworkParameter.setConfigured(true);
-			initialize();
 		}
 
 	@Override
@@ -294,20 +295,25 @@ public class SoulissBinding<E> extends
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
+		
+		if(timeDiff(SoulissNetworkParameter.REFRESH_SUBSCRIPTION_TIME)){
+			
+		}
+		
 		
 	}
 
+	private boolean timeDiff(long t){
+		return start_time < (System.currentTimeMillis() - t);
+	}
+	
 	@Override
 	protected long getRefreshInterval() {
-		// TODO Auto-generated method stub
-		return 0;
+		return OH_REFRESH_TIME;
 	}
 
 	@Override
 	protected String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return "Souliss Refresh Service";	}
 
 }
