@@ -55,38 +55,6 @@ public class SoulissBinding<E> extends
 	private static Logger LOGGER = LoggerFactory
 			.getLogger(SoulissBinding.class);
 
-	/** to keep track of all binding providers */
-
-	protected EventPublisher eventPublisher = null;
-
-	@Override
-	public void setEventPublisher(EventPublisher eventPublisher) {
-		this.eventPublisher = eventPublisher;
-	}
-
-	@Override
-	public void unsetEventPublisher(EventPublisher eventPublisher) {
-		this.eventPublisher = null;
-	}
-
-	@Override
-	public void bindingChanged(BindingProvider provider, String itemName) {
-		// TODO Auto-generated method stub
-		super.bindingChanged(provider, itemName);
-	}
-
-	@Override
-	public void activate() {
-		// TODO Auto-generated method stub
-		super.activate();
-	}
-
-	@Override
-	public void deactivate() {
-		// TODO Auto-generated method stub
-		super.deactivate();
-	}
-
 	/**
 	 * Read parameters from cfg file
 	 * 
@@ -103,66 +71,52 @@ public class SoulissBinding<E> extends
 				String sName = enumConfig.nextElement();
 				LOGGER.info("PARAMETER: " + sName + " = "
 						+ (String) config.get(sName));
-				switch (sName) {
-				case "IP_LAN":
+				if(sName.equals("IP_LAN"))
 					SoulissNetworkParameter.IPAddressOnLAN = (String) config
 							.get(sName);
-					break;
-				case "REFRESH_DBSTRUCT_TIME":
+				else if (sName.equals("REFRESH_DBSTRUCT_TIME"))
 					SoulissNetworkParameter.REFRESH_DBSTRUCT_TIME = Integer
 							.parseInt((String) config.get(sName));
-					break;
-				case "REFRESH_SUBSCRIPTION_TIME":
+				else if (sName.equals("REFRESH_SUBSCRIPTION_TIME"))
 					SoulissNetworkParameter.REFRESH_SUBSCRIPTION_TIME = Integer
 							.parseInt((String) config.get(sName));
-					break;
-				case "REFRESH_HEALTY_TIME":
+				else if (sName.equals("REFRESH_HEALTY_TIME"))
 					SoulissNetworkParameter.REFRESH_HEALTY_TIME = Integer
 							.parseInt((String) config.get(sName));
-					break;
-				case "REFRESH_MONITOR_TIME":
+				else if (sName.equals("REFRESH_MONITOR_TIME"))
 					SoulissNetworkParameter.REFRESH_MONITOR_TIME = Integer
 							.parseInt((String) config.get(sName));
-					break;
-				case "SEND_DELAY":
+				else if (sName.equals("SEND_DELAY"))
 					SoulissNetworkParameter.SEND_DELAY = Integer
 							.parseInt((String) config.get(sName));
-					break;
-				case "SEND_MIN_DELAY":
+				else if (sName.equals("SEND_MIN_DELAY"))
 					SoulissNetworkParameter.SEND_MIN_DELAY = Integer
 							.parseInt((String) config.get(sName));
-					break;
-				case "SECURE_SEND_TIMEOUT_TO_REQUEUE":
+				else if (sName.equals("SECURE_SEND_TIMEOUT_TO_REQUEUE"))
 					SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REQUEUE = Long
 							.parseLong((String) config.get(sName));
-					break;
-				case "SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET":
+				else if (sName.equals("SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET"))
 					SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET = Long
 							.parseLong((String) config.get(sName));
-					break;
-				case "USER_INDEX":
+				else if (sName.equals("USER_INDEX"))
 					SoulissNetworkParameter.UserIndex = Integer
 							.parseInt((String) config.get(sName));
-					break;
-				case "NODE_INDEX":
+				else if (sName.equals("NODE_INDEX"))
 					SoulissNetworkParameter.NodeIndex = Integer
 							.parseInt((String) config.get(sName));
-					break;
-				case "SERVERPORT":
+				else if (sName.equals("SERVERPORT")){
 					if (config.get(sName).equals(""))
 						SoulissNetworkParameter.serverPort = null;
 					else
 						SoulissNetworkParameter.serverPort = Integer
 								.parseInt((String) config.get(sName));
-					break;
-				default:
-					break;
+				}
+				
 				}
 			}
 			SoulissNetworkParameter.setConfigured(true);
 			setProperlyConfigured(true);
 		}
-	}
 
 	@Override
 	public void handleEvent(Event event) {
