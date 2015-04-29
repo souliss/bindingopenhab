@@ -22,19 +22,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>
  * This class can parse information from the generic binding format and provides
- * souliss binding information from it. It registers as a
- * {@link soulissBindingProvider} service as well.
- * </p>
+ * souliss binding information from it
  * 
- * <p>
- * Here are some examples for valid binding configuration strings:
- * <ul>
- * <li><code>{ souliss="Europe/Berlin:de_DE" }</code>
- * <li><code>{ souliss="Europe/Berlin" }</code>
- * <li><code>{ souliss="" }</code>
- * </ul>
+ * eg, from {souliss="T11:1:2" , autoupdate="false"}
+ * it extract these informations:
+ * -Typical T11
+ * -Node 1
+ * -Slot 2
  * 
  * @author Tonino Fazio
  * @since 1.7.0
@@ -58,7 +53,12 @@ public class SoulissGenericBindingProvider extends
 	@Override
 	public void processBindingConfiguration(String context, Item item,
 			String bindingConfig) throws BindingConfigParseException {
-		// CREAZIONE TIPICI
+		// Create Souliss Typicals
+		// In Souliss the logics that drive your lights, curtains, LED, and
+		// others are pre-configured into so called Typicals. A Typical is a
+		// logic with a predefined set of inputs and outputs and a know
+		// behavior, are used to standardize the user interface and have a
+		// configuration-less behavior.
 		super.processBindingConfiguration(context, item, bindingConfig);
 		String[] sNameArray = bindingConfig.split("\\:");
 		String sTypical = sNameArray[0];
@@ -79,7 +79,8 @@ public class SoulissGenericBindingProvider extends
 		if (soulitTypicalNew != null) {
 			SoulissTypicalsRecipients.addTypical(item.getName(),
 					soulitTypicalNew);
-			SoulissNetworkParameter.nodes= SoulissTypicalsRecipients.getNodeNumbers();
+			SoulissNetworkParameter.nodes = SoulissTypicalsRecipients
+					.getNodeNumbers();
 		} else {
 			LOGGER.debug("Typical Unknow");
 		}
@@ -89,5 +90,5 @@ public class SoulissGenericBindingProvider extends
 	public void validateItemType(Item item, String bindingConfig)
 			throws BindingConfigParseException {
 	}
-	
+
 }

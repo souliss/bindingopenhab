@@ -32,22 +32,16 @@ import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
 import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
 
 import org.openhab.core.binding.AbstractActiveBinding;
-import org.openhab.core.binding.AbstractBinding;
-import org.openhab.core.binding.BindingProvider;
-import org.openhab.core.events.EventPublisher;
-import org.openhab.core.library.types.DecimalType;
-import org.openhab.core.library.types.HSBType;
 import org.openhab.core.library.types.PercentType;
-import org.openhab.core.library.types.StringType;
 import org.openhab.core.types.Command;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
-import org.osgi.service.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class load parameters from cfg files (method updated)
+ * This class load from openhab.cfg all configuration parameters 
+ * Receive Command from OpenHAB, translate and send it to Souliss 
  * 
  * @author Tonino Fazio
  * @since 1.7.0
@@ -146,9 +140,6 @@ public class SoulissBinding<E> extends
 			T12.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 					command.toString()));
 			break;
-		case Constants.Souliss_T14:
-
-			break;
 		case Constants.Souliss_T16:
 			SoulissT16 T16 = (SoulissT16) T;
 			String cmd = command.getClass().getSimpleName();
@@ -164,9 +155,6 @@ public class SoulissBinding<E> extends
 			} else
 				T16.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 						command.toString()));
-			break;
-		case Constants.Souliss_T18:
-
 			break;
 		case Constants.Souliss_T19:
 			SoulissT19 T19 = (SoulissT19) T;
@@ -187,16 +175,6 @@ public class SoulissBinding<E> extends
 			SoulissT22 T22 = (SoulissT22) T;
 			T22.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 					command.toString()));
-			break;
-		case Constants.Souliss_T_TemperatureSensor:
-			break;
-		case Constants.Souliss_T_HumiditySensor:
-			break;
-		case Constants.Souliss_T32_IrCom_AirCon:
-			break;
-		case Constants.Souliss_T41_Antitheft_Main:
-			break;
-		case Constants.Souliss_T42_Antitheft_Peer:
 			break;
 		default:
 			LOGGER.debug("Typical Unknown");
