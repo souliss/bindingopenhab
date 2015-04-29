@@ -118,12 +118,7 @@ public class SoulissBinding<E> extends
 				}
 			}
 			SoulissNetworkParameter.setConfigured(true);
-			
-			
-			
-			
-			
-			setProperlyConfigured(true);
+			initialize();
 		}
 
 	@Override
@@ -221,18 +216,11 @@ public class SoulissBinding<E> extends
 		return RGBList;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.openhab.core.binding.AbstractActiveBinding#setProperlyConfigured(
-	 * boolean)
+	/**
+	 * Start threads
 	 */
-	@Override
-	protected void setProperlyConfigured(boolean properlyConfigured) {
-		if (properlyConfigured) {
+	private void initialize() {
 			LOGGER.info("START");
-
 			try {
 				// Start listening on the UDP socket
 				UDPServerThread Q = null;
@@ -266,7 +254,6 @@ public class SoulissBinding<E> extends
 				LOGGER.error(e.getMessage());
 			}
 		}
-	}
 
 	public short[] hsvToRgb(float H, float S, float V) {
 		float R, G, B;
