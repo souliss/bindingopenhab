@@ -97,10 +97,7 @@ public abstract class SoulissGenericTypical {
 	 *            the state of typical
 	 */
 	public void setState(float iState) {
-		logger.debug("Update State. Name: " + getName() + ", Typ: " + "0x"
-				+ Integer.toHexString(getType()) + ", Node: "
-				+ getSoulissNodeID() + ", Slot: " + getSlot() + ". New State: "
-				+ iState);
+		logger.debug("Update State. Name: {}, Typ: 0x{}, Node: {}, Slot: {}. New State: {}", getName(),Integer.toHexString(getType()), getSoulissNodeID(), getSlot(), iState);
 		this.fState = iState;
 		setUpdatedTrue();
 	}
@@ -161,8 +158,7 @@ public abstract class SoulissGenericTypical {
 	 * @param command
 	 */
 	void commandMulticast(DatagramSocket datagramSocket, short command) {
-		logger.debug("Typ: " + getType() + ", Name: " + getName()
-				+ " - CommandMulticast: " + command);
+		logger.debug("Typ: {}, Name: {} - CommandMulticast: {}",getType(), getName(), command);
 		SoulissCommGate.sendMULTICASTFORCEFrame(datagramSocket,
 				SoulissNetworkParameter.IPAddressOnLAN, getType(), command);
 	}
@@ -173,8 +169,7 @@ public abstract class SoulissGenericTypical {
 	 * @param datagramSocket
 	 */
 	public void sendDBStructFrame(DatagramSocket datagramSocket) {
-		logger.debug("Typ: " + getType() + ", Name: " + getName()
-				+ " - sendDBStructFrame ");
+		logger.debug("Typ: {}, Name: {} - sendDBStructFrame", getType(), getName());
 		SoulissCommGate.sendDBStructFrame(datagramSocket,
 				SoulissNetworkParameter.IPAddressOnLAN);
 	}
@@ -187,7 +182,7 @@ public abstract class SoulissGenericTypical {
 	 * @param punIn_2
 	 */
 	public void ping(DatagramSocket datagramSocket, short putIn_1, short punIn_2) {
-		logger.debug("Typ: " + getType() + ", Name: " + getName() + " - ping");
+		logger.debug("Typ: {}, Name: {} - ping", getType(), getName()); 
 		SoulissCommGate.sendPing(datagramSocket,
 				SoulissNetworkParameter.IPAddressOnLAN, putIn_1, punIn_2);
 	}

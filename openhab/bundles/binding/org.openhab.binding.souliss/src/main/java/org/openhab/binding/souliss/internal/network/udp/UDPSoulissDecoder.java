@@ -113,7 +113,7 @@ public class UDPSoulissDecoder {
 	private void decodePing(ArrayList<Short> mac) {
 		int putIn_1 = mac.get(1);
 		int putIn_2 = mac.get(2);
-		logger.info("decodePing: putIn code: " + putIn_1 + ", " + putIn_2);
+		logger.info("decodePing: putIn code: {}, {}", putIn_1, putIn_2);
 	}
 
 	/**
@@ -158,10 +158,11 @@ public class UDPSoulissDecoder {
 		try {
 			short tgtnode = mac.get(3);
 			int numberOf = mac.get(4);
-			
+
 			int typXnodo = SoulissNetworkParameter.maxnodes;
-			logger.info("--DECODE MACACO OFFSET:" + tgtnode + " NUMOF:"
-					+ numberOf + " TYPICALSXNODE: " + typXnodo);
+			logger.info(
+					"--DECODE MACACO OFFSET: {} NUMOF: {} TYPICALSXNODE: {}",
+					tgtnode, numberOf, typXnodo);
 			// creates Souliss nodes
 			for (int j = 0; j < numberOf; j++) {
 				if (mac.get(5 + j) != 0) {// create only not-empty typicals
@@ -169,9 +170,6 @@ public class UDPSoulissDecoder {
 						String hTyp = Integer.toHexString(mac.get(5 + j));
 						short slot = (short) (j % typXnodo);
 						short node = (short) (j / typXnodo + tgtnode);
-
-						System.out.println("{souliss=\"T" + hTyp + ":" + node
-								+ ":" + slot + "}");
 					}
 				}
 			}
@@ -265,28 +263,28 @@ public class UDPSoulissDecoder {
 																		// codice
 						if (iNumBytes == 4)
 							// RGB Log
-							logger.debug("decodeStateRequest:  "
-									+ typ.getName() + " ( "
-									+ Short.valueOf(typ.getType()) + ") = "
-									+ ((SoulissT16) typ).getState() + ". RGB= "
-									+ ((SoulissT16) typ).getStateRED() + ", "
-									+ ((SoulissT16) typ).getStateGREEN() + ", "
-									+ ((SoulissT16) typ).getStateBLU());
+							logger.debug(
+									"decodeStateRequest: {} ({}) = {}. RGB= {}, {}, {}",
+									typ.getName(),
+									Short.valueOf(typ.getType()),
+									((SoulissT16) typ).getState(),
+									((SoulissT16) typ).getStateRED(),
+									((SoulissT16) typ).getStateGREEN(),
+									((SoulissT16) typ).getStateBLU());
 						else if (bDecoded_forLOG) {
 							if (typ.getType() == 0x1A) {
-								logger.debug("decodeStateRequest: "
-										+ typ.getName()
-										+ " (0x"
-										+ Integer.toHexString(typ.getType())
-										+ ") = "
-										+ Integer
-												.toBinaryString(((SoulissT1A) typ)
-														.getRawState()));
+								logger.debug(
+										"decodeStateRequest: {} (0x{}) = {}",
+										typ.getName(),
+										Integer.toHexString(typ.getType()),
+										Integer.toBinaryString(((SoulissT1A) typ)
+												.getRawState()));
 							} else
-								logger.debug("decodeStateRequest: "
-										+ typ.getName() + " (0x"
-										+ Integer.toHexString(typ.getType())
-										+ ") = " + Float.valueOf(val));
+								logger.debug(
+										"decodeStateRequest: {} (0x{}) = {}",
+										typ.getName(),
+										Integer.toHexString(typ.getType()),
+										Float.valueOf(val));
 						}
 				}
 			}

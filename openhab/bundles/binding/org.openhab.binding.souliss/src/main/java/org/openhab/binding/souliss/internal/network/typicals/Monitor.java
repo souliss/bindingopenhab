@@ -72,30 +72,16 @@ public class Monitor {
 					if (typ.getType() == Constants.Souliss_TService_NODE_TIMESTAMP) {
 						// All values are float out of TIMESTAMP that is a
 						// string
-						logger.debug("Put on Bus Events - "
-								+ typ.getName()
-								+ " = "
-								+ ((SoulissTServiceNODE_TIMESTAMP) typ)
-										.getTIMESTAMP());
+						logger.debug("Put on Bus Events - {} = {}", typ.getName(), ((SoulissTServiceNODE_TIMESTAMP) typ).getTIMESTAMP());
+						
 					} else if (typ.getType() == Constants.Souliss_T16) {
 						// RGB Only
-						logger.debug("Put on Bus Events - " + typ.getName()
-								+ " = " + ((SoulissT16) typ).getState()
-								+ ", R=" + ((SoulissT16) typ).stateRED + ", G="
-								+ ((SoulissT16) typ).stateGREEN + ", B="
-								+ ((SoulissT16) typ).stateBLU);
+						logger.debug("Put on Bus Events - {} = {}, R={}, G={}, B={}", typ.getName(),((SoulissT16) typ).getState(), ((SoulissT16) typ).stateRED,((SoulissT16) typ).stateGREEN,((SoulissT16) typ).stateBLU);
+						
 					} else if (typ.getType() == Constants.Souliss_T1A) {
-						logger.debug("Put on Bus Events - "
-								+ typ.getName()
-								+ " - Bit "
-								+ ((SoulissT1A) typ).getBit()
-								+ " - RawState: "
-								+ Integer.toBinaryString(((SoulissT1A) typ)
-										.getRawState()) + " - Bit State: "
-								+ ((SoulissT1A) typ).getBitState());
+						logger.debug("Put on Bus Events - {} - Bit {} - RawState: {} - Bit State: {}",typ.getName(),((SoulissT1A) typ).getBit(),Integer.toBinaryString(((SoulissT1A) typ).getRawState()),((SoulissT1A) typ).getBitState()); 
 					} else {
-						logger.debug("Put on Bus Events - " + typ.getName()
-								+ " = " + Float.toString(typ.getState()));
+						logger.debug("Put on Bus Events - {} = {}", typ.getName(), Float.toString(typ.getState()));
 					}
 
 					if (typ.getType() == Constants.Souliss_T16) {

@@ -75,8 +75,7 @@ public class SoulissBinding<E> extends
 
 			while (enumConfig.hasMoreElements()) {
 				String sName = enumConfig.nextElement();
-				logger.info("PARAMETER: " + sName + " = "
-						+ (String) config.get(sName));
+				logger.info("PARAMETER: {} = {}", sName, (String) config.get(sName));
 				if(sName.equals("IP_LAN"))
 					SoulissNetworkParameter.IPAddressOnLAN = (String) config
 							.get(sName);
@@ -135,8 +134,7 @@ public class SoulissBinding<E> extends
 		// Get the typical defined in the hash table
 		SoulissGenericTypical T = SoulissGenericBindingProvider.SoulissTypicalsRecipients
 				.getTypicalFromItem(itemName);
-		logger.info("receiveCommand - " + itemName + " = " + command
-				+ " - Typical: 0x" + Integer.toHexString(T.getType()));
+		logger.info("receiveCommand - {} = {} - Typical: 0x{}",itemName, command,Integer.toHexString(T.getType()));
 
 		switch (T.getType()) {
 		case Constants.Souliss_T11:

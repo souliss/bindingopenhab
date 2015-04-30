@@ -40,11 +40,10 @@ public class SendDispatcher {
 			.getLogger(SendDispatcher.class);
 	private static SoulissTypicals soulissTypicalsRecipients;
 	private long start_time = System.currentTimeMillis();
-	
-	
-	public SendDispatcher(SoulissTypicals soulissTypicalsRecip,
-			int SEND_DELAY, int SEND_MIN_DELAY) {
-		//this("SendDispatcher");
+
+	public SendDispatcher(SoulissTypicals soulissTypicalsRecip, int SEND_DELAY,
+			int SEND_MIN_DELAY) {
+		// this("SendDispatcher");
 		this.SEND_DELAY = SEND_DELAY;
 		this.SEND_MIN_DELAY = SEND_MIN_DELAY;
 		logger.info("Start SendDispatcherThread");
@@ -72,9 +71,9 @@ public class SendDispatcher {
 				if (node >= 0 && getNode(packetsList.get(i).packet) == node
 						&& !packetsList.get(i).isSent()) {
 					// frame per lo stesso nodo già presente in lista
-					logger.debug("Frame UPD per nodo "
-							+ node
-							+ " già presente il lista. Esecuzione ottimizzazione.");
+					logger.debug(
+							"Frame UPD per nodo {} già presente il lista. Esecuzione ottimizzazione.",
+							node);
 					bPacchettoGestito = true;
 					// se il pacchetto da inserire è più corto (o uguale) di
 					// quello in lista allora sovrascrivo i byte del pacchetto
@@ -230,10 +229,9 @@ public class SendDispatcher {
 								+ " force frame sent");
 					}
 
-					logger.debug("Pop frame "
-							+ MaCacoToString(sp.packet.getData())
-							+ " - Delay for 'SendDispatcherThread' setted to "
-							+ iDelay + " mills.");
+					logger.debug(
+							"Pop frame {} - Delay for 'SendDispatcherThread' setted to {} mills.",
+							MaCacoToString(sp.packet.getData()), iDelay);
 					return sp;
 				}
 			}
@@ -246,43 +244,42 @@ public class SendDispatcher {
 	 */
 	public void tick() {
 
-		//while (!bExit) {
+		// while (!bExit) {
 
-			try {
-				//wait 
-				while (!checkTime());
-				resetTime();
-				
-				SocketAndPacket sp = pop();
-				if (sp != null) {
-					logger.debug("SendDispatcherThread - Functional Code 0x"
-							+ Integer.toHexString(sp.packet.getData()[7])
-							+ " - Packet: "
-							+ MaCacoToString(sp.packet.getData())
-							+ " - Elementi rimanenti in lista: "
-							+ packetsList.size());
-					sp.socket.send(sp.packet);
-				}
-				// confronta gli stati in memoria con i frame inviati. Se
-				// corrispondono cancella il frame dalla lista inviati
-				SendDispatcher.safeSendCheck();
+		try {
+			// wait
+			while (!checkTime())
+				;
+			resetTime();
 
-			} catch (IOException e) {
-				e.printStackTrace();
-				logger.error(e.getMessage());
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.error(e.getMessage());
+			SocketAndPacket sp = pop();
+			if (sp != null) {
+				logger.debug(
+						"SendDispatcherThread - Functional Code 0x{} - Packet: {} - Elementi rimanenti in lista: {}",
+						Integer.toHexString(sp.packet.getData()[7]),
+						MaCacoToString(sp.packet.getData()), packetsList.size());
+
+				sp.socket.send(sp.packet);
 			}
-		}
+			// confronta gli stati in memoria con i frame inviati. Se
+			// corrispondono cancella il frame dalla lista inviati
+			SendDispatcher.safeSendCheck();
 
-	private void resetTime(){
+		} catch (IOException e) {
+			logger.warn(e.getMessage());
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+		}
+	}
+
+	private void resetTime() {
 		start_time = System.currentTimeMillis();
 	}
-	
-	private boolean checkTime(){
+
+	private boolean checkTime() {
 		return start_time < (System.currentTimeMillis() - iDelay);
 	}
+
 	private static String MaCacoToString(byte[] frame2) {
 		byte[] frame = frame2.clone();
 		StringBuilder sb = new StringBuilder();
@@ -316,24 +313,29 @@ public class SendDispatcher {
 
 						// traduce il comando inviato con lo stato previsto e
 						// poi fa il confronto con lo stato attuale
-						if(logger.isDebugEnabled()){
-						String s1 = String.valueOf((int) typ.getState());
-						String sStateMemoria = s1.length() < 2 ? "0x0"
-								+ s1.toUpperCase() : "0x" + s1.toUpperCase();
-								
-						String sCmd=Integer.toHexString(packetsList.get(i).packet.getData()[j]);
-						sCmd = sCmd.length() < 2 ? "0x0"
-								+ sCmd.toUpperCase() : "0x" + sCmd.toUpperCase();
-						logger.debug("Compare. Node: " + node + " Slot: "+ iSlot +  " Typical: "
-								+ Integer.toHexString(typ.getType())
-								+ " Command: "
-								+ sCmd
-								+ " EXPECTED: "
-								+ expectedState(typ.getType(),
-										packetsList.get(i).packet.getData()[j])
-								+ " - IN MEMORY: " + sStateMemoria);
+						if (logger.isDebugEnabled()) {
+							String s1 = String.valueOf((int) typ.getState());
+							String sStateMemoria = s1.length() < 2 ? "0x0"
+									+ s1.toUpperCase() : "0x"
+									+ s1.toUpperCase();
+
+							String sCmd = Integer.toHexString(packetsList
+									.get(i).packet.getData()[j]);
+							sCmd = sCmd.length() < 2 ? "0x0"
+									+ sCmd.toUpperCase() : "0x"
+									+ sCmd.toUpperCase();
+							logger.debug(
+									"Compare. Node: {} Slot: {} Typical: {} Command: {} EXPECTED: {} - IN MEMORY: {}",
+									node,
+									iSlot,
+									Integer.toHexString(typ.getType()),
+									sCmd,
+									expectedState(
+											typ.getType(),
+											packetsList.get(i).packet.getData()[j]),
+									sStateMemoria);
 						}
-						
+
 						if (checkExpectedState(
 								(int) typ.getState(),
 								expectedState(typ.getType(),
@@ -344,8 +346,10 @@ public class SendDispatcher {
 							// si
 							// cancella il frame
 							packetsList.get(i).packet.getData()[j] = 0;
-							logger.debug("T" + Integer.toHexString(typ.getType()) + " Node: " + node + " Slot: " + iSlot
-									+ " - OK Expected State");
+							logger.debug(
+									"T{} Node: {} Slot: {} - OK Expected State",
+									Integer.toHexString(typ.getType()), node,
+									iSlot);
 						}
 					}
 					iSlot++;
@@ -356,9 +360,11 @@ public class SendDispatcher {
 				} else {
 					// se il frame non è uguale a zero controllo il TIMEOUT e se
 					// è scaduto allora pongo il flag SENT a false
-					long t=System.currentTimeMillis();
-					if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REQUEUE < t - packetsList.get(i).getTime()) {
-						if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET < t - packetsList.get(i).getTime()) {
+					long t = System.currentTimeMillis();
+					if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REQUEUE < t
+							- packetsList.get(i).getTime()) {
+						if (SoulissNetworkParameter.SECURE_SEND_TIMEOUT_TO_REMOVE_PACKET < t
+								- packetsList.get(i).getTime()) {
 							logger.info("Packet Execution timeout - Removed");
 							packetsList.remove(i);
 						} else {

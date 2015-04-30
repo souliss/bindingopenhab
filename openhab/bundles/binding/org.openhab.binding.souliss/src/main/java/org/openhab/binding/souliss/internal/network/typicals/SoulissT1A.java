@@ -89,12 +89,7 @@ public class SoulissT1A extends SoulissGenericTypical {
 	 */
 	public void setState(short iState) {
 		sRawState = iState;
-		LOGGER.debug("Update State. Name: " + getName() + ", Typ: " + "0x"
-				+ Integer.toHexString(getType()) + ", Node: "
-				+ getSoulissNodeID() + ", Slot: " + getSlot() + ", Bit: "
-				+ getBit() + ", RawBin: "
-				+ Integer.toBinaryString(getRawState()) + ". New Bit State: "
-				+ getBitState());
+		LOGGER.debug("Update State. Name: {} Typ: 0x{}, Node: {}, Slot: {}, Bit: {}, RawBin: {}. New Bit State: {}", getName(), Integer.toHexString(getType()), getSoulissNodeID(), getSlot(), getBit(), Integer.toBinaryString(getRawState()), getBitState());   
 		setUpdatedTrue();
 	}
 

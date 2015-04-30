@@ -13,6 +13,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,10 +27,9 @@ import org.slf4j.LoggerFactory;
  */
 public class SoulissTypicals {
 
-	private Map<String, SoulissGenericTypical> hashTableAddressToTypicals = Collections
-			.synchronizedMap(new Hashtable<String, SoulissGenericTypical>());
-	private Map<String, String> hashTableItemToAddress = Collections
-			.synchronizedMap(new Hashtable<String, String>());
+	private ConcurrentHashMap <String, SoulissGenericTypical> hashTableAddressToTypicals = new ConcurrentHashMap <String, SoulissGenericTypical>();
+	private ConcurrentHashMap <String, String> hashTableItemToAddress = new ConcurrentHashMap <String, String>();
+
 	private static Logger logger = LoggerFactory
 			.getLogger(SoulissTypicals.class);
 
@@ -40,41 +41,28 @@ public class SoulissTypicals {
 	 * @param typical
 	 */
 	public void addTypical(String sItem, SoulissGenericTypical typical) {
-		synchronized (typical) {
 			int iBit = 0;
 			if (typical.getType() == Constants.Souliss_T1A) {
-				logger.info("Add Item: " + sItem + " - Typ: "
-						+ Integer.toHexString(typical.getType()) + ", Node: "
-						+ typical.getSoulissNodeID() + ", Slot: "
-						+ typical.getSlot() + ", Bit: "
-						+ ((SoulissT1A) typical).getBit());
+				logger.info("Add Item: {} - Typ: {}, Node:{}, Slot: {}, Bit: {}", sItem , Integer.toHexString(typical.getType()), typical.getSoulissNodeID(), typical.getSlot(),((SoulissT1A) typical).getBit());  
+				
 				iBit = ((SoulissT1A) typical).getBit();
 			} else {
-				logger.info("Add Item: " + sItem + " - Typ: "
-						+ Integer.toHexString(typical.getType()) + ", Node: "
-						+ typical.getSoulissNodeID() + ", Slot: "
-						+ typical.getSlot());
+				logger.info("Add Item: {} - Typ: {}, Node: {}, Slot: {}",sItem, Integer.toHexString(typical.getType()),typical.getSoulissNodeID(), typical.getSlot()); 
 			}
 			typical.setName(sItem);
 			// Index is : node + slot + iBit
-			logger.info("hashTableItemToAddress <-- [key: " + sItem
-					+ " - value: " + String.valueOf(typical.getSoulissNodeID())
-					+ String.valueOf(typical.getSlot()) + iBit + "]");
+			logger.info("hashTableItemToAddress <-- [key: {} - value: {} - iBit {}]", sItem, String.valueOf(typical.getSoulissNodeID()),String.valueOf(typical.getSlot())); 
 			hashTableItemToAddress.put(
 					sItem,
 					String.valueOf(typical.getSoulissNodeID())
 							+ String.valueOf(typical.getSlot()) + iBit);
 			// Index is : item
-			logger.info("hashTableAddressToTypicals <-- [key: "
-					+ typical.getSoulissNodeID()
-					+ String.valueOf(typical.getSlot()) + iBit + " - value: "
-					+ typical + "]");
+			logger.info("hashTableAddressToTypicals <-- [key: {} - value: {}]",typical.getSoulissNodeID()+ String.valueOf(typical.getSlot()) + iBit, typical); 
+			
 			hashTableAddressToTypicals
 					.put(String.valueOf(typical.getSoulissNodeID())
 							+ String.valueOf(typical.getSlot()) + iBit, typical);
-		}
-
-	}
+}
 
 	/**
 	 * Delete the hash tables
@@ -131,13 +119,11 @@ public class SoulissTypicals {
 		SoulissGenericTypical typ;
 		int iTmp = 0;
 		Iterator<Entry<String, SoulissGenericTypical>> iteratorTypicals = getIterator();
-		synchronized (iteratorTypicals) {
 			while (iteratorTypicals.hasNext()) {
 				typ = iteratorTypicals.next().getValue();
 				if (typ.getSoulissNodeID() > iTmp)
 					iTmp = typ.getSoulissNodeID();
 			}
-		}
 		return iTmp + 1;
 	}
 

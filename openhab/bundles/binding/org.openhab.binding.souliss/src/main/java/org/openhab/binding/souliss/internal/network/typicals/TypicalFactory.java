@@ -69,21 +69,6 @@ public class TypicalFactory {
 			T = new SoulissT22(_datagramsocket, sSoulissNodeIPAddressOnLAN,
 					iIDNodo, iSlot, sOHType);
 			break;
-		case Constants.Souliss_T_TemperatureSensor:
-			break;
-		case Constants.Souliss_T_HumiditySensor:
-			break;
-		case Constants.Souliss_T32_IrCom_AirCon:
-			break;
-		case Constants.Souliss_T41_Antitheft_Main:
-			break;
-		case Constants.Souliss_T42_Antitheft_Peer:
-			break;
-		case Constants.Souliss_T_related:
-			break;
-		case Constants.Souliss_T51:
-			break;
-
 		case Constants.Souliss_T52_TemperatureSensor:
 			T = new SoulissT52(sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot,
 					sOHType);
@@ -91,12 +76,6 @@ public class TypicalFactory {
 		case Constants.Souliss_T53_HumiditySensor:
 			T = new SoulissT53(sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot,
 					sOHType);
-			break;
-		case Constants.Souliss_T54_LuxSensor:
-			break;
-		case Constants.Souliss_T55_VoltageSensor:
-			break;
-		case Constants.Souliss_T56_CurrentSensor:
 			break;
 		case Constants.Souliss_T57_PowerSensor:
 			T = new SoulissT57(sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot,
@@ -113,7 +92,6 @@ public class TypicalFactory {
 		default:
 			logger.debug("Typical Unknown");
 		}
-
 		return T;
 	}
 
