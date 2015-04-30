@@ -17,7 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class contain parameter of Souliss Network. Those are loaded at startuo
+ * This class contain parameter of Souliss Network. 
+ * Those are loaded at startup from SoulissBinding.updated(), from file openhab.cfg 
+ * and used by SoulissBinding.execute(), SoulissCommGate.send(), UDPServerThread, decodeDBStructRequest.decodeMacaco
  * 
  * @author Tonino Fazio
  * @since 1.7.0
@@ -32,7 +34,7 @@ public class SoulissNetworkParameter {
 	public static int MaCacoTYP_s;
 	public static int MaCacoOUT_s;
 	static Properties prop = new Properties();
-	public static int presetTime = 999999;
+	public static int presetTime = 1000;
 	public static int REFRESH_DBSTRUCT_TIME = presetTime;
 	public static int REFRESH_SUBSCRIPTION_TIME = presetTime;
 	public static int REFRESH_HEALTY_TIME = presetTime;
@@ -64,11 +66,10 @@ public class SoulissNetworkParameter {
 	public static void load(InputStream is) {
 		try {
 			prop.load(is);
-			logger.info("ok");
+			logger.trace("ok");
 			is.close();
 		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
+			logger.warn(e.getMessage());
 		}
 	}
 }
