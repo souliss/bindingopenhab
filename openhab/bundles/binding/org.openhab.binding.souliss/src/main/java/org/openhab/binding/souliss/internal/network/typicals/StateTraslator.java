@@ -15,7 +15,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The method of this class takes key and translate it
+ * The methods of this class takes key from files
+ * commands_OHtoSOULISS.properties
+ * commands_to_states.properties
+ * itemsType_SOULISS.properties
+ * states_SOULISStoOH.properties
+ * typicals_value_bytes.properties
+ * 
+ * and translate it values suitables
+ * for openhab or Souliss
  * 
  * @author Tonino Fazio
  * @since 1.7.0
