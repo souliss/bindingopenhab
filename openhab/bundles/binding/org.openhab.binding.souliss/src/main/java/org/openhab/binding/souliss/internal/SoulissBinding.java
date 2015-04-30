@@ -120,7 +120,6 @@ public class SoulissBinding<E> extends
 				
 				}
 			}
-			SoulissNetworkParameter.setConfigured(true);
 			initialize();
 			setProperlyConfigured(true);
 		}

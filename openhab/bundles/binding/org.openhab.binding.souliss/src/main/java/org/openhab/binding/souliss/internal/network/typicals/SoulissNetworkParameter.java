@@ -45,23 +45,9 @@ public class SoulissNetworkParameter {
 			.getLogger(SoulissNetworkParameter.class);
 	public static int NodeIndex = 70;
 	public static int UserIndex = 133;
-	private static boolean bConfigured = false;
 	public static Integer serverPort;
 	public static DatagramSocket datagramsocket;
 
-	/**
-	 * @return the bConfigured
-	 */
-	public static boolean isConfigured() {
-		return bConfigured;
-	}
-
-	/**
-	 * @param bConfigured
-	 */
-	public static void setConfigured(boolean bConfigured) {
-		SoulissNetworkParameter.bConfigured = bConfigured;
-	}
 
 	/**
 	 * @return sPar value format to string 0x+sPar

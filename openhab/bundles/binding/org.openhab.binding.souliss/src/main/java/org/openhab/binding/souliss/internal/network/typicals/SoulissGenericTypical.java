@@ -28,7 +28,7 @@ import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
  * @author Tonino Fazio
  * @since 1.7.0
  */
-public class SoulissGenericTypical {
+public abstract class SoulissGenericTypical {
 	private int iSlot;
 	private int iSoulissNodeID;
 	private short sType;
@@ -160,7 +160,7 @@ public class SoulissGenericTypical {
 	 * @param datagramSocket
 	 * @param command
 	 */
-	void CommandMulticast(DatagramSocket datagramSocket, short command) {
+	void commandMulticast(DatagramSocket datagramSocket, short command) {
 		logger.debug("Typ: " + getType() + ", Name: " + getName()
 				+ " - CommandMulticast: " + command);
 		SoulissCommGate.sendMULTICASTFORCEFrame(datagramSocket,
@@ -192,7 +192,5 @@ public class SoulissGenericTypical {
 				SoulissNetworkParameter.IPAddressOnLAN, putIn_1, punIn_2);
 	}
 
-	public org.openhab.core.types.State getOHState() {
-		return null;
-	}
+	public abstract org.openhab.core.types.State getOHState();
 }
