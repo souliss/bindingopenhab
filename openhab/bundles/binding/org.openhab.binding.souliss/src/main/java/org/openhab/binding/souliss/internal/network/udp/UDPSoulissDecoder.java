@@ -244,23 +244,9 @@ public class UDPSoulissDecoder {
 								slot + 3));
 						bDecoded_forLOG = true;
 					}
-
-					if (typ.getType() != 152 && typ.getType() != 153) // non
-																		// esegue
-																		// per
-																		// healt
-																		// e
-																		// timestamp,
-																		// perchè
-																		// il
-																		// LOG
-																		// viene
-																		// inserito
-																		// in un
-																		// altro
-																		// punto
-																		// del
-																		// codice
+					// non esegue per healt e timestamp, perchè il LOG viene
+					// inserito in un altro punto del codice
+					if (typ.getType() != 152 && typ.getType() != 153)
 						if (iNumBytes == 4)
 							// RGB Log
 							logger.debug(
