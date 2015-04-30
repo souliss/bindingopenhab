@@ -67,7 +67,7 @@ public class SoulissT16 extends SoulissGenericTypical {
 	 * 
 	 * @param command
 	 */
-	public void CommandSEND(short command) {
+	public void commandSEND(short command) {
 		SoulissCommGate.sendFORCEFrame(SoulissNetworkParameter.datagramsocket,
 				SoulissNetworkParameter.IPAddressOnLAN,
 				this.getSoulissNodeID(), this.getSlot(), command);
@@ -78,7 +78,7 @@ public class SoulissT16 extends SoulissGenericTypical {
 	 * 
 	 * @param command
 	 */
-	public void CommandSEND(short command, short R, short G, short B) {
+	public void commandSEND(short command, short R, short G, short B) {
 		SoulissCommGate.sendFORCEFrame(SoulissNetworkParameter.datagramsocket,
 				SoulissNetworkParameter.IPAddressOnLAN,
 				this.getSoulissNodeID(), this.getSlot(), command, R, G, B);

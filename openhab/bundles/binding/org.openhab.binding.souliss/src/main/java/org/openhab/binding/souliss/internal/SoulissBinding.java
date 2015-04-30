@@ -141,12 +141,12 @@ public class SoulissBinding<E> extends
 		switch (T.getType()) {
 		case Constants.Souliss_T11:
 			SoulissT11 T11 = (SoulissT11) T;
-			T11.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+			T11.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 					command.toString()));
 			break;
 		case Constants.Souliss_T12:
 			SoulissT12 T12 = (SoulissT12) T;
-			T12.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+			T12.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 					command.toString()));
 			break;
 		case Constants.Souliss_T16:
@@ -158,31 +158,31 @@ public class SoulissBinding<E> extends
 				short RGB[] = HSBtoRGB(Float.parseFloat(HSB[0]),
 						Float.parseFloat(HSB[1]), Float.parseFloat(HSB[2]));
 
-				T16.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+				T16.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 						command.getClass().getSimpleName()), RGB[0], RGB[1],
 						RGB[2]);
 			} else
-				T16.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+				T16.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 						command.toString()));
 			break;
 		case Constants.Souliss_T19:
 			SoulissT19 T19 = (SoulissT19) T;
 			if (command instanceof PercentType) {
 				int percentToShort = (((PercentType) command).shortValue() * 255 / 100);
-				T19.CommandSEND(Constants.Souliss_T1n_Set,
+				T19.commandSEND(Constants.Souliss_T1n_Set,
 						Short.parseShort(String.valueOf(percentToShort)));
 			} else
-				T19.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+				T19.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 						command.toString()));
 			break;
 		case Constants.Souliss_T21:
 			SoulissT21 T21 = (SoulissT21) T;
-			T21.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+			T21.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 					command.toString()));
 			break;
 		case Constants.Souliss_T22:
 			SoulissT22 T22 = (SoulissT22) T;
-			T22.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+			T22.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 					command.toString()));
 			break;
 		default:

@@ -21,9 +21,9 @@ import org.openhab.core.types.State;
 public class SoulissT12 extends SoulissT11 {
 
 	@Override
-	public void CommandSEND(short command) {
+	public void commandSEND(short command) {
 		// TODO Auto-generated method stub
-		super.CommandSEND(command);
+		super.commandSEND(command);
 	}
 
 	@Override

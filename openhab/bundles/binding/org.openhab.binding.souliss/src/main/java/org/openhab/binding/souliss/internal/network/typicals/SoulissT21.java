@@ -50,7 +50,7 @@ import java.net.DatagramSocket;
 import org.openhab.core.types.State;
 
 /**
- * Typical T52 Temperature Sensor Derived from T51 Analog input, half-precision
+ * Typical T22 Motorized devices with limit switches and middle position
  * floating point
  * 
  * @author Tonino Fazio
@@ -59,14 +59,12 @@ import org.openhab.core.types.State;
 public class SoulissT21 extends SoulissT22 {
 
 	@Override
-	public void CommandSEND(short command) {
-		// TODO Auto-generated method stub
-		super.CommandSEND(command);
+	public void commandSEND(short command) {
+		super.commandSEND(command);
 	}
 
 	@Override
 	public State getOHState() {
-		// TODO Auto-generated method stub
 		return super.getOHState();
 	}
 
