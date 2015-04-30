@@ -28,7 +28,7 @@ public class SoulissT22 extends SoulissGenericTypical {
 		super();
 		this.setSlot(iSlot);
 		this.setSoulissNodeID(iIDNodo);
-		this.setType(Constants.Souliss_T22);
+ 		this.setType(Constants.Souliss_T22);
 		this.setNote(sOHType);
 	}
 

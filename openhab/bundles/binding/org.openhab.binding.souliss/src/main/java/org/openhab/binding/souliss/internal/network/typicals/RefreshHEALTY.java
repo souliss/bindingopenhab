@@ -15,50 +15,32 @@ import org.slf4j.LoggerFactory;
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 
 /**
- * This class implements the Souliss commmand DBSTRUCT. The thread send DBSTRUCT
+ * This class implements the Souliss commmand HEALTY. The thread send HEALTY
  * every "iRefreshTime" milliseconds
  * 
  * @author Tonino Fazio
  * @since 1.7.0
  */
-public class RefreshDBSTRUCTThread extends Thread {
+public class RefreshHEALTY {
 
-	int REFRESH_TIME;
 	DatagramSocket socket = null;
 	String SoulissNodeIPAddress = "";
 	String soulissNodeIPAddressOnLAN = "";
+	int iNodes = 0;
 	private static Logger logger = LoggerFactory
-			.getLogger(RefreshDBSTRUCTThread.class);
+			.getLogger(RefreshHEALTY.class);
 
-	public RefreshDBSTRUCTThread(DatagramSocket datagramsocket,
-			String soulissNodeIPAddress, String soulissNodeIPAddressOnLAN,
-			int iRefreshTime) {
-		REFRESH_TIME = iRefreshTime;
+	public RefreshHEALTY(DatagramSocket datagramsocket,
+			String soulissNodeIPAddressOnLAN) {
 		this.socket = datagramsocket;
-		this.SoulissNodeIPAddress = soulissNodeIPAddress;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
 		logger.info("Start RefreshDBSTRUCTThread");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Thread#run()
-	 */
-	@Override
-	public void run() {
-		while (true) {
-			try {
-				logger.debug("sendDBStructFrame");
-				SoulissCommGate.sendDBStructFrame(socket,
-						soulissNodeIPAddressOnLAN);
-				Thread.sleep(REFRESH_TIME);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				logger.error(e.getMessage());
-			}
-			super.run();
-		}
+	public void tick() {
+			logger.info("sendHEALTY_REQUESTframe");
+			SoulissCommGate.sendHEALTY_REQUESTframe(socket,
+					soulissNodeIPAddressOnLAN,
+					SoulissNetworkParameter.nodes);
 	}
-
 }

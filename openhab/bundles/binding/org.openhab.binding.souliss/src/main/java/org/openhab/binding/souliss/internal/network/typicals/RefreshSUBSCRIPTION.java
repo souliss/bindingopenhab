@@ -20,43 +20,25 @@ import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
  * @author Tonino Fazio
  * @since 1.7.0
  */
-public class RefreshSUBSCRIPTIONThread extends Thread {
-
-	int REFRESH_TIME;
+public class RefreshSUBSCRIPTION {
 	DatagramSocket socket = null;
 	String soulissNodeIPAddressOnLAN = "";
 	int iNodes = 0;
 	private static Logger logger = LoggerFactory
-			.getLogger(RefreshSUBSCRIPTIONThread.class);
+			.getLogger(RefreshSUBSCRIPTION.class);
 
-	public RefreshSUBSCRIPTIONThread(DatagramSocket datagramsocket,
-			String soulissNodeIPAddressOnLAN, int iRefreshTime) {
-		REFRESH_TIME = iRefreshTime;
+	public RefreshSUBSCRIPTION(DatagramSocket datagramsocket,
+			String soulissNodeIPAddressOnLAN) {
 		this.socket = datagramsocket;
 		this.soulissNodeIPAddressOnLAN = soulissNodeIPAddressOnLAN;
 		logger.info("Start RefreshSUBSCRIPTIONThread");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Thread#run()
-	 */
-	@Override
-	public void run() {
-		while (true) {
-			try {
-				logger.debug("sendSUBSCRIPTIONframe");
-				SoulissCommGate.sendSUBSCRIPTIONframe(socket,
-						soulissNodeIPAddressOnLAN,
-						SoulissNetworkParameter.nodes);
-				Thread.sleep(REFRESH_TIME);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				logger.error(e.getMessage());
-			}
-			super.run();
-		}
-	}
 
+	public void tick() {
+			logger.debug("sendSUBSCRIPTIONframe");
+			SoulissCommGate.sendSUBSCRIPTIONframe(socket,
+					soulissNodeIPAddressOnLAN,
+					SoulissNetworkParameter.nodes);
+	}
 }

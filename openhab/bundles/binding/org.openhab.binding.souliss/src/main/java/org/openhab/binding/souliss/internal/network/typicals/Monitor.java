@@ -21,11 +21,9 @@ import org.slf4j.LoggerFactory;
  * @author Tonino Fazio
  * @since 1.7.0
  */
-public class MonitorThread extends Thread {
-
-	private int refresh_time;
+public class Monitor {
 	private SoulissTypicals soulissTypicalsRecipients;
-	private static Logger logger = LoggerFactory.getLogger(MonitorThread.class);
+	private static Logger logger = LoggerFactory.getLogger(Monitor.class);
 	private EventPublisher eventPublisher;
 
 	/**
@@ -34,9 +32,8 @@ public class MonitorThread extends Thread {
 	 * @author Tonino Fazio
 	 * @since 1.7.0
 	 */
-	public MonitorThread(SoulissTypicals typicals, int iRefreshTime,
+	public Monitor(SoulissTypicals typicals, int iRefreshTime,
 			EventPublisher _eventPublisher) {
-		refresh_time = iRefreshTime;
 		soulissTypicalsRecipients = typicals;
 		logger.info("Start MonitorThread");
 		eventPublisher = _eventPublisher;
@@ -48,21 +45,10 @@ public class MonitorThread extends Thread {
 	 * @author Tonino Fazio
 	 * @since 1.7.0
 	 */
-	@Override
-	public void run() {
-		while (true) {
-			try {
-				// Check all souliss'typicals (items) and get only the ones that
-				// has been updated
-				check(soulissTypicalsRecipients);
-
-				Thread.sleep(refresh_time);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				logger.error(e.getMessage());
-			}
-			super.run();
-		}
+	public void tick() {
+		// Check all souliss'typicals (items) and get only the ones that
+			// has been updated
+			check(soulissTypicalsRecipients);
 	}
 
 	/**

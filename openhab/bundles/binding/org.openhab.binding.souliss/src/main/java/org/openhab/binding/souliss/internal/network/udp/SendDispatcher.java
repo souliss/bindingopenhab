@@ -28,29 +28,27 @@ import org.slf4j.LoggerFactory;
  * @author Tonino Fazio
  * @since 1.7.0
  */
-public class SendDispatcherThread extends Thread {
+public class SendDispatcher {
 
-	static ArrayList<SocketAndPacket> packetsList = new ArrayList<SocketAndPacket>();
+	public static ArrayList<SocketAndPacket> packetsList = new ArrayList<SocketAndPacket>();
 	protected boolean bExit = false;
 	static int iDelay = 0; // equal to 0 if array is empty
 	int SEND_DELAY;
 	int SEND_MIN_DELAY;
 	static boolean bPopSuspend = false;
 	private static Logger logger = LoggerFactory
-			.getLogger(SendDispatcherThread.class);
+			.getLogger(SendDispatcher.class);
 	private static SoulissTypicals soulissTypicalsRecipients;
-
-	public SendDispatcherThread(SoulissTypicals soulissTypicalsRecip,
-			int SEND_DELAY, int SEND_MIN_DELAY) throws IOException {
-		this("SendDispatcher");
+	private long start_time = System.currentTimeMillis();
+	
+	
+	public SendDispatcher(SoulissTypicals soulissTypicalsRecip,
+			int SEND_DELAY, int SEND_MIN_DELAY) {
+		//this("SendDispatcher");
 		this.SEND_DELAY = SEND_DELAY;
 		this.SEND_MIN_DELAY = SEND_MIN_DELAY;
 		logger.info("Start SendDispatcherThread");
 		soulissTypicalsRecipients = soulissTypicalsRecip;
-	}
-
-	public SendDispatcherThread(String name) {
-		super(name);
 	}
 
 	/**
@@ -246,12 +244,15 @@ public class SendDispatcherThread extends Thread {
 	/**
 	 * Sleep for iDelay Get and send packet
 	 */
-	public void run() {
+	public void tick() {
 
-		while (!bExit) {
+		//while (!bExit) {
 
 			try {
-				Thread.sleep(iDelay);
+				//wait 
+				while (!checkTime());
+				resetTime();
+				
 				SocketAndPacket sp = pop();
 				if (sp != null) {
 					logger.debug("SendDispatcherThread - Functional Code 0x"
@@ -264,9 +265,9 @@ public class SendDispatcherThread extends Thread {
 				}
 				// confronta gli stati in memoria con i frame inviati. Se
 				// corrispondono cancella il frame dalla lista inviati
-				SendDispatcherThread.safeSendCheck();
+				SendDispatcher.safeSendCheck();
 
-			} catch (IOException | InterruptedException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 				logger.error(e.getMessage());
 			} catch (Exception e) {
@@ -274,8 +275,14 @@ public class SendDispatcherThread extends Thread {
 				logger.error(e.getMessage());
 			}
 		}
-	}
 
+	private void resetTime(){
+		start_time = System.currentTimeMillis();
+	}
+	
+	private boolean checkTime(){
+		return start_time < (System.currentTimeMillis() - iDelay);
+	}
 	private static String MaCacoToString(byte[] frame2) {
 		byte[] frame = frame2.clone();
 		StringBuilder sb = new StringBuilder();
@@ -301,7 +308,7 @@ public class SendDispatcherThread extends Thread {
 				int node = getNode(packetsList.get(i).packet);
 				int iSlot = 0;
 				for (int j = 12; j < packetsList.get(i).packet.getData().length; j++) {
-					// controllo lo slot solo se il comando è diveerso da ZERO
+					// controllo lo slot solo se il comando è diverso da ZERO
 					if (packetsList.get(i).packet.getData()[j] != 0) {
 						// recupero tipico dalla memoria
 						SoulissGenericTypical typ = soulissTypicalsRecipients

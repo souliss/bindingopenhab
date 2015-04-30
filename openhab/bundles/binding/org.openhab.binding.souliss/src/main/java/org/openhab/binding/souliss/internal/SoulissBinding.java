@@ -10,14 +10,15 @@ package org.openhab.binding.souliss.internal;
 
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Dictionary;
 import java.util.Enumeration;
 
 import org.openhab.binding.souliss.SoulissBindingProvider;
 import org.openhab.binding.souliss.internal.network.typicals.Constants;
-import org.openhab.binding.souliss.internal.network.typicals.MonitorThread;
-import org.openhab.binding.souliss.internal.network.typicals.RefreshHEALTYThread;
-import org.openhab.binding.souliss.internal.network.typicals.RefreshSUBSCRIPTIONThread;
+import org.openhab.binding.souliss.internal.network.typicals.Monitor;
+import org.openhab.binding.souliss.internal.network.typicals.RefreshHEALTY;
+import org.openhab.binding.souliss.internal.network.typicals.RefreshSUBSCRIPTION;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT11;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT12;
@@ -28,7 +29,7 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
-import org.openhab.binding.souliss.internal.network.udp.SendDispatcherThread;
+import org.openhab.binding.souliss.internal.network.udp.SendDispatcher;
 import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
 
 import org.openhab.core.binding.AbstractActiveBinding;
@@ -51,9 +52,15 @@ public class SoulissBinding<E> extends
 
 	private static Logger logger = LoggerFactory
 			.getLogger(SoulissBinding.class);
-		private static final int OH_REFRESH_TIME=1000;
+		Monitor mon;
+	SendDispatcher sendDisp;
+	UDPServerThread UDP_Server;
+	RefreshSUBSCRIPTION susbcription;
+	RefreshHEALTY healty;
+		private static final int OH_REFRESH_TIME=50;
 		long start_time = System.currentTimeMillis();
-	
+
+ 		Timers timers=new Timers(4);
 	/**
 	 * Read parameters from cfg file
 	 * 
@@ -114,6 +121,8 @@ public class SoulissBinding<E> extends
 				}
 			}
 			SoulissNetworkParameter.setConfigured(true);
+			initialize();
+			setProperlyConfigured(true);
 		}
 
 	@Override
@@ -194,46 +203,7 @@ public class SoulissBinding<E> extends
 		short RGBList[] = hsvToRgb(H, S, B);
 		return RGBList;
 	}
-
-	/**
-	 * Start threads
-	 */
-	private void initialize() {
-			logger.info("START");
-			try {
-				// Start listening on the UDP socket
-				UDPServerThread Q = null;
-				Q = new UDPServerThread(
-						SoulissGenericBindingProvider.SoulissTypicalsRecipients);
-				Q.start();
-
-				// Start the thread that send network packets to the Souliss
-				// network
-				new SendDispatcherThread(
-						SoulissGenericBindingProvider.SoulissTypicalsRecipients,
-						SoulissNetworkParameter.SEND_DELAY,
-						SoulissNetworkParameter.SEND_MIN_DELAY).start();
-				// Start the thread that send back to openHAB the souliss'
-				// typical values
-				new MonitorThread(
-						SoulissGenericBindingProvider.SoulissTypicalsRecipients,
-						SoulissNetworkParameter.REFRESH_MONITOR_TIME,
-						eventPublisher).start();
-				// Start the thread that subscribe data from the Souliss network
-				new RefreshSUBSCRIPTIONThread(Q.getSocket(),
-						SoulissNetworkParameter.IPAddressOnLAN,
-						SoulissNetworkParameter.REFRESH_SUBSCRIPTION_TIME)
-						.start();
-				new RefreshHEALTYThread(Q.getSocket(),
-						SoulissNetworkParameter.IPAddressOnLAN,
-						SoulissNetworkParameter.REFRESH_HEALTY_TIME).start();
-
-			} catch (IOException e) {
-				e.printStackTrace();
-				logger.error(e.getMessage());
-			}
-		}
-
+	
 	public short[] hsvToRgb(float H, float S, float V) {
 		float R, G, B;
 
@@ -292,20 +262,91 @@ public class SoulissBinding<E> extends
 		short RGBList[] = { (short) R, (short) G, (short) B };
 		return RGBList;
 	}
+	
+	/**
+	 * Start threads and prepare other functionality (used with Binding.execute()
+	 */
+	private void initialize() {
+			logger.info("START");
+			try {
+				// Start listening on the UDP socket
+				UDPServerThread UDP_Server = null;
+				UDP_Server = new UDPServerThread(
+						SoulissGenericBindingProvider.SoulissTypicalsRecipients);
+				UDP_Server.start();
+	
+				// Start the thread that send back to openHAB the souliss'
+				// typical values
+				mon= new Monitor(
+						SoulissGenericBindingProvider.SoulissTypicalsRecipients,
+						SoulissNetworkParameter.REFRESH_MONITOR_TIME,
+						eventPublisher);
+				
+				// Start the thread that send network packets to the Souliss
+				// network
+				sendDisp = new SendDispatcher(
+						SoulissGenericBindingProvider.SoulissTypicalsRecipients,
+						SoulissNetworkParameter.SEND_DELAY,
+						SoulissNetworkParameter.SEND_MIN_DELAY);
+				
+				// Start the thread that subscribe data from the Souliss network
+				susbcription = new RefreshSUBSCRIPTION(UDP_Server.getSocket(),
+						SoulissNetworkParameter.IPAddressOnLAN);
+				healty = new RefreshHEALTY(UDP_Server.getSocket(),
+						SoulissNetworkParameter.IPAddressOnLAN);
+			} catch (IOException e) {
+				e.printStackTrace();
+				logger.error(e.getMessage());
+			}
+		}
 
 	@Override
 	protected void execute() {
+
+		//if (!bindingsExist()) {
+		//	logger.debug("There is no existing Souliss binding configuration => refresh cycle aborted!");
+	//		return;
+	//	}
 		
-		if(timeDiff(SoulissNetworkParameter.REFRESH_SUBSCRIPTION_TIME)){
-			
+		if(timers.checkTime(0,SoulissNetworkParameter.REFRESH_MONITOR_TIME)){
+			mon.tick();
+			timers.resetTime(0);
+		}
+		if(timers.checkTime(1,SoulissNetworkParameter.SEND_MIN_DELAY)){
+			sendDisp.tick();
+			timers.resetTime(1);
 		}
 		
-		
+		if(timers.checkTime(2,SoulissNetworkParameter.REFRESH_SUBSCRIPTION_TIME)){
+			susbcription.tick();
+			timers.resetTime(2);
+		}
+		if(timers.checkTime(3,SoulissNetworkParameter.REFRESH_HEALTY_TIME)){
+			healty.tick();
+			timers.resetTime(3);
+		}
+
 	}
 
-	private boolean timeDiff(long t){
-		return start_time < (System.currentTimeMillis() - t);
+	
+	//timer for execution of code in Binding.execute()
+	private class Timers{
+		long[] timersArray;
+		public Timers(int nrTimers) {
+			timersArray=new long[nrTimers];
+		}
+		
+		private boolean checkTime(int iNrTimer, long t){
+			//return true when code can be executed
+			return (System.currentTimeMillis() - timersArray[iNrTimer] > t);
+		}
+		
+		private void resetTime(int iNrTimer){
+			timersArray[iNrTimer] = System.currentTimeMillis();
+		}
+		
 	}
+	
 	
 	@Override
 	protected long getRefreshInterval() {

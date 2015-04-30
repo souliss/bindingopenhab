@@ -136,7 +136,7 @@ public class SoulissCommGate {
 			serverAddr = InetAddress.getByName(sSoulissNodeIPAddressOnLAN);
 			DatagramPacket packet = new DatagramPacket(merd, merd.length,
 					serverAddr, ConstantsUDP.SOULISSPORT);
-			SendDispatcherThread.put(socket, packet);
+			SendDispatcher.put(socket, packet);
 		} catch (IOException e) {
 			e.printStackTrace();
 			logger.error(e.getMessage());
