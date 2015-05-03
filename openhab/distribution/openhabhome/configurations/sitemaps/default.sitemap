@@ -1,0 +1,15 @@
+﻿sitemap default label="Main Menu"
+{
+Frame label="Gruppo termostato" {
+			Group item=T31  icon="temperature"
+	}
+	
+Frame label="Termostato" {
+		Setpoint item=Temperature_2F_Living_SP step=0.5 minValue=10 maxValue=30
+		Text item=Temperature_GF_Soggiorno 
+		Text item=caldaiaState label="Stato caldaia [%s]"
+		Switch item=setasmeasured mappings=[ON="Set"] 
+		Switch heating label="Heating" 
+		Switch cooling label="Cooling"
+	}	
+}

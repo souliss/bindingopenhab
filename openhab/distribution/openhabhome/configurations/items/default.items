@@ -1,0 +1,30 @@
+Group All
+
+Group TechnicView_Node0 	(All)
+Group TechnicView_Node1 	(All)
+Group TechnicView_Node2 	(All)
+Group TechnicView_Node3 	(All)
+
+Group Diagnostic 	(All)
+Group Health (All)
+Group T31 "Termostato"  <kitchen> (All)
+
+
+Number HEALTHNodo1_GF_Servizio "Health Nodo 1 [%1d]" <keyring> (Diagnostic, TechnicView_Node0, Health) {souliss="D98:0:998"}
+Number HEALTHNodo2_GF_Servizio "Health Nodo 2 [%1d]" <keyring> (Diagnostic, TechnicView_Node1, Health, T31) {souliss="D98:1:998"}
+
+String TIMESTAMP_Nodo1_GF_Servizio "Aggiorn.Nodo1 [%1$td.%1$tm.%1$tY %1$tk:%1$tM:%1$tS]" <keyring> (Diagnostic, TechnicView_Node0) {souliss="D99:0:999"}
+String TIMESTAMP_Nodo2_GF_Servizio "Aggiorn.Nodo2 [%1$td.%1$tm.%1$tY %1$tk:%1$tM:%1$tS]" <keyring> (Diagnostic, TechnicView_Node1, T31) {souliss="D99:1:999"}
+
+Number Temperature_GF_Soggiorno 	"Temperatura Soggiorno [%.1f °C]"	<temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:measured"}
+Number Temperature_2F_Living_SP	"Temp Set Point [%.1f °C]" 	<temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:setpoint"}
+String  caldaiaState "Stato caldaia [%s]"  <house> (T31, TechnicView_Node0) {souliss="T31:1:0:statecontrol"}
+Switch setasmeasured "Set as measured" <temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:setasmeasured"}
+Switch heating "Heating" (T31, TechnicView_Node0) {souliss="T31:1:0:heating" autoupdate="false"}
+Switch cooling "Cooling" (T31, TechnicView_Node0) {souliss="T31:1:0:cooling" autoupdate="false"}
+
+Contact fan1 "Fan 1" (T31, TechnicView_Node0) {souliss="T31:1:0:fan1"}
+Contact fan2 "Fan 2" (T31, TechnicView_Node0) {souliss="T31:1:0:fan2"}
+Contact fan3 "Fan 3" (T31, TechnicView_Node0) {souliss="T31:1:0:fan3"}
+Switch heatingmode "Heating Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:heatingmode autoupdate="false"}
+Contact manualmode "Manual Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:manualmode"}
