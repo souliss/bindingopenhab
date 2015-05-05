@@ -44,31 +44,36 @@ public class SoulissT31 extends SoulissGenericTypical {
 	private String sItemTypeCoolingValue;	
 	private String sItemNameCoolingValue;
 	
-	private String sItemTypeFan1Value;	
-	private String sItemNameFan1Value;
+	private String sItemTypeHeatingCoolingModeValue;	
+	private String sItemNameHeatingCoolingModeValue;
+
+	private String sItemTypeFanOffValue;	
+	private String sItemNameFanOffValue;
 	
-	private String sItemTypeFan2Value;	
-	private String sItemNameFan2Value;
+	private String sItemTypeFanLowValue;	
+	private String sItemNameFanLowValue;
 	
-	private String sItemTypeFan3Value;	
-	private String sItemNameFan3Value;
+	private String sItemTypeFanMedValue;	
+	private String sItemNameFanMedValue;
+	
+	private String sItemTypeFanHighValue;	
+	private String sItemNameFanHighValue;
 	
 	private String sItemTypeManualModeValue;	
 	private String sItemNameManualModeValue;
-	
-	private String sItemTypeHeatingModeValue;	
-	private String sItemNameHeatingModeValue;
 
 	private short sRawCommandState;
 	private Float TemperatureSetpointValue;
 	private Float MeasuredValue;
-	private boolean HeatingValue;
-	private boolean CoolingValue;
-	private boolean Fan1Value;
-	private boolean Fan2Value;
-	private boolean Fan3Value;
-	private boolean ManualModeValue;
-	private boolean HeatingModeValue;
+	private boolean heatingValue;
+	private boolean coolingValue;
+	private boolean fanLowValue;
+	private boolean fanMedValue;
+	private boolean fanHighValue;
+	private boolean autoModeValue;
+	private boolean heatingCoolingModeValue;
+	
+	
 	
 	/**
 	 * Typical T31
@@ -120,21 +125,21 @@ public class SoulissT31 extends SoulissGenericTypical {
 				SoulissNetworkParameter.IPAddressOnLAN,
 				this.getSoulissNodeID(), this.getSlot(), command, B1, B2);
 }
-	DA INVIARE TUTTI COMANDI
-	
-	#define Souliss_T3n_InSetPoint			0x01
-	#define Souliss_T3n_OutSetPoint			0x02
-	#define Souliss_T3n_AsMeasured			0x03
-	#define Souliss_T3n_Cooling				0x04
-	#define Souliss_T3n_Heating				0x05
-	#define Souliss_T3n_FanOff				0x06
-	#define Souliss_T3n_FanLow				0x07
-	#define Souliss_T3n_FanMed				0x08
-	#define Souliss_T3n_FanHigh				0x09
-	#define Souliss_T3n_FanAuto				0x0A
-	#define Souliss_T3n_FanManual			0x0B
-	#define Souliss_T3n_SetTemp				0x0C
-	#define Souliss_T3n_ShutDown			0x0D
+//	DA INVIARE TUTTI COMANDI
+//	
+//	#define Souliss_T3n_InSetPoint			0x01
+//	#define Souliss_T3n_OutSetPoint			0x02
+//	#define Souliss_T3n_AsMeasured			0x03
+//	#define Souliss_T3n_Cooling				0x04
+//	#define Souliss_T3n_Heating				0x05
+//	#define Souliss_T3n_FanOff				0x06
+//	#define Souliss_T3n_FanLow				0x07
+//	#define Souliss_T3n_FanMed				0x08
+//	#define Souliss_T3n_FanHigh				0x09
+//	#define Souliss_T3n_FanAuto				0x0A
+//	#define Souliss_T3n_FanManual			0x0B
+//	#define Souliss_T3n_SetTemp				0x0C
+//	#define Souliss_T3n_ShutDown			0x0D
 	
 
 	public State getOHState_Heating(){
@@ -145,26 +150,30 @@ public class SoulissT31 extends SoulissGenericTypical {
 		return getOHState(getsItemNameCoolingValue(), getsItemTypeCoolingValue(),isCoolingValue());
 	}
 	
+	public State getOHState_HeatingCoolingMode() {
+		return getOHState(getsItemNameHeatingCoolingModeValue(), getsItemTypeHeatingCoolingModeValue(), isHeatingModeValue());
+	}
+
+	public State getOHState_FanOff(){
+		return getOHState(getsItemNameFanOffValue(), getsItemTypeFanOffValue(),isFan1Value());
+	}
+	
 	public State getOHState_Fan1(){
-		return getOHState(getsItemNameFan1Value(), getsItemTypeFan1Value(),isFan1Value());
+		return getOHState(getsItemNameFanLowValue(), getsItemTypeFanLowValue(),isFan1Value());
 	}
 	
 	public State getOHState_Fan2(){
-		return getOHState(getsItemNameFan2Value(), getsItemTypeFan2Value(),isFan2Value());
+		return getOHState(getsItemNameFanMedValue(), getsItemTypeFanMedValue(),isFan2Value());
 	}
 	
 	public State getOHState_Fan3(){
-		return getOHState(getsItemNameFan3Value(), getsItemTypeFan3Value(),isFan3Value());
+		return getOHState(getsItemNameFanHighValue(), getsItemTypeFanHighValue(),isFan3Value());
 	}
 
-	public State getOHState_ManualMode(){
-		return getOHState(getsItemNameManualModeValue(), getsItemTypeManualModeValue(),isManualModeValue());
+	public State getOHState_FanAutoMode(){
+		return getOHState(getsItemNameFanAutoModeValue(), getsItemTypeFanAutoModeValue(),isFanAutoModeValue());
 	}
 
-	public State getOHState_HeatingMode(){
-		return getOHState(getsItemNameHeatingModeValue(), getsItemTypeHeatingModeValue(),isHeatingModeValue());
-	}
-	
 	/**
 	 * Returns a type used by openHAB to show the actual state of the souliss' typical
 	 * @return org.openhab.core.types.State
@@ -176,7 +185,8 @@ public class SoulissT31 extends SoulissGenericTypical {
 		else
 			shortState=Constants.Souliss_T1n_OffCoil;
 			
-		String sOHState = StateTraslator.statesSoulissToOH(sType + "_" + sItemName,this.getType(), shortState);
+		//String sOHState = StateTraslator.statesSoulissToOH(sType + "_" + sItemName,this.getType(), shortState);
+		String sOHState = StateTraslator.statesSoulissToOH(sType,this.getType(), shortState);
 		if (sOHState != null) {
 			if (sType.equals("ContactItem"))
 				return OpenClosedType.valueOf(sOHState);
@@ -298,6 +308,7 @@ public class SoulissT31 extends SoulissGenericTypical {
 
 	public void setsItemTypeMeasuredValue(String sNote) {
 		this.sItemTypeMeasuredValue=sNote;
+
 	}
 	public String getsItemTypeMeasuredValue() {
 		return sItemTypeMeasuredValue;
@@ -327,76 +338,88 @@ public class SoulissT31 extends SoulissGenericTypical {
 		this.sItemTypeSetAsMeasured = sItemNameSetAsMeasured;
 	}
 
-	public String getsItemNameFan1Value() {
-		return sItemNameFan1Value;
+	public String getsItemNameFanOffValue() {
+		return sItemNameFanOffValue;
 	}
 
-	public void setsItemNameFan1Value(String sItemNameFan1Value) {
-		this.sItemNameFan1Value = sItemNameFan1Value;
+	public void setsItemNameFanOffValue(String sItemNameFanOffValue) {
+		this.sItemNameFanOffValue = sItemNameFanOffValue;
+	}
+	
+	public String getsItemTypeFanOffValue() {
+		return sItemTypeFanOffValue;
 	}
 
-	public String getsItemTypeFan2Value() {
-		return sItemTypeFan2Value;
+	public void setsItemTypeFanOffValue(String sItemTypeFanOffValue) {
+		this.sItemTypeFanOffValue = sItemTypeFanOffValue;
+	}
+	
+	public String getsItemNameFanLowValue() {
+		return sItemNameFanLowValue;
 	}
 
-	public void setsItemTypeFan2Value(String sItemTypeFan2Value) {
-		this.sItemTypeFan2Value = sItemTypeFan2Value;
+	public void setsItemNameFanLowValue(String sItemNameFan1Value) {
+		this.sItemNameFanLowValue = sItemNameFan1Value;
 	}
 
-	public String getsItemNameFan2Value() {
-		return sItemNameFan2Value;
+	public String getsItemTypeFanMedValue() {
+		return sItemTypeFanMedValue;
 	}
 
-	public void setsItemNameFan2Value(String sItemNameFan2Value) {
-		this.sItemNameFan2Value = sItemNameFan2Value;
+	public void setsItemTypeFanMedValue(String sItemTypeFan2Value) {
+		this.sItemTypeFanMedValue = sItemTypeFan2Value;
 	}
 
-	public String getsItemTypeFan3Value() {
-		return sItemTypeFan3Value;
+	public String getsItemNameFanMedValue() {
+		return sItemNameFanMedValue;
 	}
 
-	public void setsItemTypeFan3Value(String sItemTypeFan3Value) {
-		this.sItemTypeFan3Value = sItemTypeFan3Value;
+	public void setsItemNameFanMedValue(String sItemNameFan2Value) {
+		this.sItemNameFanMedValue = sItemNameFan2Value;
 	}
 
-	public String getsItemNameFan3Value() {
-		return sItemNameFan3Value;
+	public String getsItemTypeFanHighValue() {
+		return sItemTypeFanHighValue;
 	}
 
-	public void setsItemNameFan3Value(String sItemNameFan3Value) {
-		this.sItemNameFan3Value = sItemNameFan3Value;
+	public void setsItemTypeFanHighValue(String sItemTypeFan3Value) {
+		this.sItemTypeFanHighValue = sItemTypeFan3Value;
 	}
 
-	public String getsItemTypeManualModeValue() {
+	public String getsItemNameFanHighValue() {
+		return sItemNameFanHighValue;
+	}
+
+	public void setsItemNameFanHighValue(String sItemNameFanFanHighValue) {
+		this.sItemNameFanHighValue = sItemNameFanFanHighValue;
+	}
+
+	public String getsItemTypeFanAutoModeValue() {
 		return sItemTypeManualModeValue;
 	}
 
-	public void setsItemTypeManualModeValue(String sItemTypeManualModeValue) {
+	public void setsItemTypeAutoModeValue(String sItemTypeManualModeValue) {
 		this.sItemTypeManualModeValue = sItemTypeManualModeValue;
 	}
 
-	public String getsItemNameManualModeValue() {
+	public String getsItemNameFanAutoModeValue() {
 		return sItemNameManualModeValue;
 	}
 
-	public void setsItemNameManualModeValue(String sItemNameManualModeValue) {
+	public void setsItemNameAutoModeValue(String sItemNameManualModeValue) {
+		setsItemNameFanAutoModeValue(sItemNameManualModeValue);
+	}
+
+	public void setsItemNameFanAutoModeValue(String sItemNameManualModeValue) {
 		this.sItemNameManualModeValue = sItemNameManualModeValue;
 	}
 
-	public String getsItemTypeHeatingModeValue() {
-		return sItemTypeHeatingModeValue;
+	public void setsItemTypeHeatingCoolingModeValue(String sItemTypeHeatingCoolingModeValue) {
+		this.sItemTypeHeatingCoolingModeValue = sItemTypeHeatingCoolingModeValue;
 	}
-
-	public void setsItemTypeHeatingModeValue(String sItemTypeHeatingModeValue) {
-		this.sItemTypeHeatingModeValue = sItemTypeHeatingModeValue;
-	}
-
-	public String getsItemNameHeatingModeValue() {
-		return sItemNameHeatingModeValue;
-	}
-
-	public void setsItemNameHeatingModeValue(String sItemNameHeatingModeValue) {
-		this.sItemNameHeatingModeValue = sItemNameHeatingModeValue;
+	
+	public void setsItemNameHeatingCoolingModeValue(String sItemNameHeatingCoolingModeValue) {
+		this.sItemNameHeatingCoolingModeValue = sItemNameHeatingCoolingModeValue;
 	}
 
 	public String getsItemTypeHeatingValue() {
@@ -431,74 +454,86 @@ public class SoulissT31 extends SoulissGenericTypical {
 		this.sItemNameCoolingValue = sItemNameCoolingValue;
 	}
 
-	public String getsItemTypeFan1Value() {
-		return sItemTypeFan1Value;
+	public String getsItemNameHeatingCoolingModeValue() {
+		return sItemNameHeatingCoolingModeValue;
 	}
 
-	public void setsItemTypeFan1Value(String sItemTypeFan1Value) {
-		this.sItemTypeFan1Value = sItemTypeFan1Value;
+	public void setsItemNameHeatingCoolingValue(String sItemTypeHeatingCoolingModeValue) {
+		this.sItemTypeHeatingCoolingModeValue = sItemTypeHeatingCoolingModeValue;
+	}
+	
+	public String getsItemTypeHeatingCoolingModeValue() {
+		return sItemTypeHeatingCoolingModeValue;
+	}
+
+	public String getsItemTypeFanLowValue() {
+		return sItemTypeFanLowValue;
+	}
+
+	public void setsItemTypeFanLowValue(String sItemTypeFanLowValue) {
+		this.sItemTypeFanLowValue = sItemTypeFanLowValue;
 	}
 
 	public boolean isHeatingValue() {
-		return HeatingValue;
+		return heatingValue;
 	}
 
 	public void setHeatingValue(boolean heatingValue) {
-		HeatingValue = heatingValue;
+		this.heatingValue = heatingValue;
 		setUpdatedTrue();
 	}
 
 	public boolean isCoolingValue() {
-		return CoolingValue;
+		return coolingValue;
 	}
 
 	public void setCoolingValue(boolean coolingValue) {
-		CoolingValue = coolingValue;
+		this.coolingValue = coolingValue;
 		setUpdatedTrue();
 	}
 
 	public boolean isFan1Value() {
-		return Fan1Value;
+		return fanLowValue;
 	}
 
-	public void setFan1Value(boolean fan1Value) {
-		Fan1Value = fan1Value;
+	public void setFanLowValue(boolean fan1Value) {
+		this.fanLowValue = fan1Value;
 		setUpdatedTrue();
 	}
 	
 	public boolean isFan2Value() {
-		return Fan2Value;
+		return fanMedValue;
 	}
 
-	public void setFan2Value(boolean fan2Value) {
-		Fan2Value = fan2Value;
+	public void setFanMedValue(boolean fan2Value) {
+		this.fanMedValue = fan2Value;
 		setUpdatedTrue();
 	}
 
 	public boolean isFan3Value() {
-		return Fan3Value;
+		return fanHighValue;
 	}
 
-	public void setFan3Value(boolean fan3Value) {
-		Fan3Value = fan3Value;
+	public void setFanHighValue(boolean fan3Value) {
+		this.fanHighValue = fan3Value;
 		setUpdatedTrue();
 	}
 
-	public boolean isManualModeValue() {
-		return ManualModeValue;
+	public boolean isFanAutoModeValue() {
+		return autoModeValue;
 	}
 
-	public void setManualModeValue(boolean manualModeValue) {
-		ManualModeValue = manualModeValue;
+	public void setFanAutoModeValue(boolean autoModeValue) {
+		this.autoModeValue = autoModeValue;
 		setUpdatedTrue();
 	}
 
 	public boolean isHeatingModeValue() {
-		return HeatingModeValue;
+		return heatingCoolingModeValue;
 	}
 
-	public void setHeatingModeValue(boolean heatingModeValue) {
-		HeatingModeValue = heatingModeValue;
+	public void setHeatingCoolingModeValue(boolean heatingCoolingModeValue) {
+		this.heatingCoolingModeValue = heatingCoolingModeValue;
 		setUpdatedTrue();
 	}
 	

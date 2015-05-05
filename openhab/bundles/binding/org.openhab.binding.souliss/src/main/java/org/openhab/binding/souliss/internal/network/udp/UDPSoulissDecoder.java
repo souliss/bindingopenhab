@@ -266,11 +266,11 @@ public class UDPSoulissDecoder {
 						
 						((SoulissT31) typ).setHeatingValue(getBitState(sVal, 1));
 						((SoulissT31) typ).setCoolingValue(getBitState(sVal, 2));
-						((SoulissT31) typ).setFan1Value(getBitState(sVal, 3));
-						((SoulissT31) typ).setFan2Value(getBitState(sVal, 4));
-						((SoulissT31) typ).setFan3Value(getBitState(sVal, 5));
-						((SoulissT31) typ).setManualModeValue(getBitState(sVal, 6));
-						((SoulissT31) typ).setHeatingModeValue(getBitState(sVal, 7));
+						((SoulissT31) typ).setFanLowValue(getBitState(sVal, 3));
+						((SoulissT31) typ).setFanMedValue(getBitState(sVal, 4));
+						((SoulissT31) typ).setFanHighValue(getBitState(sVal, 5));
+						((SoulissT31) typ).setFanAutoModeValue(getBitState(sVal, 6));
+						((SoulissT31) typ).setHeatingCoolingModeValue(getBitState(sVal, 7));
 												
 						
 						//SLOT 1-2: Temperature Measured Value

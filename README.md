@@ -37,6 +37,7 @@ Add at the bottom:
 #
 # For ITEM defination in file .item
 #{souliss=<Typical>:<nodeID>:<slot>:[<bit>]}
+#{souliss=<Typical>:<nodeID>:<slot>:[<useslot>]}
 souliss:IP_LAN=192.168.1.105
 souliss:USER_INDEX=71
 souliss:NODE_INDEX=134
@@ -44,7 +45,7 @@ souliss:NODE_INDEX=134
 #SERVERPORT - Leave empty for casual port
 souliss:SERVERPORT=
 
-#time in mills
+#time in mills - min 50
 souliss:REFRESH_DBSTRUCT_TIME=600000
 souliss:REFRESH_SUBSCRIPTION_TIME=120000
 souliss:REFRESH_HEALTY_TIME=60000
@@ -83,15 +84,28 @@ define your own items and add to the end of each line of definition
  {souliss=<Typical>:<nodeID>:<slot>:[<bit>]}
  ```
 
-where Typicals can be T11, T12, T13, T16, T1A, T22, T51, T52, T53, T57, D98, D99 (more will be supported in the future)
+where Typicals can be T11, T12, T13, T16, T1A, T22, T31, T51, T52, T53, T57, D98, D99 (more will be supported in the future)
 
 ```
- Parameter   |            Description                                                                                            | Range   |
--------------+-------------------------------------------------------------------------------------------------------------------+---------+
- nodeID      | Is the ID of the node, the first node listed in your !SoulissApp has nodeID 1, increase for your further nodes    | 1 - 254 |
- slot        | Is the slot where your Typical is located, this is defined in the sketch loaded in your node                      | 1 - 254 |
- bit         | Is used only for Typicals that works bitwise as T1A                                                               |  1 - 8  |
--------------+-------------------------------------------------------------------------------------------------------------------+---------+
+ Parameter   |            Description                                                                                            | Range         |
+-------------+-------------------------------------------------------------------------------------------------------------------+---------------+
+ nodeID      | Is the ID of the node, the first node listed in your !SoulissApp has nodeID 1, increase for your further nodes    | 1 - 254       |
+ slot        | Is the slot where your Typical is located, this is defined in the sketch loaded in your node                      | 1 - 254       |
+ bit         | Is used only for Typicals that works bitwise as T1A                                                               |  1 - 8        |
+ useOfSlot   | Is used only for Typicals that works as T31                                                                       | heating       |
+																															"    | cooling       |
+																															"    | fan1          |
+																															"    | fan2          |
+																															"    | fan3          |																																 
+																															"    | settpoint     |																																 
+																															"    | setasmeasured |
+																															"    | fanoff        |
+																															"    | fanhight      |
+																															"    | fanmed        |
+																															"    | fanlow        |
+																															"    | fanauto 		 |																														
+-------------+-------------------------------------------------------------------------------------------------------------------+---------------+
+
 ```
 
 An example of the *.items* configuration files is below, consider that openHAB has its own syntax for the configuration files.
@@ -106,6 +120,19 @@ Contact ContattoTest "Contatto" (GF_Soggiorno, Lights) {souliss="T13:0:1", autou
 Contact C2 "BIT 3" (GF_Soggiorno, TechnicView_Node3) {souliss="T1A:3:5:2"}
 Contact C3 "BIT 4" (GF_Soggiorno, TechnicView_Node3) {souliss="T1A:3:5:3"}
 Color  RGB_Led_Strip_1 "RGB Led Strip 1" <slider> (GF_Soggiorno)  {souliss="T16:0:2", autoupdate=false}
+
+Number Temperature_GF_Soggiorno 	"Temperatura Soggiorno [%.1f °C]"	<temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:measured"}
+Number Temperature_2F_Living_SP	"Temp Set Point [%.1f °C]" 	<temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:setpoint"}
+String  caldaiaState "Stato caldaia [%s]"  <house> (T31, TechnicView_Node0) {souliss="T31:1:0:statecontrol"}
+Switch setasmeasured "Set as measured" <temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:setasmeasured"}
+Switch heating "Heating" (T31, TechnicView_Node0) {souliss="T31:1:0:heating" autoupdate="false"}
+Switch cooling "Cooling" (T31, TechnicView_Node0) {souliss="T31:1:0:cooling" autoupdate="false"}
+
+Contact fan1 "Fan 1" (T31, TechnicView_Node0) {souliss="T31:1:0:fan1"}
+Contact fan2 "Fan 2" (T31, TechnicView_Node0) {souliss="T31:1:0:fan2"}
+Contact fan3 "Fan 3" (T31, TechnicView_Node0) {souliss="T31:1:0:fan3"}
+Switch heatingmode "Heating Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:heatingmode autoupdate="false"}
+Contact manualmode "Manual Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:manualmode"}
 ```
 
 ### Service Typicals  ###

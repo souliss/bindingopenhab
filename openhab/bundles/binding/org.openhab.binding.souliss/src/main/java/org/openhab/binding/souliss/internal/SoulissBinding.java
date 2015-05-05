@@ -251,7 +251,19 @@ public class SoulissBinding<E> extends
 			// Set As Measured 
 			else if(itemName.equals(T31.getsItemNameSetAsMeasured())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED + "_" + command.toString()));
-				}
+				} else if(itemName.equals(T31.getsItemNameHeatingCoolingModeValue())){
+					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_HEATING_COOLING+ "_" + command.toString()));
+				} else if(itemName.equals(T31.getsItemNameFanAutoModeValue())){
+					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANAUTOMODE+ "_" + command.toString()));
+				} else if(itemName.equals(T31.getsItemNameFanOffValue())){
+					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANOFF+ "_" + command.toString()));
+				} else if(itemName.equals(T31.getsItemNameFanLowValue())){
+					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANLOW+ "_" + command.toString()));
+				} else if(itemName.equals(T31.getsItemNameFanMedValue())){
+					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANMED+ "_" + command.toString()));
+				} else if(itemName.equals(T31.getsItemNameFanHighValue())){
+					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANHIGH+ "_" + command.toString()));
+				} 
 				
 			
 				

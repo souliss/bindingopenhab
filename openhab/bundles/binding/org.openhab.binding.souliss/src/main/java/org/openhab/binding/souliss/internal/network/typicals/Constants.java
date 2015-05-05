@@ -211,16 +211,18 @@ public class Constants {
 	public static final String Souliss_T31_Use_Of_Slot_SETPOINT = "setpoint";
 	public static final String Souliss_T31_Use_Of_Slot_MEASURED = "measured";
 	public static final String Souliss_T31_Use_Of_Slot_STATECONTROL = "statecontrol";
-	public static final String Souliss_T31_Use_Of_Slot_SETASMEASURED = "setAsMeasured";
+	public static final String Souliss_T31_Use_Of_Slot_SETASMEASURED = "setasmeasured";
 	
-	public static final String Souliss_T31_Use_Of_Slot_SETPOINT_COMMAND = "SetTemp";
+	public static final String Souliss_T31_Use_Of_Slot_SETPOINT_COMMAND = "settemp";
 	public static final String Souliss_T31_Use_Of_Slot_HEATING = "heating";
 	public static final String Souliss_T31_Use_Of_Slot_COOLING = "cooling";
-	public static final String Souliss_T31_Use_Of_Slot_FAN1 = "fan1";
-	public static final String Souliss_T31_Use_Of_Slot_FAN2 = "fan2";
-	public static final String Souliss_T31_Use_Of_Slot_FAN3 = "fan3";
-	public static final String Souliss_T31_Use_Of_Slot_MANUALMODE = "manualmode";
-	public static final String Souliss_T31_Use_Of_Slot_HEATINGMODE = "heatingmode";
+	public static final String Souliss_T31_Use_Of_Slot_HEATING_COOLING = "heatingcooling";
+	public static final String Souliss_T31_Use_Of_Slot_FANOFF = "fanoff";
+	public static final String Souliss_T31_Use_Of_Slot_FANLOW = "fanlow";
+	public static final String Souliss_T31_Use_Of_Slot_FANMED = "fanmed";
+	public static final String Souliss_T31_Use_Of_Slot_FANHIGH = "fanhigh";
+	public static final String Souliss_T31_Use_Of_Slot_FANAUTOMODE = "fanautomode";
+	
 	
 
 	public static final String Souliss_T3n_InSetPoint = "0x01";
