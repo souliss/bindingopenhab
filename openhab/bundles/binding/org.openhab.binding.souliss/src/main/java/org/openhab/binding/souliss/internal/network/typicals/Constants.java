@@ -278,3 +278,4 @@ public class Constants {
 	public static final String ConfigurationFileName_commands_to_states = "/properties/commands_to_states.properties";
 	
 	public static final String Openhab_RGB_TYPE = "HSBType";
+}

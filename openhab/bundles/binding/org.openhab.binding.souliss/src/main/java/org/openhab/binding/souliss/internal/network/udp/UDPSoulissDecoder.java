@@ -214,12 +214,12 @@ public class UDPSoulissDecoder {
 						iNumBytes = 0;
 					}
 					float val = 0;
-					//***** T1A *****  
+					// ***** T1A *****
 					if (typ.getType() == 0x1A) {
 						short sVal = getByteAtSlot(mac, slot);
 						((SoulissT1A) typ).setState(sVal);
 						bDecoded_forLOG = true;
-					//***** T19 ***** 
+						// ***** T19 *****
 					} else if (typ.getType() == 0x19) {
 						// set value of T19 at number of second slot
 						short sVal = getByteAtSlot(mac, slot + 1);
@@ -236,7 +236,7 @@ public class UDPSoulissDecoder {
 						typ.setState(val);
 						bDecoded_forLOG = true;
 					} else if (iNumBytes == 4) {
-						//***** T16 RGB *****
+						// ***** T16 RGB *****
 						val = getByteAtSlot(mac, slot);
 						typ.setState(val);
 						((SoulissT16) typ).setStateRED(getByteAtSlot(mac,
@@ -247,38 +247,42 @@ public class UDPSoulissDecoder {
 								slot + 3));
 						bDecoded_forLOG = true;
 					} else if (iNumBytes == 5) {
-						//***** T31 *****
-						//*******************
-						//SLOT 0: Control State 
+						// ***** T31 *****
+						// *******************
+						// SLOT 0: Control State
 						short sVal = getByteAtSlot(mac, slot);
 						((SoulissT31) typ).setRawCommandState(sVal);
-						/*The control state bit meaning follow as:
-							BIT 0	Not used 
-							BIT 1	(0 Heating OFF , 1 Heating ON)
-							BIT 2	(0 Cooling OFF , 1 Cooling ON)
-							BIT 3	(0 Fan 1 OFF   , 1 Fan 1 ON)
-							BIT 4	(0 Fan 2 OFF   , 1 Fan 2 ON)
-							BIT 5	(0 Fan 3 OFF   , 1 Fan 3 ON)
-							BIT 6	(0 Manual Mode , 1 Automatic Mode for Fan) 
-							BIT 7	(0 Heating Mode, 1 Cooling Mode)*/
-						
-						((SoulissT31) typ).setHeatingValue(getBitState(sVal, 1));
-						((SoulissT31) typ).setCoolingValue(getBitState(sVal, 2));
+						/*
+						 * The control state bit meaning follow as: BIT 0 Not
+						 * used BIT 1 (0 Heating OFF , 1 Heating ON) BIT 2 (0
+						 * Cooling OFF , 1 Cooling ON) BIT 3 (0 Fan 1 OFF , 1
+						 * Fan 1 ON) BIT 4 (0 Fan 2 OFF , 1 Fan 2 ON) BIT 5 (0
+						 * Fan 3 OFF , 1 Fan 3 ON) BIT 6 (0 Manual Mode , 1
+						 * Automatic Mode for Fan) BIT 7 (0 Heating Mode, 1
+						 * Cooling Mode)
+						 */
+
+						((SoulissT31) typ)
+								.setHeatingValue(getBitState(sVal, 1));
+						((SoulissT31) typ)
+								.setCoolingValue(getBitState(sVal, 2));
 						((SoulissT31) typ).setFanLowValue(getBitState(sVal, 3));
 						((SoulissT31) typ).setFanMedValue(getBitState(sVal, 4));
-						((SoulissT31) typ).setFanHighValue(getBitState(sVal, 5));
-						((SoulissT31) typ).setFanAutoModeValue(getBitState(sVal, 6));
-						((SoulissT31) typ).setHeatingCoolingModeValue(getBitState(sVal, 7));
-												
-						
-						//SLOT 1-2: Temperature Measured Value
-						val = getFloatAtSlot(mac, slot+1);
+						((SoulissT31) typ)
+								.setFanHighValue(getBitState(sVal, 5));
+						((SoulissT31) typ).setFanAutoModeValue(getBitState(
+								sVal, 6));
+						((SoulissT31) typ)
+								.setHeatingCoolingModeValue(getBitState(sVal, 7));
+
+						// SLOT 1-2: Temperature Measured Value
+						val = getFloatAtSlot(mac, slot + 1);
 						((SoulissT31) typ).setMeasuredValue(val);
-						//SLOT 3-4: Temperature Setpoint Value 
-						val = getFloatAtSlot(mac, slot+3);
+						// SLOT 3-4: Temperature Setpoint Value
+						val = getFloatAtSlot(mac, slot + 3);
 						((SoulissT31) typ).setSetpointValue(val);
 						bDecoded_forLOG = true;
-						}
+					}
 					// non esegue per healt e timestamp, perchè il LOG viene
 					// inserito in un altro punto del codice
 					if (typ.getType() != 152 && typ.getType() != 153)
@@ -293,13 +297,15 @@ public class UDPSoulissDecoder {
 									((SoulissT16) typ).getStateGREEN(),
 									((SoulissT16) typ).getStateBLU());
 						else if (iNumBytes == 5) {
-							//T31 Thermostat
-							LOGGER.debug("decodeStateRequest:  "
-									+ typ.getName() + " ( "
-									+ Short.valueOf(typ.getType()) + "). Thermostat= "
-									+ ((SoulissT31) typ).getRawCommandState() + ", Temp.Measured= "
-									+ ((SoulissT31) typ).getTemperatureMeasuredValue() + ", Temp.SetPoint= "
-									+ ((SoulissT31) typ).getSetpointValue());
+							// T31 Thermostat
+							logger.debug(
+									"decodeStateRequest: {} ({}). Thermostat= {}, Temp.Measured= {}, Temp.SetPoint= {}",
+									typ.getName(),
+									Short.valueOf(typ.getType()),
+									((SoulissT31) typ).getRawCommandState(),
+									((SoulissT31) typ)
+											.getTemperatureMeasuredValue(),
+									((SoulissT31) typ).getSetpointValue());
 
 						} else if (bDecoded_forLOG) {
 							if (typ.getType() == 0x1A) {
@@ -351,13 +357,13 @@ public class UDPSoulissDecoder {
 		}
 	}
 
-		public boolean getBitState(short vRaw, int iBit) {
-			final int MASK_BIT_1 = 0x1;
+	public boolean getBitState(short vRaw, int iBit) {
+		final int MASK_BIT_1 = 0x1;
 
-			if (((vRaw >>> iBit) & MASK_BIT_1) == 0) {
-				return false;
-			} else {
-				return true;
-			}
+		if (((vRaw >>> iBit) & MASK_BIT_1) == 0) {
+			return false;
+		} else {
+			return true;
 		}
+	}
 }

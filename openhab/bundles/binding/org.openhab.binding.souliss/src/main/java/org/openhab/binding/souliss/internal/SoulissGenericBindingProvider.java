@@ -151,25 +151,26 @@ public class SoulissGenericBindingProvider extends
 					((SoulissT31) soulissTypicalNew).setsItemTypeAutoModeValue(sNote);
 					break;
 				}
-				LOGGER.info("Add parameter to T31 : " + sUseSlot);
+				logger.info("Add parameter to T31 : " + sUseSlot);
 			}
 			}
 		
 			
 		//creazione tipico, solo se non si tratta di un T31 al quale è stato aggiunto un parametro
-		if(soulissTypicalNew==null){
-			soulissTypicalNew = TypicalFactory.getClass(
-					StateTraslator.stringToSOULISSTypicalCode(sTypical),
-					SoulissNetworkParameter.datagramsocket,
-					SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot,
-					sNote, iBit, sUseSlot);
-		}
-		
-		if (soulissTypicalNew != null) {
-			SoulissTypicalsRecipients.addTypical(item.getName(),
-			SoulissNetworkParameter.nodes = SoulissTypicalsRecipients
-					.getNodeNumbers();
-		} 
+				if(soulissTypicalNew==null){
+					soulissTypicalNew = TypicalFactory.getClass(
+							StateTraslator.stringToSOULISSTypicalCode(sTypical),
+							SoulissNetworkParameter.datagramsocket,
+							SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot,
+							sNote, iBit, sUseSlot);
+				}
+				
+				if (soulissTypicalNew != null) {
+					SoulissTypicalsRecipients.addTypical(item.getName(),
+							soulissTypicalNew);
+					SoulissNetworkParameter.nodes = SoulissTypicalsRecipients
+							.getNodeNumbers();
+				} 
 	}
 
 	public void validateItemType(Item item, String bindingConfig)

@@ -536,5 +536,11 @@ public class SoulissT31 extends SoulissGenericTypical {
 		this.heatingCoolingModeValue = heatingCoolingModeValue;
 		setUpdatedTrue();
 	}
+
+	@Override
+	public State getOHState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

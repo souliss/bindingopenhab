@@ -120,8 +120,8 @@ public class SoulissCommGate {
 		MACACOframe.add(byte1.byteValue());// Temperature Setpoint Value
 		MACACOframe.add(byte2.byteValue());// Temperature Setpoint Value
 
-		LOGGER.debug("sendFORCEFrame - " + MaCacoToString(MACACOframe)
-				+ ", soulissNodeIPAddressOnLAN: " + soulissNodeIPAddressOnLAN);
+		logger.debug("sendFORCEFrame - {}, soulissNodeIPAddressOnLAN: {}",
+				MaCacoToString(MACACOframe), soulissNodeIPAddressOnLAN);
 		send(datagramSocket, MACACOframe, soulissNodeIPAddressOnLAN);
 
 	}

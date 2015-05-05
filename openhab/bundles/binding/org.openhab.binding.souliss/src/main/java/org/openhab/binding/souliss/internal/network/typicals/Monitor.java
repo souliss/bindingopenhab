@@ -82,7 +82,7 @@ public class Monitor {
 						logger.debug("Put on Bus Events - {} - Bit {} - RawState: {} - Bit State: {}",typ.getName(),((SoulissT1A) typ).getBit(),Integer.toBinaryString(((SoulissT1A) typ).getRawState()),((SoulissT1A) typ).getBitState()); 
 					} else if (typ.getType() == Constants.Souliss_T31) {
 						//T31
-						LOGGER.debug("Put on Bus Events - Command State: " + ((SoulissT31) typ).getRawCommandState() + " - Temperature Measured Value "+ ((SoulissT31) typ).getTemperatureMeasuredValue() + " - Set Point "+ ((SoulissT31) typ).getSetpointValue());
+						logger.debug("Put on Bus Events - Command State: {} - Temperature Measured Value {} - Set Point {}",((SoulissT31) typ).getRawCommandState(), ((SoulissT31) typ).getTemperatureMeasuredValue(), ((SoulissT31) typ).getSetpointValue());
 					}
 					else {
 						logger.debug("Put on Bus Events - {} = {}", typ.getName(), Float.toString(typ.getState()));

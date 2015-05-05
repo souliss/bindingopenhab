@@ -345,8 +345,11 @@ public class SendDispatcher {
 							// quando tutti i byte saranno uguale a zero allora
 							// si
 							// cancella il frame
+							packetsList.get(i).packet.getData()[j] = 0;
 							logger.debug(
 									"T{} Node: {} Slot: {} - OK Expected State",
+									Integer.toHexString(typ.getType()), node,
+									iSlot);
 						} else if (typ==null) {
 							//se allo slot j non esiste un tipico allora vuol dire che si tratta di uno slot collegato al precedente (es: RGB, T31,...)
 							//allora se lo slot j-1=0 allora anche j può essere messo a 0
