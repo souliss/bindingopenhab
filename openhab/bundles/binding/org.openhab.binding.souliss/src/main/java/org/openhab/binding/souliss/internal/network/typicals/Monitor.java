@@ -80,7 +80,11 @@ public class Monitor {
 						
 					} else if (typ.getType() == Constants.Souliss_T1A) {
 						logger.debug("Put on Bus Events - {} - Bit {} - RawState: {} - Bit State: {}",typ.getName(),((SoulissT1A) typ).getBit(),Integer.toBinaryString(((SoulissT1A) typ).getRawState()),((SoulissT1A) typ).getBitState()); 
-					} else {
+					} else if (typ.getType() == Constants.Souliss_T31) {
+						//T31
+						LOGGER.debug("Put on Bus Events - Command State: " + ((SoulissT31) typ).getRawCommandState() + " - Temperature Measured Value "+ ((SoulissT31) typ).getTemperatureMeasuredValue() + " - Set Point "+ ((SoulissT31) typ).getSetpointValue());
+					}
+					else {
 						logger.debug("Put on Bus Events - {} = {}", typ.getName(), Float.toString(typ.getState()));
 					}
 
@@ -88,6 +92,22 @@ public class Monitor {
 						eventPublisher.postUpdate(typ.getName(),
 								((SoulissT16) typ).getOHStateRGB());
 					} else {
+						if (typ.getType() == Constants.Souliss_T31){
+							//qui inserimento dati per tipico 31
+							SoulissT31 typ31 = (SoulissT31) typ;
+							if(typ31.getsItemNameCommandState()!=null) eventPublisher.postUpdate(typ31.getsItemNameCommandState(),typ31.getOHCommandState());
+							if(typ31.getsItemNameMeasuredValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameMeasuredValue(),typ31.getOHStateMeasuredValue());
+							if(typ31.getsItemNameSetpointValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameSetpointValue(),typ31.getOHStateSetpointValue());
+							if(typ31.getsItemNameHeatingValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameHeatingValue(),typ31.getOHState_Heating());
+							if(typ31.getsItemNameCoolingValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameCoolingValue(),typ31.getOHState_Cooling());
+							if(typ31.getsItemNameHeatingCoolingModeValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameHeatingCoolingModeValue(),typ31.getOHState_HeatingCoolingMode());
+							if(typ31.getsItemNameFanLowValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameFanLowValue(),typ31.getOHState_Fan1());
+							if(typ31.getsItemNameFanMedValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameFanMedValue(),typ31.getOHState_Fan2());
+							if(typ31.getsItemNameFanHighValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameFanHighValue(),typ31.getOHState_Fan3());
+							if(typ31.getsItemNameFanAutoModeValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameFanAutoModeValue(),typ31.getOHState_FanAutoMode());							
+						}
+						
+						else {
 						eventPublisher.postUpdate(typ.getName(),
 								typ.getOHState());
 					}
@@ -96,4 +116,5 @@ public class Monitor {
 			}
 		}
 	}
+}
 }

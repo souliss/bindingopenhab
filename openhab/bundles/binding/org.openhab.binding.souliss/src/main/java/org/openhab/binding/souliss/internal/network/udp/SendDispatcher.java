@@ -336,7 +336,7 @@ public class SendDispatcher {
 									sStateMemoria);
 						}
 
-						if (checkExpectedState(
+						if (typ!=null && checkExpectedState(
 								(int) typ.getState(),
 								expectedState(typ.getType(),
 										packetsList.get(i).packet.getData()[j]))) {
@@ -345,11 +345,14 @@ public class SendDispatcher {
 							// quando tutti i byte saranno uguale a zero allora
 							// si
 							// cancella il frame
-							packetsList.get(i).packet.getData()[j] = 0;
 							logger.debug(
 									"T{} Node: {} Slot: {} - OK Expected State",
-									Integer.toHexString(typ.getType()), node,
-									iSlot);
+						} else if (typ==null) {
+							//se allo slot j non esiste un tipico allora vuol dire che si tratta di uno slot collegato al precedente (es: RGB, T31,...)
+							//allora se lo slot j-1=0 allora anche j può essere messo a 0
+							if(packetsList.get(i).packet.getData()[j-1] == 0){
+								packetsList.get(i).packet.getData()[j] = 0;
+							}
 						}
 					}
 					iSlot++;
@@ -378,6 +381,8 @@ public class SendDispatcher {
 	}
 
 	private static boolean checkExpectedState(int state, String expectedState) {
+		//if expected state is null than return true. The frame will not requeued
+		if (expectedState==null) return true;
 		String s1 = String.valueOf(state);
 		String sState = s1.length() < 2 ? "0x0" + s1.toUpperCase() : "0x"
 				+ s1.toUpperCase();

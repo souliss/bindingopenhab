@@ -10,8 +10,10 @@ package org.openhab.binding.souliss.internal;
 
 import org.openhab.binding.souliss.SoulissBindingProvider;
 
+import org.openhab.binding.souliss.internal.network.typicals.Constants;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissNetworkParameter;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT31;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
@@ -68,26 +70,106 @@ public class SoulissGenericBindingProvider extends
 		int iNodeID = Integer.parseInt(sNameArray[1]);
 		int iSlot = Integer.parseInt(sNameArray[2]);
 		byte iBit = 0;
+		String sUseSlot = "";
+		// gestisce i casi particolari per T31 e T1A, per la presenza del terzo
+		// parametro
 		if (sNameArray.length > 3) {
-			iBit = Byte.parseByte(sNameArray[3]);
+			if (StateTraslator.stringToSOULISSTypicalCode(sTypical) == Constants.Souliss_T31)
+				sUseSlot = sNameArray[3];
+			else
+				iBit = Byte.parseByte(sNameArray[3]);
 		}
 
 		String sNote = item.getClass().getSimpleName();
 
-		SoulissGenericTypical soulitTypicalNew = TypicalFactory.getClass(
-				StateTraslator.stringToSOULISSTypicalCode(sTypical),
-				SoulissNetworkParameter.datagramsocket,
-				SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot, sNote,
-				iBit);
-		if (soulitTypicalNew != null) {
+		SoulissGenericTypical soulissTypicalNew = null;
+		// gestisce il caso particolare del T31.
+		// nel caso del T31 tre definizioni OH devono confluire in un unico
+		// Tipico Souliss
+		if (StateTraslator.stringToSOULISSTypicalCode(sTypical) == Constants.Souliss_T31) {
+			soulissTypicalNew = SoulissTypicalsRecipients
+					.getTypicalFromAddress(iNodeID, iSlot, 0);
+			
+			//creazione tipico, solo se non si tratta di un T31 al quale è stato aggiunto un parametro
+			if(soulissTypicalNew==null){
+				soulissTypicalNew = TypicalFactory.getClass(
+						StateTraslator.stringToSOULISSTypicalCode(sTypical),
+						SoulissNetworkParameter.datagramsocket,
+						SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot,
+						sNote, iBit, sUseSlot);
+			}
+			
+			if (soulissTypicalNew != null) {
+//in base al campo use slot inserisco nel tipico il nome item di riferimento				
+				switch (sUseSlot) { 
+				case Constants.Souliss_T31_Use_Of_Slot_SETPOINT:
+					((SoulissT31) soulissTypicalNew).setsItemNameSetpointValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeSetpointValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_STATECONTROL:
+					((SoulissT31) soulissTypicalNew).setsItemNameStateControlValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeStateControlValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_MEASURED:
+					((SoulissT31) soulissTypicalNew).setsItemNameMeasuredValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeMeasuredValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED:
+					((SoulissT31) soulissTypicalNew).setsItemNameSetAsMeasured(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeSetAsMeasured(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_HEATING:
+					((SoulissT31) soulissTypicalNew).setsItemNameHeatingValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeHeatingValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_COOLING:
+					((SoulissT31) soulissTypicalNew).setsItemNameCoolingValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeCoolingValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_FANOFF:
+					((SoulissT31) soulissTypicalNew).setsItemNameFanOffValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeFanOffValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_FANLOW:
+					((SoulissT31) soulissTypicalNew).setsItemNameFanLowValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeFanLowValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_FANMED:
+					((SoulissT31) soulissTypicalNew).setsItemNameFanMedValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeFanMedValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_FANHIGH:
+					((SoulissT31) soulissTypicalNew).setsItemNameFanHighValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeFanHighValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_HEATING_COOLING:
+					((SoulissT31) soulissTypicalNew).setsItemNameHeatingCoolingModeValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeHeatingCoolingModeValue(sNote);
+					break;
+				case Constants.Souliss_T31_Use_Of_Slot_FANAUTOMODE:
+					((SoulissT31) soulissTypicalNew).setsItemNameFanAutoModeValue(item.getName());
+					((SoulissT31) soulissTypicalNew).setsItemTypeAutoModeValue(sNote);
+					break;
+				}
+				LOGGER.info("Add parameter to T31 : " + sUseSlot);
+			}
+			}
+		
+			
+		//creazione tipico, solo se non si tratta di un T31 al quale è stato aggiunto un parametro
+		if(soulissTypicalNew==null){
+			soulissTypicalNew = TypicalFactory.getClass(
+					StateTraslator.stringToSOULISSTypicalCode(sTypical),
+					SoulissNetworkParameter.datagramsocket,
+					SoulissNetworkParameter.IPAddressOnLAN, iNodeID, iSlot,
+					sNote, iBit, sUseSlot);
+		}
+		
+		if (soulissTypicalNew != null) {
 			SoulissTypicalsRecipients.addTypical(item.getName(),
-					soulitTypicalNew);
 			SoulissNetworkParameter.nodes = SoulissTypicalsRecipients
 					.getNodeNumbers();
-		} else {
-			logger.debug("Typical Unknow");
-		}
-
+		} 
 	}
 
 	public void validateItemType(Item item, String bindingConfig)
