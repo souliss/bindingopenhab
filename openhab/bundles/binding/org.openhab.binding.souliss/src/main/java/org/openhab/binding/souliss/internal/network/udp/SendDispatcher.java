@@ -313,7 +313,7 @@ public class SendDispatcher {
 
 						// traduce il comando inviato con lo stato previsto e
 						// poi fa il confronto con lo stato attuale
-						if (logger.isDebugEnabled()) {
+						if (logger.isDebugEnabled() && typ!=null) {
 							String s1 = String.valueOf((int) typ.getState());
 							String sStateMemoria = s1.length() < 2 ? "0x0"
 									+ s1.toUpperCase() : "0x"
