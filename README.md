@@ -97,9 +97,9 @@ where Typicals can be T11, T12, T13, T16, T1A, T22, T31, T51, T52, T53, T57, D98
  useOfSlot   | Is used only for Typicals that works as T3					        | heating       |
 																		    	"   | cooling       |
 																				"   | measured      |
-																				"   | settpoint     |																																 
+																				"   | settpoint     |
 																				"   | setasmeasured |
-																				"   | heatingcooling|																																 
+																				"   | heatingcooling|
 																				"   | fanoff        |
 																				"   | fanautomode   |
 																				"   | fanhight      |
