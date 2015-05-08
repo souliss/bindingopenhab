@@ -123,18 +123,18 @@ Contact C2 "BIT 3" (GF_Soggiorno, TechnicView_Node3) {souliss="T1A:3:5:2"}
 Contact C3 "BIT 4" (GF_Soggiorno, TechnicView_Node3) {souliss="T1A:3:5:3"}
 Color  RGB_Led_Strip_1 "RGB Led Strip 1" <slider> (GF_Soggiorno)  {souliss="T16:0:2", autoupdate=false}
 
-Number Temperature_GF_Soggiorno 	"Temperatura Soggiorno [%.1f °C]"	<temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:measured"}
+Number Temperature_GF_Soggiorno 	"Temperature [%.1f °C]"	<temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:measured"}
 Number Temperature_2F_Living_SP	"Temp Set Point [%.1f °C]" 	<temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:setpoint"}
-String  caldaiaState "Stato caldaia [%s]"  <house> (T31, TechnicView_Node0) {souliss="T31:1:0:statecontrol"}
 Switch setasmeasured "Set as measured" <temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:setasmeasured"}
-Switch heating "Heating" (T31, TechnicView_Node0) {souliss="T31:1:0:heating" autoupdate="false"}
-Switch cooling "Cooling" (T31, TechnicView_Node0) {souliss="T31:1:0:cooling" autoupdate="false"}
-
-Contact fan1 "Fan 1" (T31, TechnicView_Node0) {souliss="T31:1:0:fan1"}
-Contact fan2 "Fan 2" (T31, TechnicView_Node0) {souliss="T31:1:0:fan2"}
-Contact fan3 "Fan 3" (T31, TechnicView_Node0) {souliss="T31:1:0:fan3"}
-Switch heatingmode "Heating Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:heatingmode autoupdate="false"}
-Contact manualmode "Manual Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:manualmode"}
+Switch heating_cooling "Heating Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:heatingcooling", autoupdate="false"}
+Contact heating "Heating" <siren>  (T31, TechnicView_Node0) {souliss="T31:1:0:heating"}
+Contact cooling "Cooling" <siren> (T31, TechnicView_Node0) {souliss="T31:1:0:cooling"}
+Switch fan_off "Fan Off" (T31, TechnicView_Node0) {souliss="T31:1:0:fanoff", autoupdate="false"}
+Switch fan_low "Fan Low" (T31, TechnicView_Node0) {souliss="T31:1:0:fanlow", autoupdate="false"}
+Switch fan_med "Fan Med" (T31, TechnicView_Node0) {souliss="T31:1:0:fanmed", autoupdate="false"}
+Switch fan_high "Fan High" (T31, TechnicView_Node0) {souliss="T31:1:0:fanhigh", autoupdate="false"}
+Switch fan_auto_mode "Fan Auto Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:fanautomode", autoupdate="false"}
+Switch shutdown "Shutdown" (T31, TechnicView_Node0) {souliss="T31:1:0:shutdown", autoupdate="false"}
 ```
 
 ### Service Typicals  ###
@@ -151,9 +151,9 @@ Use them as :
 Example:
 
 ```
-Number HEALTH_Nodo1_GF_Servizio "Health Nodo 1 [%1d]" <keyring> (Diagnostic, TechnicView_Node0) {souliss="D98:0:998"}
+Number HEALTH_Node1_GF_Service "Health Node 1 [%1d]" <keyring> (Diagnostic, TechnicView_Node0) {souliss="D98:0:998"}
 
-String TIMESTAMP_Nodo1_GF_Servizio "Timestamp Nodo 1 [%1$td.%1$tm.%1$tY %1$tk:%1$tM:%1$tS]" <keyring> (Diagnostic, TechnicView_Node0) {souliss="D99:0:999"}
+String TIMESTAMP_Node1_GF_Service "Timestamp Node 1 [%1$td.%1$tm.%1$tY %1$tk:%1$tM:%1$tS]" <keyring> (Diagnostic, TechnicView_Node0) {souliss="D99:0:999"}
 ```
 
 ### Download Binding Java Binary File ###
