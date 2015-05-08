@@ -87,25 +87,26 @@ define your own items and add to the end of each line of definition
 where Typicals can be T11, T12, T13, T16, T1A, T22, T31, T51, T52, T53, T57, D98, D99 (more will be supported in the future)
 
 ```
- Parameter   |            Description                                                                        | Range         |
--------------+-----------------------------------------------------------------------------------------------+---------------+
- nodeID      | Is the ID of the node, the first node listed in your !SoulissApp 							 | 1 - 254       |
- 			 |    has nodeID 1, increase for your further nodes    				    					     |               |
- slot        | Is the slot where your Typical is located, this is defined in the sketch loaded in your node  | 1 - 254       |
- bit         | Is used only for Typicals that works bitwise as T1A                                    		 |  1 - 8        |
- useOfSlot   | Is used only for Typicals that works as T3							                         | heating       |
-																										"    | cooling       |
-																										"    | measured      |
-																										"    | settpoint     |																																 
-																										"    | setasmeasured |
-																										"    | heatingcooling|																																 
-																										"    | fanoff        |
-																										"    | fanautomode   |
-																										"    | fanhight      |
-																										"    | fanmed        |
-																										"    | fanlow        |
-																										"    | shutdown		 |
--------------+-------------------------------------------------------------------------------------------------------------------+---------------+
+ Parameter   |            Description                                               | Range         |
+-------------+----------------------------------------------------------------------+---------------+
+ nodeID      | Is the ID of the node, the first node listed in your !SoulissApp 	| 1 - 254       |
+ 			 |    has nodeID 1, increase for your further nodes    				    |               |
+ slot        | Is the slot where your Typical is located, this is defined in 		| 1 - 254       |
+			 |    the sketch loaded in your node 									| 		        |
+ bit         | Is used only for Typicals that works bitwise as T1A                  |  1 - 8        |
+ useOfSlot   | Is used only for Typicals that works as T3					        | heating       |
+																		    	"   | cooling       |
+																				"   | measured      |
+																				"   | settpoint     |																																 
+																				"   | setasmeasured |
+																				"   | heatingcooling|																																 
+																				"   | fanoff        |
+																				"   | fanautomode   |
+																				"   | fanhight      |
+																				"   | fanmed        |
+																				"   | fanlow        |
+																				"   | shutdown		|
+-------------+----------------------------------------------------------------------+---------------+
 
 ```
 
