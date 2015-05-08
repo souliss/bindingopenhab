@@ -2,8 +2,9 @@
 
 ## Introduction ##
 
-OpenHAB is a vendor and technology agnostic open source automation software. 
-The code for networking activities of this binding is based on [AndroidApplication SoulissApp] code. It use the same approach getting from the gateway node the network structure and the relevant data. You can use [AndroidApplication SoulissApp] and the [openHAB_native openHAB binding] binding at same time.
+OpenHAB is a vendor and technology agnostic open source automation software. A *native binding* is  [available](https://github.com/souliss/bindingopenhab) in order to control and collect data from a Souliss network.
+
+The code for networking activities of this binding is based on [SoulissApp](SoulissApp) code. It use the same approach getting from the gateway node the network structure and the relevant data. You can use [SoulissApp](SoulissApp) and the *openHAB binding* binding at same time.
 
 ## General Configuration Requirements ##
 
