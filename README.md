@@ -95,7 +95,7 @@ where Typicals can be T11, T12, T13, T16, T1A, T22, T31, T51, T52, T53, T57, D98
  slot        | Is the slot where your Typical is located, this is defined in 		| 1 - 254       |
 			 |    the sketch loaded in your node 									| 		        |
  bit         | Is used only for Typicals that works bitwise as T1A                  |  1 - 8        |
- useOfSlot   | Is used only for Typicals that works as T3					        | heating       |
+ useOfSlot   | Is used only for Typicals that works as T31					        | heating       |
 																		    	"   | cooling       |
 																				"   | measured      |
 																				"   | settpoint     |
