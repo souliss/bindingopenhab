@@ -95,7 +95,6 @@ public class Monitor {
 						if (typ.getType() == Constants.Souliss_T31){
 							//qui inserimento dati per tipico 31
 							SoulissT31 typ31 = (SoulissT31) typ;
-							if(typ31.getsItemNameCommandState()!=null) eventPublisher.postUpdate(typ31.getsItemNameCommandState(),typ31.getOHCommandState());
 							if(typ31.getsItemNameMeasuredValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameMeasuredValue(),typ31.getOHStateMeasuredValue());
 							if(typ31.getsItemNameSetpointValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameSetpointValue(),typ31.getOHStateSetpointValue());
 							if(typ31.getsItemNameHeatingValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameHeatingValue(),typ31.getOHState_Heating());

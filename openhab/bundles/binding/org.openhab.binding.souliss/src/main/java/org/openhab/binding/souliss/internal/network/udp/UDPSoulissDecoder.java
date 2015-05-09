@@ -261,7 +261,7 @@ public class UDPSoulissDecoder {
 						 * Automatic Mode for Fan) BIT 7 (0 Heating Mode, 1
 						 * Cooling Mode)
 						 */
-
+ciontinuare adegumento T31
 						((SoulissT31) typ)
 								.setHeatingValue(getBitState(sVal, 1));
 						((SoulissT31) typ)
@@ -272,8 +272,8 @@ public class UDPSoulissDecoder {
 								.setFanHighValue(getBitState(sVal, 5));
 						((SoulissT31) typ).setFanAutoModeValue(getBitState(
 								sVal, 6));
-						((SoulissT31) typ)
-								.setHeatingCoolingModeValue(getBitState(sVal, 7));
+						((SoulissT31) typ).setCoolingValue(getBitState(sVal, 7));
+
 
 						// SLOT 1-2: Temperature Measured Value
 						val = getFloatAtSlot(mac, slot + 1);

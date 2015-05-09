@@ -150,6 +150,10 @@ public class SoulissGenericBindingProvider extends
 					((SoulissT31) soulissTypicalNew).setsItemNameFanAutoModeValue(item.getName());
 					((SoulissT31) soulissTypicalNew).setsItemTypeAutoModeValue(sNote);
 					break;
+				case Constants.Souliss_T31_Use_Of_Slot_SHUTDOWN:
+					((SoulissT31) soulissTypicalNew).shutdown.setName(item.getName());
+					((SoulissT31) soulissTypicalNew).shutdown.setNote(sNote);
+					break;
 				}
 				logger.info("Add parameter to T31 : " + sUseSlot);
 			}

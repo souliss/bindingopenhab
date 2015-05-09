@@ -71,8 +71,8 @@ public class SoulissT31 extends SoulissGenericTypical {
 	private boolean fanMedValue;
 	private boolean fanHighValue;
 	private boolean autoModeValue;
-	private boolean heatingCoolingModeValue;
-	
+	public SoulissT11 heatingCoolingModeValue;
+	public SoulissT11 shutdown;
 	
 	
 	/**
@@ -95,6 +95,8 @@ public class SoulissT31 extends SoulissGenericTypical {
 		this.setSlot(iSlot);
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_T31);
+		
+		shutdown= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 		//this.setNote(sOHType);  //eliminato, perchè il tipo di item viene impostato in fase di inserimento dei dati nel tipico, dentro SoulissGenericBindingProvider, metodo processBindingConfiguration
 	}
 
@@ -151,7 +153,7 @@ public class SoulissT31 extends SoulissGenericTypical {
 	}
 	
 	public State getOHState_HeatingCoolingMode() {
-		return getOHState(getsItemNameHeatingCoolingModeValue(), getsItemTypeHeatingCoolingModeValue(), isHeatingModeValue());
+		return heatingCoolingModeValue.getOHState();
 	}
 
 	public State getOHState_FanOff(){
@@ -528,14 +530,14 @@ public class SoulissT31 extends SoulissGenericTypical {
 		setUpdatedTrue();
 	}
 
-	public boolean isHeatingModeValue() {
-		return heatingCoolingModeValue;
-	}
-
-	public void setHeatingCoolingModeValue(boolean heatingCoolingModeValue) {
-		this.heatingCoolingModeValue = heatingCoolingModeValue;
-		setUpdatedTrue();
-	}
+//	public boolean isHeatingModeValue() {
+//		return heatingCoolingModeValue;
+//	}
+//
+//	public void setHeatingCoolingModeValue(boolean heatingCoolingModeValue) {
+//		this.heatingCoolingModeValue = heatingCoolingModeValue;
+//		setUpdatedTrue();
+//	}
 
 	@Override
 	public State getOHState() {

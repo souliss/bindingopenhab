@@ -214,6 +214,7 @@ public class Constants {
 	public static final String Souliss_T31_Use_Of_Slot_FANMED = "fanmed";
 	public static final String Souliss_T31_Use_Of_Slot_FANHIGH = "fanhigh";
 	public static final String Souliss_T31_Use_Of_Slot_FANAUTOMODE = "fanautomode";
+	public static final String Souliss_T31_Use_Of_Slot_SHUTDOWN = "shutdown";
 	
 	
 
@@ -278,4 +279,6 @@ public class Constants {
 	public static final String ConfigurationFileName_commands_to_states = "/properties/commands_to_states.properties";
 	
 	public static final String Openhab_RGB_TYPE = "HSBType";
+
+	
 }
