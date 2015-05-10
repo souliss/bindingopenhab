@@ -200,7 +200,7 @@ public class SoulissBinding<E> extends
 				}
 			}
 			// Set As Measured 
-			else if(itemName.equals(T31.getsItemNameSetAsMeasured())){
+			else if(itemName.equals(T31.setAsMeasured.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED + "_" + command.toString()));
 				} else if(itemName.equals(T31.heatingCoolingModeValue.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_HEATING_COOLING+ "_" + command.toString()));
@@ -217,9 +217,6 @@ public class SoulissBinding<E> extends
 				} else if(itemName.equals(T31.shutdown.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_SHUTDOWN+ "_" + command.toString()));
 				} 
-				
-			
-				
 			break;
 			
 		default:

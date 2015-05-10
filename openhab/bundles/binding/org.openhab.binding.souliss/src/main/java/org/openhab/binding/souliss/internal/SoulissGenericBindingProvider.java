@@ -111,8 +111,8 @@ public class SoulissGenericBindingProvider extends
 					((SoulissT31) soulissTypicalNew).setsItemTypeMeasuredValue(sNote);
 					break;
 				case Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED:
-					((SoulissT31) soulissTypicalNew).setsItemNameSetAsMeasured(item.getName());
-					((SoulissT31) soulissTypicalNew).setsItemTypeSetAsMeasured(sNote);
+					((SoulissT31) soulissTypicalNew).setAsMeasured.setName(item.getName());
+					((SoulissT31) soulissTypicalNew).setAsMeasured.setNote(sNote);
 					break;
 				case Constants.Souliss_T31_Use_Of_Slot_HEATING:
 					((SoulissT31) soulissTypicalNew).heating.setName(item.getName());

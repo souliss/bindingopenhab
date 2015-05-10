@@ -30,18 +30,13 @@ public class SoulissT31 extends SoulissGenericTypical {
 	
 	private String sItemNameMeasuredValue;
 	private String sItemTypeMeasuredValue;
-	
-	private String sItemNameSetAsMeasured;
-	private String sItemTypeSetAsMeasured;
-
-	private String sItemTypeCoolingValue;	
-	private String sItemNameCoolingValue;
 
 	private short sRawCommandState;
 	private Float TemperatureSetpointValue;
 	private Float MeasuredValue;
 	
 	public SoulissT11 heatingCoolingModeValue;
+	public SoulissT11 setAsMeasured;
 	public SoulissT11 shutdown;
 	public SoulissT11 heating;
 	public SoulissT11 cooling;
@@ -81,6 +76,7 @@ public class SoulissT31 extends SoulissGenericTypical {
 		fanLow= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 		fanAutoMode= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 		fanOff= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
+		setAsMeasured= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 		
 	}
 
@@ -127,28 +123,6 @@ public class SoulissT31 extends SoulissGenericTypical {
 //	#define Souliss_T3n_SetTemp				0x0C
 //	#define Souliss_T3n_ShutDown			0x0D
 	
-	/**
-	 * Returns a type used by openHAB to show the actual state of the souliss' typical
-	 * @return org.openhab.core.types.State
-	 */
-	public State getOHState(String sItemName, String sType, boolean bState) {
-		short shortState;
-		if (bState)
-			shortState=Constants.Souliss_T1n_OnCoil;
-		else
-			shortState=Constants.Souliss_T1n_OffCoil;
-			
-		//String sOHState = StateTraslator.statesSoulissToOH(sType + "_" + sItemName,this.getType(), shortState);
-		String sOHState = StateTraslator.statesSoulissToOH(sType,this.getType(), shortState);
-		if (sOHState != null) {
-			if (sType.equals("ContactItem"))
-				return OpenClosedType.valueOf(sOHState);
-			else
-				return OnOffType.valueOf(sOHState);
-		}
-		return null;
-	}
-
 	public State getOHStateMeasuredValue() {
 		String sOHState = StateTraslator.statesSoulissToOH(this.getsItemTypeMeasuredValue(),
 				this.getType(), (short) this.getState());
@@ -179,10 +153,6 @@ public class SoulissT31 extends SoulissGenericTypical {
 				return null;
 		} else
 			return DecimalType.valueOf(sOHState);
-	}
-
-	public State getOHCommandState() {
-		return StringType.valueOf(String.valueOf(sRawCommandState));
 	}
 
 	public String getsItemNameMeasuredValue() {
@@ -244,22 +214,6 @@ public class SoulissT31 extends SoulissGenericTypical {
 
 	public String getsItemTypeSetpointValue() {
 		return sItemTypeSetpointValue;
-	}
-
-	public Object getsItemNameSetAsMeasured() {
-		return sItemNameSetAsMeasured;
-	}
-
-	public void setsItemNameSetAsMeasured(String sItemNameSetAsMeasured) {
-		this.sItemNameSetAsMeasured = sItemNameSetAsMeasured;
-	}
-
-	public Object getsItemTypeSetAsMeasured() {
-		return sItemTypeSetAsMeasured;
-	}
-
-	public void setsItemTypeSetAsMeasured(String sItemNameSetAsMeasured) {
-		this.sItemTypeSetAsMeasured = sItemNameSetAsMeasured;
 	}
 	
 	@Override
