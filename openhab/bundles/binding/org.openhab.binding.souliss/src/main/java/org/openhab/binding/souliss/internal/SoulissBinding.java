@@ -202,17 +202,17 @@ public class SoulissBinding<E> extends
 			// Set As Measured 
 			else if(itemName.equals(T31.getsItemNameSetAsMeasured())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED + "_" + command.toString()));
-				} else if(itemName.equals(T31.getsItemNameHeatingCoolingModeValue())){
+				} else if(itemName.equals(T31.heatingCoolingModeValue.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_HEATING_COOLING+ "_" + command.toString()));
-				} else if(itemName.equals(T31.getsItemNameFanAutoModeValue())){
+				} else if(itemName.equals(T31.fanAutoMode.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANAUTOMODE+ "_" + command.toString()));
-				} else if(itemName.equals(T31.getsItemNameFanOffValue())){
+				} else if(itemName.equals(T31.fanOff.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANOFF+ "_" + command.toString()));
-				} else if(itemName.equals(T31.getsItemNameFanLowValue())){
+				} else if(itemName.equals(T31.fanLow.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANLOW+ "_" + command.toString()));
-				} else if(itemName.equals(T31.getsItemNameFanMedValue())){
+				} else if(itemName.equals(T31.fanMed.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANMED+ "_" + command.toString()));
-				} else if(itemName.equals(T31.getsItemNameFanHighValue())){
+				} else if(itemName.equals(T31.fanHigh.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANHIGH+ "_" + command.toString()));
 				} else if(itemName.equals(T31.shutdown.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_SHUTDOWN+ "_" + command.toString()));

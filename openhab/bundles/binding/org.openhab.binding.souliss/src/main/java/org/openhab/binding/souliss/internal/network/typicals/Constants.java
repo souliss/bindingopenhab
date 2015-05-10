@@ -202,7 +202,6 @@ public class Constants {
 	// General defines for T3n
 	public static final String Souliss_T31_Use_Of_Slot_SETPOINT = "setpoint";
 	public static final String Souliss_T31_Use_Of_Slot_MEASURED = "measured";
-	public static final String Souliss_T31_Use_Of_Slot_STATECONTROL = "statecontrol";
 	public static final String Souliss_T31_Use_Of_Slot_SETASMEASURED = "setasmeasured";
 	
 	public static final String Souliss_T31_Use_Of_Slot_SETPOINT_COMMAND = "settemp";
