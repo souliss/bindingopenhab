@@ -129,8 +129,8 @@ Number Temperature_GF_Soggiorno 	"Temperature [%.1f °C]"	<temperature> (T31, Te
 Number Temperature_2F_Living_SP	"Temp Set Point [%.1f °C]" 	<temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:setpoint"}
 Switch setasmeasured "Set as measured" <temperature> (T31, TechnicView_Node0) {souliss="T31:1:0:setasmeasured"}
 Switch heating_cooling "Heating Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:heatingcooling", autoupdate="false"}
-Contact heating "Heating" <siren>  (T31, TechnicView_Node0) {souliss="T31:1:0:heating"}
-Contact cooling "Cooling" <siren> (T31, TechnicView_Node0) {souliss="T31:1:0:cooling"}
+Switch heating "Heating" <siren>  (T31, TechnicView_Node0) {souliss="T31:1:0:heating"}
+Switch cooling "Cooling" <siren> (T31, TechnicView_Node0) {souliss="T31:1:0:cooling"}
 Switch fan_off "Fan Off" (T31, TechnicView_Node0) {souliss="T31:1:0:fanoff", autoupdate="false"}
 Switch fan_low "Fan Low" (T31, TechnicView_Node0) {souliss="T31:1:0:fanlow", autoupdate="false"}
 Switch fan_med "Fan Med" (T31, TechnicView_Node0) {souliss="T31:1:0:fanmed", autoupdate="false"}
