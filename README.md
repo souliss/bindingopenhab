@@ -104,7 +104,7 @@ define your own items and add to the end of each line of definition
 																				"   | heatingcooling|
 																				"   | fanoff        |
 																				"   | fanautomode   |
-																				"   | fanhight      |
+																				"   | fanhigh      |
 																				"   | fanmed        |
 																				"   | fanlow        |
 																				"   | shutdown		|
