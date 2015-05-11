@@ -213,7 +213,7 @@ public class Constants {
 	public static final String Souliss_T31_Use_Of_Slot_FANMED = "fanmed";
 	public static final String Souliss_T31_Use_Of_Slot_FANHIGH = "fanhigh";
 	public static final String Souliss_T31_Use_Of_Slot_FANAUTOMODE = "fanautomode";
-	public static final String Souliss_T31_Use_Of_Slot_SHUTDOWN = "shutdown";
+	public static final String Souliss_T31_Use_Of_Slot_POWER = "power";
 	
 	
 

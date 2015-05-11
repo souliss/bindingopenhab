@@ -34,7 +34,6 @@ import org.openhab.binding.souliss.internal.network.udp.SendDispatcher;
 import org.openhab.binding.souliss.internal.network.udp.UDPServerThread;
 
 import org.openhab.core.binding.AbstractActiveBinding;
-import org.openhab.core.binding.BindingProvider;
 import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.library.types.PercentType;
 import org.openhab.core.types.Command;
@@ -214,8 +213,8 @@ public class SoulissBinding<E> extends
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANMED+ "_" + command.toString()));
 				} else if(itemName.equals(T31.fanHigh.getName())){
 					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANHIGH+ "_" + command.toString()));
-				} else if(itemName.equals(T31.shutdown.getName())){
-					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_SHUTDOWN+ "_" + command.toString()));
+				} else if(itemName.equals(T31.power.getName())){
+					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_POWER+ "_" + command.toString()));
 				} 
 			break;
 			

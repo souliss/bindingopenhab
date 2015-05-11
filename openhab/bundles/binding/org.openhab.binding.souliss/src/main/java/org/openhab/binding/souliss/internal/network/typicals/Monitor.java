@@ -97,6 +97,7 @@ public class Monitor {
 							SoulissT31 typ31 = (SoulissT31) typ;
 							if(typ31.getsItemNameMeasuredValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameMeasuredValue(),typ31.getOHStateMeasuredValue());
 							if(typ31.getsItemNameSetpointValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameSetpointValue(),typ31.getOHStateSetpointValue());
+							if(typ31.power.getName()!=null) eventPublisher.postUpdate(typ31.power.getName(),typ31.power.getOHState());
 							if(typ31.heating.getName()!=null) eventPublisher.postUpdate(typ31.heating.getName(),typ31.heating.getOHState());
 							if(typ31.cooling.getName()!=null) eventPublisher.postUpdate(typ31.cooling.getName(),typ31.cooling.getOHState());
 							if(typ31.heatingCoolingModeValue.getName()!=null) eventPublisher.postUpdate(typ31.heatingCoolingModeValue.getName(),typ31.heatingCoolingModeValue.getOHState());

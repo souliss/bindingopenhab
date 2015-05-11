@@ -264,6 +264,7 @@ public class UDPSoulissDecoder {
 						 * BIT 7 (0 Heating Mode, 1 Cooling Mode)
 						 */
 
+						((SoulissT31) typ).power.setState(getBitState(sVal, 0));
 						((SoulissT31) typ).heating.setState(getBitState(sVal, 1));
 						((SoulissT31) typ).cooling.setState(getBitState(sVal, 2));
 						((SoulissT31) typ).fanLow.setState(getBitState(sVal, 3));

@@ -12,9 +12,6 @@ import java.net.DatagramSocket;
 
 import org.openhab.binding.souliss.internal.network.udp.SoulissCommGate;
 import org.openhab.core.library.types.DecimalType;
-import org.openhab.core.library.types.OnOffType;
-import org.openhab.core.library.types.OpenClosedType;
-import org.openhab.core.library.types.StringType;
 import org.openhab.core.types.State;
 
 /**
@@ -37,7 +34,7 @@ public class SoulissT31 extends SoulissGenericTypical {
 	
 	public SoulissT11 heatingCoolingModeValue;
 	public SoulissT11 setAsMeasured;
-	public SoulissT11 shutdown;
+	public SoulissT11 power;
 	public SoulissT11 heating;
 	public SoulissT11 cooling;
 	public SoulissT11 fanHigh;
@@ -67,7 +64,7 @@ public class SoulissT31 extends SoulissGenericTypical {
 		this.setSoulissNodeID(iIDNodo);
 		this.setType(Constants.Souliss_T31);
 		
-		shutdown= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
+		power= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 		heatingCoolingModeValue= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 		heating= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
 		cooling= new SoulissT11(_datagramsocket, sSoulissNodeIPAddressOnLAN, iIDNodo, iSlot, sOHType);
@@ -107,7 +104,7 @@ public class SoulissT31 extends SoulissGenericTypical {
 				SoulissNetworkParameter.IPAddressOnLAN,
 				this.getSoulissNodeID(), this.getSlot(), command, B1, B2);
 }
-//	DA INVIARE TUTTI COMANDI
+//	T31 Commands
 //	
 //	#define Souliss_T3n_InSetPoint			0x01
 //	#define Souliss_T3n_OutSetPoint			0x02
