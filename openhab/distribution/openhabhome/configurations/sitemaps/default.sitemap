@@ -7,13 +7,15 @@ Frame label="Gruppo termostato" {
 Frame label="Termostato" {
 		Setpoint item=Temperature_2F_Living_SP step=0.5 minValue=10 maxValue=30
 		Text item=Temperature_GF_Soggiorno 
-		Text item=caldaiaState label="Stato caldaia [%s]"
 		Switch item=setasmeasured mappings=[ON="Set"] 
 		Switch item=heating_cooling label="Mode" mappings=[ON="Heating", OFF="Cooling"]
 		Switch item=fan_auto_mode label= "Fan Auto Mode" mappings=[ON="Auto", OFF="Manual"]  
 		Switch item=fan_off label="Fan Off" mappings=[OFF="Set"] 
 		Switch item=fan_low label="Fan Low" mappings=[ON="Set"] 
 		Switch item=fan_med label="Fan Med" mappings=[ON="Set"] 
-		Switch item=fan_high label="Fan High" mappings=[ON="Set"] 
+		Switch item=fan_high label="Fan High" mappings=[ON="Set"]
+		Text item=heating
+		Text item=cooling
+		Switch item=power mappings=[ON="Power Off"]
 	}	
 }
