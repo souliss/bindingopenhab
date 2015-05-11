@@ -136,7 +136,7 @@ Switch fan_low "Fan Low" (T31, TechnicView_Node0) {souliss="T31:1:0:fanlow", aut
 Switch fan_med "Fan Med" (T31, TechnicView_Node0) {souliss="T31:1:0:fanmed", autoupdate="false"}
 Switch fan_high "Fan High" (T31, TechnicView_Node0) {souliss="T31:1:0:fanhigh", autoupdate="false"}
 Switch fan_auto_mode "Fan Auto Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:fanautomode", autoupdate="false"}
-Switch shutdown "Shutdown" (T31, TechnicView_Node0) {souliss="T31:1:0:shutdown", autoupdate="false"}
+Switch shutdown "Shutdown" (T31, TechnicView_Node0) {souliss="T31:1:0:shutdown"}
 ```
 
 ### Service Typicals  ###

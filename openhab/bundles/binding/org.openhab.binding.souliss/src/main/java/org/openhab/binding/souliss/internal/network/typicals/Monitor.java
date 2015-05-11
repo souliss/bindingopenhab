@@ -95,16 +95,15 @@ public class Monitor {
 						if (typ.getType() == Constants.Souliss_T31){
 							//qui inserimento dati per tipico 31
 							SoulissT31 typ31 = (SoulissT31) typ;
-							if(typ31.getsItemNameCommandState()!=null) eventPublisher.postUpdate(typ31.getsItemNameCommandState(),typ31.getOHCommandState());
 							if(typ31.getsItemNameMeasuredValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameMeasuredValue(),typ31.getOHStateMeasuredValue());
 							if(typ31.getsItemNameSetpointValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameSetpointValue(),typ31.getOHStateSetpointValue());
-							if(typ31.getsItemNameHeatingValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameHeatingValue(),typ31.getOHState_Heating());
-							if(typ31.getsItemNameCoolingValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameCoolingValue(),typ31.getOHState_Cooling());
-							if(typ31.getsItemNameHeatingCoolingModeValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameHeatingCoolingModeValue(),typ31.getOHState_HeatingCoolingMode());
-							if(typ31.getsItemNameFanLowValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameFanLowValue(),typ31.getOHState_Fan1());
-							if(typ31.getsItemNameFanMedValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameFanMedValue(),typ31.getOHState_Fan2());
-							if(typ31.getsItemNameFanHighValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameFanHighValue(),typ31.getOHState_Fan3());
-							if(typ31.getsItemNameFanAutoModeValue()!=null) eventPublisher.postUpdate(typ31.getsItemNameFanAutoModeValue(),typ31.getOHState_FanAutoMode());							
+							if(typ31.heating.getName()!=null) eventPublisher.postUpdate(typ31.heating.getName(),typ31.heating.getOHState());
+							if(typ31.cooling.getName()!=null) eventPublisher.postUpdate(typ31.cooling.getName(),typ31.cooling.getOHState());
+							if(typ31.heatingCoolingModeValue.getName()!=null) eventPublisher.postUpdate(typ31.heatingCoolingModeValue.getName(),typ31.heatingCoolingModeValue.getOHState());
+							if(typ31.fanHigh.getName()!=null) eventPublisher.postUpdate(typ31.fanHigh.getName(),typ31.fanHigh.getOHState());
+							if(typ31.fanMed.getName()!=null) eventPublisher.postUpdate(typ31.fanMed.getName(),typ31.fanMed.getOHState());
+							if(typ31.fanLow.getName()!=null) eventPublisher.postUpdate(typ31.fanLow.getName(),typ31.fanLow.getOHState());
+							if(typ31.fanAutoMode.getName()!=null) eventPublisher.postUpdate(typ31.fanAutoMode.getName(),typ31.fanAutoMode.getOHState());							
 						}
 						
 						else {
