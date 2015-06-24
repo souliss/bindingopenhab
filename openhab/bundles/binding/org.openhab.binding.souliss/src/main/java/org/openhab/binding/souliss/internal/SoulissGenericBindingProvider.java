@@ -17,7 +17,6 @@ import org.openhab.binding.souliss.internal.network.typicals.SoulissT31;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissTypicals;
 import org.openhab.binding.souliss.internal.network.typicals.StateTraslator;
 import org.openhab.binding.souliss.internal.network.typicals.TypicalFactory;
-import org.openhab.core.binding.BindingChangeListener;
 import org.openhab.core.items.Item;
 import org.openhab.model.item.binding.AbstractGenericBindingProvider;
 import org.openhab.model.item.binding.BindingConfigParseException;
