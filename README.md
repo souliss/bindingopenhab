@@ -107,7 +107,7 @@ define your own items and add to the end of each line of definition
 																				"   | fanhigh      |
 																				"   | fanmed        |
 																				"   | fanlow        |
-																				"   | shutdown		|
+																				"   | power		|
 -------------+----------------------------------------------------------------------+---------------+
 
 ```
@@ -135,8 +135,7 @@ Switch fan_off "Fan Off" (T31, TechnicView_Node0) {souliss="T31:1:0:fanoff", aut
 Switch fan_low "Fan Low" (T31, TechnicView_Node0) {souliss="T31:1:0:fanlow", autoupdate="false"}
 Switch fan_med "Fan Med" (T31, TechnicView_Node0) {souliss="T31:1:0:fanmed", autoupdate="false"}
 Switch fan_high "Fan High" (T31, TechnicView_Node0) {souliss="T31:1:0:fanhigh", autoupdate="false"}
-Switch fan_auto_mode "Fan Auto Mode" (T31, TechnicView_Node0) {souliss="T31:1:0:fanautomode", autoupdate="false"}
-Switch shutdown "Shutdown" (T31, TechnicView_Node0) {souliss="T31:1:0:shutdown"}
+Switch power "Power Off" (T31, TechnicView_Node0) {souliss="T31:1:0:power"}
 ```
 
 ### Service Typicals  ###
