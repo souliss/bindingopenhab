@@ -21,7 +21,9 @@ import org.openhab.binding.souliss.internal.network.typicals.RefreshSUBSCRIPTION
 import org.openhab.binding.souliss.internal.network.typicals.SoulissGenericTypical;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT11;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT12;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT14;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT16;
+import org.openhab.binding.souliss.internal.network.typicals.SoulissT18;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT19;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT21;
 import org.openhab.binding.souliss.internal.network.typicals.SoulissT22;
@@ -148,6 +150,16 @@ public class SoulissBinding<E> extends
 		case Constants.Souliss_T12:
 			SoulissT12 T12 = (SoulissT12) T;
 			T12.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+					command.toString()));
+			break;
+		case Constants.Souliss_T14:
+			SoulissT14 T14 = (SoulissT14) T;
+			T14.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+					command.toString()));
+			break;
+		case Constants.Souliss_T18:
+			SoulissT18 T18 = (SoulissT18) T;
+			T18.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 					command.toString()));
 			break;
 		case Constants.Souliss_T16:
