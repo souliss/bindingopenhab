@@ -63,6 +63,9 @@ public class SoulissGenericBindingProvider extends
 		// logic with a predefined set of inputs and outputs and a know
 		// behavior, are used to standardize the user interface and have a
 		// configuration-less behavior.
+		final String itemName = item.getName();
+		logger.trace("Starting to load Souliss config for item {}", itemName);
+		
 		super.processBindingConfiguration(context, item, bindingConfig);
 		String[] sNameArray = bindingConfig.split("\\:");
 		String sTypical = sNameArray[0];
@@ -169,12 +172,11 @@ public class SoulissGenericBindingProvider extends
 							soulissTypicalNew);
 					SoulissNetworkParameter.nodes = SoulissTypicalsRecipients
 							.getNodeNumbers();
-				} 
-	}
-
+				}
+	}		
+	
 	public void validateItemType(Item item, String bindingConfig)
 			throws BindingConfigParseException {
 		logger.trace("validateItemType for item {} called with bindingConfig={}", item.getName(), bindingConfig);
 	}
-
 }

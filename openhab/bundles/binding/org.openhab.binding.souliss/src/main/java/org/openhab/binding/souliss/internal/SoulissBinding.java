@@ -38,7 +38,6 @@ import org.openhab.core.binding.BindingProvider;
 import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.library.types.PercentType;
 import org.openhab.core.types.Command;
-import org.openhab.core.types.State;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.slf4j.Logger;
@@ -335,11 +334,6 @@ public class SoulissBinding<E> extends
 
 	@Override
 	protected void execute() {
-
-//		if (!bindingsExist()) {
-//			logger.debug("There is no existing Souliss binding configuration => refresh cycle aborted!");
-//			return;
-//		}
 		
 		if(timers.checkTime(0,SoulissNetworkParameter.REFRESH_MONITOR_TIME)){
 			mon.tick();
@@ -389,6 +383,13 @@ public class SoulissBinding<E> extends
 	@Override
 	protected String getName() {
 		return "Souliss Refresh Service";
+	}
+
+	@Override
+	public void bindingChanged(BindingProvider provider, String itemName) {
+		// TODO Auto-generated method stub
+		super.bindingChanged(provider, itemName);
+		this.addBindingProvider((SoulissBindingProvider) provider);
 	}
 
 }
