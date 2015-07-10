@@ -149,8 +149,13 @@ public class SoulissBinding<E> extends
 			break;
 		case Constants.Souliss_T12:
 			SoulissT12 T12 = (SoulissT12) T;
-			T12.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
-					command.toString()));
+			
+			if(itemName.equals(T12.getsItemNameAutoModeValue())){
+				T12.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T12_Use_Of_Slot_AUTOMODE + "_" + command.toString()));
+			} else if(itemName.equals(T12.getsItemNameSwitchValue())){
+				T12.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T12_Use_Of_Slot_SWITCH + "_" + command.toString()));
+			}
+				
 			break;
 		case Constants.Souliss_T14:
 			SoulissT14 T14 = (SoulissT14) T;
@@ -213,21 +218,21 @@ public class SoulissBinding<E> extends
 			}
 			// Set As Measured 
 			else if(itemName.equals(T31.setAsMeasured.getName())){
-					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED + "_" + command.toString()));
+					T31.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_SETASMEASURED + "_" + command.toString()));
 				} else if(itemName.equals(T31.heatingCoolingModeValue.getName())){
-					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_HEATING_COOLING+ "_" + command.toString()));
+					T31.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_HEATING_COOLING+ "_" + command.toString()));
 				} else if(itemName.equals(T31.fanAutoMode.getName())){
-					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANAUTOMODE+ "_" + command.toString()));
+					T31.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANAUTOMODE+ "_" + command.toString()));
 				} else if(itemName.equals(T31.fanOff.getName())){
-					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANOFF+ "_" + command.toString()));
+					T31.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANOFF+ "_" + command.toString()));
 				} else if(itemName.equals(T31.fanLow.getName())){
-					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANLOW+ "_" + command.toString()));
+					T31.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANLOW+ "_" + command.toString()));
 				} else if(itemName.equals(T31.fanMed.getName())){
-					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANMED+ "_" + command.toString()));
+					T31.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANMED+ "_" + command.toString()));
 				} else if(itemName.equals(T31.fanHigh.getName())){
-					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANHIGH+ "_" + command.toString()));
+					T31.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_FANHIGH+ "_" + command.toString()));
 				} else if(itemName.equals(T31.power.getName())){
-					T31.CommandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_POWER+ "_" + command.toString()));
+					T31.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),	Constants.Souliss_T31_Use_Of_Slot_POWER+ "_" + command.toString()));
 				} 
 			break;
 			

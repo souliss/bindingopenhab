@@ -95,7 +95,7 @@ public class SoulissT31 extends SoulissGenericTypical {
 	 * 
 	 * @param command
 	 */
-	public void CommandSEND(short command) {
+	public void commandSEND(short command) {
 		SoulissCommGate.sendFORCEFrame(SoulissNetworkParameter.datagramsocket,
 				SoulissNetworkParameter.IPAddressOnLAN,
 				this.getSoulissNodeID(), this.getSlot(), command);
