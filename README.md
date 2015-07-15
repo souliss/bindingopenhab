@@ -96,7 +96,7 @@ define your own items and add to the end of each line of definition
  slot        | Is the slot where your Typical is located, this is defined in 		| 1 - 254       |
 			 |    the sketch loaded in your node 									| 		        |
  bit         | Is used only for Typicals that works bitwise as T1A                  |  1 - 8        |
- useOfSlot   | Is used only for Typicals that works as T3					        | heating       |
+ useOfSlot   | Is used only for Typicals that works as T31 and T12			        | heating       |
 																		    	"   | cooling       |
 																				"   | measured      |
 																				"   | settpoint     |
@@ -104,10 +104,12 @@ define your own items and add to the end of each line of definition
 																				"   | heatingcooling|
 																				"   | fanoff        |
 																				"   | fanautomode   |
-																				"   | fanhigh      |
+																				"   | fanhigh		|
 																				"   | fanmed        |
 																				"   | fanlow        |
-																				"   | power		|
+																				"   | power	  		|
+																				"   | switch		|
+																				"   | automode		|
 -------------+----------------------------------------------------------------------+---------------+
 
 ```
@@ -136,6 +138,9 @@ Switch fan_low "Fan Low" (T31, TechnicView_Node0) {souliss="T31:1:0:fanlow", aut
 Switch fan_med "Fan Med" (T31, TechnicView_Node0) {souliss="T31:1:0:fanmed", autoupdate="false"}
 Switch fan_high "Fan High" (T31, TechnicView_Node0) {souliss="T31:1:0:fanhigh", autoupdate="false"}
 Switch power "Power Off" (T31, TechnicView_Node0) {souliss="T31:1:0:power"}
+
+Switch SwitchAutoMode 	"T12" 		(GF_Soggiorno, TechnicView_Node3) {souliss="T12:3:0:switch", autoupdate="false"}
+Switch SwitchAutoMode_setup 	"Auto" 		(GF_Soggiorno, TechnicView_Node3) {souliss="T12:3:0:automode", autoupdate="false"
 ```
 
 ### Service Typicals  ###
