@@ -186,11 +186,14 @@ public class SoulissBinding<E> extends
 		case Constants.Souliss_T19:
 			SoulissT19 T19 = (SoulissT19) T;
 			if (command instanceof PercentType) {
-				int percentToShort = (((PercentType) command).shortValue() * 255 / 100);
+				int percentToShort = (((PercentType) command).shortValue() * 254 / 100);
 				T19.commandSEND(Constants.Souliss_T1n_Set,
 						Short.parseShort(String.valueOf(percentToShort)));
-			} else
-				T19.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
+			} else if (command instanceof DecimalType){
+				int decimalToShort = (((DecimalType) command).shortValue() * 254 / 100);
+				T19.commandSEND(Constants.Souliss_T1n_Set,
+						Short.parseShort(String.valueOf(decimalToShort)));
+			}else T19.commandSEND(StateTraslator.commandsOHtoSOULISS(T.getType(),
 						command.toString()));
 			break;
 		case Constants.Souliss_T21:
