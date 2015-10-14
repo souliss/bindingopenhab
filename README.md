@@ -85,7 +85,7 @@ define your own items and add to the end of each line of definition
  {souliss=<Typical>:<nodeID>:<slot>:[<bit>]}
  ```
  
- where Typicals can be T11, T12, T13, T16, T1A, T22, T31, T51, T52, T53, T57, D98, D99 (more will be supported in the future)
+ where Typicals can be T11, T12, T13, T14, T16, T1A, T22, T31, T51, T52, T53, T57, D98, D99 (more will be supported in the future)
 
 
 ```
