@@ -140,7 +140,13 @@ Switch fan_high "Fan High" (T31, TechnicView_Node0) {souliss="T31:1:0:fanhigh", 
 Switch power "Power Off" (T31, TechnicView_Node0) {souliss="T31:1:0:power"}
 
 Switch SwitchAutoMode 	"T12" 		(GF_Soggiorno, TechnicView_Node3) {souliss="T12:3:0:switch", autoupdate="false"}
-Switch SwitchAutoMode_setup 	"Auto" 		(GF_Soggiorno, TechnicView_Node3) {souliss="T12:3:0:automode", autoupdate="false"
+Switch SwitchAutoMode_setup 	"Auto" 		(GF_Soggiorno, TechnicView_Node3) {souliss="T12:3:0:automode", autoupdate="false"}
+Dimmer dimmerLed "Display [%.1f %%]"  (TechnicView_Node1) {souliss="T19:1:9"}
+```
+
+An example of the *.sitemap* configuration files is below, consider that openHAB has its own syntax for the configuration files.
+```
+Slider item=dimmerLed step=10 minValue=0 maxValue=100
 ```
 
 ### Service Typicals  ###
