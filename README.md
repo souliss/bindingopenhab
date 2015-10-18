@@ -1,6 +1,6 @@
 # openHAB Native Binding for Souliss #
 
-## Introduction ##
+[![](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/orgs/souliss/rooms#)
 
 OpenHAB is a vendor and technology agnostic open source automation software. A *native binding* is  [available](https://github.com/souliss/bindingopenhab) in order to control and collect data from a Souliss network.
 
