@@ -1,6 +1,6 @@
 # openHAB Native Binding for Souliss #
 
-## Introduction ##
+[![](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/orgs/souliss/rooms#)
 
 OpenHAB is a vendor and technology agnostic open source automation software. A *native binding* is  [available](https://github.com/souliss/bindingopenhab) in order to control and collect data from a Souliss network.
 
@@ -85,7 +85,7 @@ define your own items and add to the end of each line of definition
  {souliss=<Typical>:<nodeID>:<slot>:[<bit>]}
  ```
  
- where Typicals can be T11, T12, T13, T16, T1A, T22, T31, T51, T52, T53, T57, D98, D99 (more will be supported in the future)
+ where Typicals can be T11, T12, T13, T14, T16, T1A, T22, T31, T51, T52, T53, T57, D98, D99 (more will be supported in the future)
 
 
 ```
@@ -140,7 +140,13 @@ Switch fan_high "Fan High" (T31, TechnicView_Node0) {souliss="T31:1:0:fanhigh", 
 Switch power "Power Off" (T31, TechnicView_Node0) {souliss="T31:1:0:power"}
 
 Switch SwitchAutoMode 	"T12" 		(GF_Soggiorno, TechnicView_Node3) {souliss="T12:3:0:switch", autoupdate="false"}
-Switch SwitchAutoMode_setup 	"Auto" 		(GF_Soggiorno, TechnicView_Node3) {souliss="T12:3:0:automode", autoupdate="false"
+Switch SwitchAutoMode_setup 	"Auto" 		(GF_Soggiorno, TechnicView_Node3) {souliss="T12:3:0:automode", autoupdate="false"}
+Dimmer dimmerLed "Display [%.1f %%]"  (TechnicView_Node1) {souliss="T19:1:9"}
+```
+
+An example of the *.sitemap* configuration files is below, consider that openHAB has its own syntax for the configuration files.
+```
+Slider item=dimmerLed step=10 minValue=0 maxValue=100
 ```
 
 ### Service Typicals  ###
