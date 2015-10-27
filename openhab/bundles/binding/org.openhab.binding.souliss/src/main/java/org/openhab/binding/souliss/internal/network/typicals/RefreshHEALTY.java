@@ -38,7 +38,7 @@ public class RefreshHEALTY {
 	}
 
 	public void tick() {
-			logger.info("sendHEALTY_REQUESTframe");
+			logger.debug("sendHEALTY_REQUESTframe");
 			SoulissCommGate.sendHEALTY_REQUESTframe(socket,
 					soulissNodeIPAddressOnLAN,
 					SoulissNetworkParameter.nodes);

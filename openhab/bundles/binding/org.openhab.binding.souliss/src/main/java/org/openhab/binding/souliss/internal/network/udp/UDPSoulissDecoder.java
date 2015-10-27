@@ -67,7 +67,7 @@ public class UDPSoulissDecoder {
 		switch (functionalCode) {
 
 		case (byte) ConstantsUDP.Souliss_UDP_function_ping_resp:
-			logger.info("function_ping_resp");
+			logger.debug("function_ping_resp");
 			decodePing(macacoPck);
 			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_subscribe_resp:
@@ -79,31 +79,31 @@ public class UDPSoulissDecoder {
 		case ConstantsUDP.Souliss_UDP_function_typreq_resp:// Answer for
 															// assigned
 			// typical logic
-			logger.info("** TypReq answer");
+			logger.debug("** TypReq answer");
 			decodeTypRequest(macacoPck);
 			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_health_resp:// Answer
 																	// nodes
 																	// healty
-			logger.info("function_health_resp");
+			logger.debug("function_health_resp");
 			decodeHealthRequest(macacoPck);
 			break;
 		case (byte) ConstantsUDP.Souliss_UDP_function_db_struct_resp:// Answer
 																		// nodes
-			logger.info("function_db_struct_resp");
+			logger.debug("function_db_struct_resp");
 			decodeDBStructRequest(macacoPck);
 			break;
 		case 0x83:
-			logger.info("Functional code not supported");
+			logger.debug("Functional code not supported");
 			break;
 		case 0x84:
-			logger.info("Data out of range");
+			logger.debug("Data out of range");
 			break;
 		case 0x85:
-			logger.info("Subscription refused");
+			logger.debug("Subscription refused");
 			break;
 		default:
-			logger.info("Unknown functional code");
+			logger.debug("Unknown functional code");
 			break;
 		}
 	}
@@ -114,7 +114,7 @@ public class UDPSoulissDecoder {
 	private void decodePing(ArrayList<Short> mac) {
 		int putIn_1 = mac.get(1);
 		int putIn_2 = mac.get(2);
-		logger.info("decodePing: putIn code: {}, {}", putIn_1, putIn_2);
+		logger.debug("decodePing: putIn code: {}, {}", putIn_1, putIn_2);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class UDPSoulissDecoder {
 			int numberOf = mac.get(4);
 
 			int typXnodo = SoulissNetworkParameter.maxnodes;
-			logger.info(
+			logger.debug(
 					"--DECODE MACACO OFFSET: {} NUMOF: {} TYPICALSXNODE: {}",
 					tgtnode, numberOf, typXnodo);
 			// creates Souliss nodes
