@@ -85,7 +85,7 @@ define your own items and add to the end of each line of definition
  {souliss=<Typical>:<nodeID>:<slot>:[<bit>]}
  ```
  
- where Typicals can be T11, T12, T13, T14, T16, T1A, T22, T31, T51, T52, T53, T57, D98, D99 (more will be supported in the future)
+ where Typicals can be T11, T12, T13, T14, T16, T18, T1A, T22, T31, T51, T52, T53, T57, D98, D99 (more will be supported in the future)
 
 
 ```
@@ -118,6 +118,7 @@ An example of the *.items* configuration files is below, consider that openHAB h
 
 ```
 Switch LuceSogg	"LuceSogg" (GF_Soggiorno, TechnicView_Node0) {souliss="T11:0:6", autoupdate=false}
+Switch LuceSogg_SR "LuceSogg - Step Relay" (GF_Soggiorno, TechnicView_Node0) {souliss="T18:0:7", autoupdate=false}
 Number Temperature_GF_Soggiorno "Temperatura Soggiorno [%.1f °C]"	<temperature> (temperature, GF_Temperature, TechnicView_Node0) {souliss="T52:0:0"}
 Number Umidita_GF_Soggiorno "Umidità Soggiorno [%.1f %%]"	<temperature> (temperature, GF_Temperature, TechnicView_Node0) {souliss="T53:0:2"}
 Number Consumo_GF_Soggiorno "Consumo [%.1f W]" <energy>	(GF_Temperature, TechnicView_Node0) {souliss="T57:0:4"}
