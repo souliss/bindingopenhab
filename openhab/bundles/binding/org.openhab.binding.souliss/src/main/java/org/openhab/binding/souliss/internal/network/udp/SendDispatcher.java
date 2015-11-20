@@ -387,7 +387,7 @@ public class SendDispatcher {
 	private static boolean checkExpectedState(int state, String expectedState) {
 		//if expected state is null than return true. The frame will not requeued
 		if (expectedState==null) return true;
-		String s1 = String.valueOf(state);
+		String s1 = Integer.toHexString(state);
 		String sState = s1.length() < 2 ? "0x0" + s1.toUpperCase() : "0x"
 				+ s1.toUpperCase();
 		return sState.equals(expectedState);
