@@ -171,7 +171,7 @@ String TIMESTAMP_Node1_GF_Service "Timestamp Node 1 [%1$td.%1$tm.%1$tY %1$tk:%1$
 
 ### Download Binding Java Binary File ###
 
-The binding is a Java plugin that you should place in *.\openhab\addons* folder. Is actually available only from our [Download] page.
+The binding is a Java plugin that you should place in *.\openhab\addons* folder. Is actually available only from our [Download](https://drive.google.com/folderview?id=0BzyjHRwlzov4WlgtSG0tejJ3aE0) page.
 
 ### Restart openHAB ###
 
