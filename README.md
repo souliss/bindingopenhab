@@ -150,6 +150,7 @@ An example of the *.sitemap* configuration files is below, consider that openHAB
 Slider item=dimmerLed step=10 minValue=0 maxValue=100
 ```
 An example of configuration of T31 (Thermostat):
+
 ITEMS
 ```
 Number temperature_TermostatoSoggiorno 	"Temperatura [%.1f °C]"	<temperature> (TermostatoSoggiorno, TechnicView_Node6) {souliss="T31:6:0:measured"}
