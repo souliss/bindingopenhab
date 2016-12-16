@@ -149,6 +149,35 @@ An example of the *.sitemap* configuration files is below, consider that openHAB
 ```
 Slider item=dimmerLed step=10 minValue=0 maxValue=100
 ```
+An example of configuration of T31 (Thermostat):
+ITEMS
+```
+Number temperature_TermostatoSoggiorno 	"Temperatura [%.1f °C]"	<temperature> (TermostatoSoggiorno, TechnicView_Node6) {souliss="T31:6:0:measured"}
+Number temperature_Setpoint_TermostatoSoggiorno	"Setpoint [%.1f °C]" 	<temperature> (gcalendar, TermostatoSoggiorno, TechnicView_Node6) {souliss="T31:6:0:setpoint"}
+Switch setasmeasured_TermostatoSoggiorno "Set temp. attuale" <temperature> (TermostatoSoggiorno, TechnicView_Node6) {souliss="T31:6:0:setasmeasured"}
+Contact heating_TermostatoSoggiorno "Riscaldamento" (TermostatoSoggiorno, TechnicView_Node6) {souliss="T31:6:0:heating"}
+Switch heatingmodeSet_TermostatoSoggiorno "Power ON" (TermostatoSoggiorno, TechnicView_Node6) {souliss="T31:6:0:heatingcooling", autoupdate="false"}
+Switch power_TermostatoSoggiorno "Power OFF" (gcalendar, TermostatoSoggiorno, TechnicView_Node6) {souliss="T31:6:0:power"}
+Number	umidita_TermostatoSoggiorno	"Umidità [%.1f %%]"	<temperature>	(TermostatoSoggiorno,TechnicView_Node6)		{ souliss="T53:6:7" }
+Dimmer	displayBright_TermostatoSoggiorno	"Lumin.min. display" (TermostatoSoggiorno,TechnicView_Node6)		{ souliss="T19:6:9" }
+```
+SITEMAP
+```
+Frame label="Termostato" {
+		Text label="Termostato soggiorno" icon="termostato" {
+			Setpoint item=temperature_Setpoint_TermostatoSoggiorno step=0.5 minValue=10 maxValue=30
+			Text item=temperature_TermostatoSoggiorno
+			Text item=umidita_TermostatoSoggiorno
+			Switch item=setasmeasured_TermostatoSoggiorno mappings=[ON="Set"] 
+			Text item=heating_TermostatoSoggiorno icon="homeRed"
+			Switch item=heatingmodeSet_TermostatoSoggiorno   mappings=[OFF="SET"] icon="coolingMode"
+			Switch item=power_TermostatoSoggiorno  mappings=[OFF="SET"] icon="powerIcon"
+			Slider item=displayBright_TermostatoSoggiorno
+			
+			Text item=TIMESTAMP_Nodo6_GF_Servizio label="Aggiornato: [%1$td.%1$tm.%1$tY %1$tk:%1$tM:%1$tS]" icon="icon16x16"
+		}
+}
+```
 
 ### Service Typicals  ###
 
