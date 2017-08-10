@@ -64,11 +64,11 @@ The following parameters need to be changed:
 -------------+-------------------------------------------+----------+
  IP_LAN      | The IP address of Souliss Gateway node    |    -     |
  USER_INDEX  | Identify the index of the openHAB binding |  1 - 100 |
- NODE_NUMBER | Identify the node of the openHAB binding  |  1 - 254 |
+ NODE_INDEX | Identify the node of the openHAB binding  |  1 - 254 |
 -------------+-------------------------------------------+----------+
 ```
 
-Please ensure that each user interface (SoulissApp, openHAB, ...) must have a different USER_INDEX and NODE_NUMBER, those values are used to identify the interface.
+Please ensure that each user interface (SoulissApp, openHAB, ...) must have a different USER_INDEX and NODE_INDEX, those values are used to identify the interface.
 You can get the values used by !SoulissApp from the Networking menu.
 
 ### Configure .items file ###
