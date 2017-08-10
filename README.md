@@ -71,8 +71,6 @@ The following parameters need to be changed:
 Please ensure that each user interface (SoulissApp, openHAB, ...) must have a different USER_INDEX and NODE_NUMBER, those values are used to identify the interface.
 You can get the values used by !SoulissApp from the Networking menu.
 
-NODE_NUMBERS has to be set as the number of nodes that build your souliss network; if your network is composed by 7 nodes (the App lists them as node0-node6) sets it at 7.
-
 ### Configure .items file ###
 
 Define your Souliss deployment inside openHAB. To do this, you'll have to statically _map_ your device inside openHAB environment.
